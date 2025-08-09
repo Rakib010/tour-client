@@ -20,31 +20,36 @@ export function LoginForm({
   ...props
 }: React.HTMLAttributes<HTMLDivElement>) {
   const navigate = useNavigate();
+  // React Hook Form instance for handling form state & validation
   const form = useForm();
+
+  // RTK Query mutation hook for login
   const [login] = useLoginMutation();
 
+  // Handles form submission
   // eslint-disable-next-line @typescript-eslint/no-explicit-any
   const onSubmit = async (data: any) => {
-    // console.log(data);
     try {
+      // Send login request to backend
       const res = await login(data).unwrap();
-
       if (res.success) {
         toast.success("Logged in successfully");
-        navigate("/");
+        navigate("/"); 
       }
     } catch (err) {
       console.error(err);
-
-      // this is not recommend
+       
+      // this is not recommended 
+      // Show relevant error messages based on backend response
       if (err.data.message === "password does not match") {
         toast.error("Invalid credentials");
       }
-
       /*  if (err.status === 500) {
         toast.error("Your account is not verified");
         navigate("/verify", { state: data.email });
       } */
+
+      // If account is not verified
       if (err.data.err === "user is  not verified") {
         toast.error("Your account is not verified");
         navigate("/verify", { state: data.email });
@@ -54,15 +59,21 @@ export function LoginForm({
 
   return (
     <div className={cn("flex flex-col gap-6", className)} {...props}>
+      {/* Header */}
       <div className="flex flex-col items-center gap-2 text-center">
-        <h1 className="text-2xl font-bold">Login to your account</h1>
-        <p className="text-balance text-sm text-muted-foreground">
-          Enter your email below to login to your account
+        <h1 className="text-2xl font-bold text-gray-800">
+          Welcome Back, Traveler!
+        </h1>
+        <p className="text-gray-500 text-sm">
+          Sign in to plan your next adventure ✈️
         </p>
       </div>
+
+      {/* Form Section */}
       <div className="grid gap-6">
         <Form {...form}>
           <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-6">
+            {/* Email Field */}
             <FormField
               control={form.control}
               name="email"
@@ -71,7 +82,7 @@ export function LoginForm({
                   <FormLabel>Email</FormLabel>
                   <FormControl>
                     <Input
-                      placeholder="john@example.com"
+                      placeholder="example@h.com"
                       {...field}
                       value={field.value || ""}
                     />
@@ -81,6 +92,7 @@ export function LoginForm({
               )}
             />
 
+            {/* Password Field */}
             <FormField
               control={form.control}
               name="password"
@@ -100,18 +112,21 @@ export function LoginForm({
               )}
             />
 
+            {/* Submit Button */}
             <Button type="submit" className="w-full">
               Login
             </Button>
           </form>
         </Form>
 
+        {/* Divider */}
         <div className="relative text-center text-sm after:absolute after:inset-0 after:top-1/2 after:z-0 after:flex after:items-center after:border-t after:border-border">
           <span className="relative z-10 bg-background px-2 text-muted-foreground">
             Or continue with
           </span>
         </div>
-        {/* http://localhost:5000/api/v1/auth/google */}
+
+        {/* Google OAuth Login */}
         <Button
           onClick={() => window.open(`${config.baseUrl}/auth/google`)}
           type="button"
@@ -121,9 +136,15 @@ export function LoginForm({
           Login with Google
         </Button>
       </div>
+
+      {/* Footer Link */}
       <div className="text-center text-sm">
         Don&apos;t have an account?{" "}
-        <Link to="/register" replace className="underline underline-offset-4">
+        <Link
+          to="/register"
+          replace
+          className="underline underline-offset-4 text-orange-500"
+        >
           Register
         </Link>
       </div>
