@@ -13,6 +13,7 @@ import { useLoginMutation } from "@/redux/features/auth/auth.api";
 import { useForm } from "react-hook-form";
 import { Link, useNavigate } from "react-router";
 import { toast } from "sonner";
+import config from "@/config";
 
 export function LoginForm({
   className,
@@ -24,14 +25,27 @@ export function LoginForm({
 
   // eslint-disable-next-line @typescript-eslint/no-explicit-any
   const onSubmit = async (data: any) => {
-    console.log(data);
+    // console.log(data);
     try {
       const res = await login(data).unwrap();
-      console.log(res);
+
+      if (res.success) {
+        toast.success("Logged in successfully");
+        navigate("/");
+      }
     } catch (err) {
       console.error(err);
 
-      if (err.status === 500) {
+      // this is not recommend
+      if (err.data.message === "password does not match") {
+        toast.error("Invalid credentials");
+      }
+
+      /*  if (err.status === 500) {
+        toast.error("Your account is not verified");
+        navigate("/verify", { state: data.email });
+      } */
+      if (err.data.err === "user is  not verified") {
         toast.error("Your account is not verified");
         navigate("/verify", { state: data.email });
       }
@@ -97,8 +111,9 @@ export function LoginForm({
             Or continue with
           </span>
         </div>
-
+        {/* http://localhost:5000/api/v1/auth/google */}
         <Button
+          onClick={() => window.open(`${config.baseUrl}/auth/google`)}
           type="button"
           variant="outline"
           className="w-full cursor-pointer"
