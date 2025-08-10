@@ -83,6 +83,7 @@ export default function Verify() {
       if (res.success) {
         toast.success("OTP Verified", { id: toastId });
         setConfirmed(true);
+        navigate("/login");
       }
     } catch (error) {
       console.log(error);
@@ -163,7 +164,7 @@ export default function Verify() {
                             "text-gray-500": timer !== 0,
                           })}
                         >
-                        Resent OTP: 
+                          Resent OTP:
                         </Button>
                         {timer}
                       </FormDescription>
