@@ -3,7 +3,7 @@ import Navbar from "./Navbar";
 import Footer from "./Footer";
 
 interface IProps {
-  children: ReactNode;
+  children: ReactNode; // means: anything React can render (JSX, string, number, fragment, etc.)
 }
 
 export default function CommonLayout({ children }: IProps) {

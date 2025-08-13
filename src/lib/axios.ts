@@ -8,6 +8,10 @@ export const axiosInstance = axios.create({
 });
 
 
+/* This code is like putting a security checkpoint at the gate of your API calls:
+Before leaving (request) → Attach token, add headers, etc.
+Before entering (response) → Handle errors, transform data, log out if needed. */
+
 // Add a request interceptor
 axiosInstance.interceptors.request.use(function (config) {
     // Do something before request is sent

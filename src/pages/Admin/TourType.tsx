@@ -1,4 +1,5 @@
 /* eslint-disable @typescript-eslint/no-unused-vars */
+import { DeleteConfirmation } from "@/components/DeleteConfirmation";
 import AddTourTypeModal from "@/components/modules/TourTypes/AddTourTypeModal";
 import { Button } from "@/components/ui/button";
 import {
@@ -16,7 +17,7 @@ import {
 import { Trash2 } from "lucide-react";
 import { toast } from "sonner";
 
-export default function AddTourType() {
+export default function TourType() {
   const { data } = useGetTourTypesQuery(undefined);
   const [DeleteTourType] = useDeleteTourTypeMutation();
 
@@ -32,11 +33,13 @@ export default function AddTourType() {
     });
   };
 
-  const handelDelete = async (id: string) => {
+  const handleRemoveTourType = async (id: string) => {
     try {
-      await DeleteTourType(id);
-      toast.success("Tour Type Deleted Successfully");
-
+      const res = await DeleteTourType(id);
+      console.log(res);
+      if (res.success) {
+        toast.success("Tour Type Deleted Successfully");
+      }
     } catch (error) {
       //console.error("Delete error:", error);
       toast.error("An error occurred while deleting");
@@ -61,7 +64,7 @@ export default function AddTourType() {
               <TableHead className="text-center font-semibold text-gray-700 w-1/3">
                 Created At
               </TableHead>
-              <TableHead className="text-right font-semibold text-gray-700 w-1/3">
+              <TableHead className="text-right font-semibold text-gray-700 w-1/3 ">
                 Action
               </TableHead>
             </TableRow>
@@ -87,15 +90,13 @@ export default function AddTourType() {
 
                     {/* Right aligned action */}
                     <TableCell className="text-right">
-                      <Button
-                        onClick={() => handelDelete(item._id)}
-                        size="sm"
-                        variant="destructive"
-                        className="flex items-center gap-1 ml-auto"
+                      <DeleteConfirmation
+                        onConfirm={() => handleRemoveTourType(item._id)}
                       >
-                        <Trash2 size={16} />
-                        Delete
-                      </Button>
+                        <Button size="sm">
+                          <Trash2 />
+                        </Button>
+                      </DeleteConfirmation>
                     </TableCell>
                   </TableRow>
                 )
