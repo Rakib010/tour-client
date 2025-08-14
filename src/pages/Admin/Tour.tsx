@@ -1,4 +1,5 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
+import { DeleteConfirmation } from "@/components/DeleteConfirmation";
 import AddTourModal from "@/components/modules/Tour/AddTourModal";
 import { Button } from "@/components/ui/button";
 import {
@@ -9,15 +10,29 @@ import {
   TableHeader,
   TableRow,
 } from "@/components/ui/table";
-import { useGetTourQuery } from "@/redux/features/tour/tour.api";
+import {
+  useDeleteTourMutation,
+  useGetTourQuery,
+} from "@/redux/features/tour/tour.api";
 import { Trash2, Pencil } from "lucide-react";
+import { toast } from "sonner";
 
 export default function TourPackageTable() {
   const { data: tourData = [], isLoading } = useGetTourQuery(undefined);
+  const [DeleteTour] = useDeleteTourMutation();
 
-
-  const handleDelete = async (id: string) => {
-    console.log("Delete", id);
+  const handleRemoveTour = async (id: string) => {
+    console.log(id);
+    try {
+      const res = await DeleteTour(id);
+      console.log(res);
+      if (res.success) {
+        toast.success("Tour Type Deleted Successfully");
+      }
+    } catch {
+      //console.log(error)
+      toast.error("An error occurred while deleting");
+    }
   };
 
   return (
@@ -87,14 +102,13 @@ export default function TourPackageTable() {
                       <Button size="sm" variant="outline">
                         <Pencil size={16} />
                       </Button>
-                      <Button
-                        onClick={() => handleDelete(item._id)}
-                        size="sm"
-                        variant="destructive"
-                        className="flex items-center gap-1"
+                      <DeleteConfirmation
+                        onConfirm={() => handleRemoveTour(item._id)}
                       >
-                        <Trash2 size={16} /> 
-                      </Button>
+                        <Button size="sm">
+                          <Trash2 />
+                        </Button>
+                      </DeleteConfirmation>
                     </div>
                   </TableCell>
                 </TableRow>

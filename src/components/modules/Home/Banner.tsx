@@ -1,21 +1,18 @@
 import { Swiper, SwiperSlide } from "swiper/react";
-
-// Import Swiper styles
 import "swiper/css";
 import "swiper/css/pagination";
 
 import "../../../style.css";
 
 import b2 from "../../../assets/images/b1.avif";
-import b3 from "../../../assets/images/b4.jpg";
-import b4 from "../../../assets/images/b5.jpg";
+import b3 from "../../../assets/images/banner2.1.avif";
+import b4 from "../../../assets/images/Tours.jpg";
 
-// import required modules
 import { Pagination, Autoplay } from "swiper/modules";
 
 export default function Banner() {
   return (
-    <div className="w-full">
+    <div className="w-full relative">
       <Swiper
         pagination={{
           dynamicBullets: true,
@@ -31,12 +28,15 @@ export default function Banner() {
       >
         {[b2, b3, b4].map((img, i) => (
           <SwiperSlide key={i}>
-            <div className="w-full h-[500px] lg:h-[650px]">
+            <div className="relative w-full h-[550px] lg:h-[600px] rounded-full">
               <img
                 src={img}
                 alt={`banner-${i}`}
                 className="w-full h-full object-cover"
               />
+
+              {/* Overlay for better text visibility */}
+              <div className="absolute inset-0 bg-black/20"></div>
             </div>
           </SwiperSlide>
         ))}
