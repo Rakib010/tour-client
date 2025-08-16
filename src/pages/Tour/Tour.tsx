@@ -1,6 +1,6 @@
 import { useGetTourQuery } from "@/redux/features/tour/tour.api";
 import TourBanner from "./TourBanner";
-import { FaMapMarkerAlt, FaCalendarAlt, FaArrowRight } from "react-icons/fa";
+import { FaMapMarkerAlt, FaArrowRight } from "react-icons/fa";
 import { Link } from "react-router";
 
 type TourType = {
@@ -63,11 +63,6 @@ export default function Tour() {
                 <h3 className="text-xl font-bold text-gray-800 mb-2 group-hover:text-emerald-600 transition">
                   {tour.title}
                 </h3>
-
-                <div className="flex items-center text-gray-500 text-sm mb-3">
-                  <FaCalendarAlt className="h-4 w-4 mr-1" />
-                  5-7 days • All inclusive
-                </div>
 
                 <p className="text-gray-600 text-sm mb-4 line-clamp-2">
                   {tour.description}

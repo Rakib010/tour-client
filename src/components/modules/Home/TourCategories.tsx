@@ -1,4 +1,3 @@
-import { FaMountain, FaLandmark, FaUmbrellaBeach, FaUsers, FaPaw } from "react-icons/fa";
 import { HiArrowRight, HiLightningBolt } from "react-icons/hi";
 import tourType1 from "../../../assets/images/tourType1.avif";
 import tourType2 from "../../../assets/images/tourType2.jpg";
@@ -10,27 +9,22 @@ const categories = [
   {
     title: "Adventure Tours",
     image: tourType1,
-    icon: <FaMountain className="text-3xl mb-2" />,
   },
   {
     title: "Cultural Tours",
     image: tourType2,
-    icon: <FaLandmark className="text-3xl mb-2" />,
   },
   {
     title: "Beach Getaways",
     image: tourType3,
-    icon: <FaUmbrellaBeach className="text-3xl mb-2" />,
   },
   {
     title: "Family Vacations",
     image: tourType5,
-    icon: <FaUsers className="text-3xl mb-2" />,
   },
   {
     title: "Wildlife Expeditions",
     image: tourType6,
-    icon: <FaPaw className="text-3xl mb-2" />,
   },
 ];
 
@@ -68,7 +62,6 @@ const TourCategories = () => {
 
             {/* Content */}
             <div className="absolute bottom-0 left-0 right-0 p-4 text-center">
-              {item.icon}
               <h3 className="text-white font-bold text-lg group-hover:text-emerald-300 transition">
                 {item.title}
               </h3>

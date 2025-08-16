@@ -11,14 +11,27 @@ import {
   TableRow,
 } from "@/components/ui/table";
 import {
+  Pagination,
+  PaginationContent,
+  PaginationEllipsis,
+  PaginationItem,
+  PaginationLink,
+  PaginationNext,
+  PaginationPrevious,
+} from "@/components/ui/pagination";
+import {
   useDeleteTourTypeMutation,
   useGetTourTypesQuery,
 } from "@/redux/features/tourType/tourType.api";
 import { Trash2 } from "lucide-react";
 import { toast } from "sonner";
+import { useState } from "react";
 
 export default function TourType() {
-  const { data } = useGetTourTypesQuery(undefined);
+  const [currentPage, setCurrentPage] = useState(1);
+  const [limit, setLimit] = useState(5);
+
+  const { data } = useGetTourTypesQuery({ page: currentPage, limit });
   const [DeleteTourType] = useDeleteTourTypeMutation();
 
   // Format date and time
@@ -33,7 +46,7 @@ export default function TourType() {
   const handleRemoveTourType = async (id: string) => {
     try {
       const res = await DeleteTourType(id);
-      console.log(res);
+
       if (res.success) {
         toast.success("Tour Type Deleted Successfully");
       }
@@ -110,6 +123,28 @@ export default function TourType() {
             )}
           </TableBody>
         </Table>
+      </div>
+      <div className="mt-6">
+        <Pagination>
+          <PaginationContent>
+            <PaginationItem>
+              <PaginationPrevious
+                onClick={() => setCurrentPage((prev) => prev - 1)}
+              />
+            </PaginationItem>
+            <PaginationItem>
+              <PaginationLink href="#">1</PaginationLink>
+            </PaginationItem>
+            <PaginationItem>
+              <PaginationEllipsis />
+            </PaginationItem>
+            <PaginationItem>
+              <PaginationNext
+                onClick={() => setCurrentPage((prev) => prev + 1)}
+              />
+            </PaginationItem>
+          </PaginationContent>
+        </Pagination>
       </div>
     </div>
   );

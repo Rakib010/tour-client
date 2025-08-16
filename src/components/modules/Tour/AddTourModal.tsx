@@ -171,6 +171,8 @@ export default function AddTourModal() {
           : data.tourPlan.map((item: { value: string }) => item.value),
     };
 
+    console.log(tourData);
+
     const formData = new FormData();
     formData.append("data", JSON.stringify(tourData));
     images.forEach((image) => formData.append("files", image));
@@ -203,7 +205,6 @@ export default function AddTourModal() {
             onSubmit={form.handleSubmit(onSubmit)}
             className="space-y-4"
           >
-            {/* Basic Info */}
             {/* Title */}
             <FormField
               name="title"
@@ -293,7 +294,6 @@ export default function AddTourModal() {
               )}
             />
 
-            {/* Travel Info */}
             {/* Location */}
             <FormField
               name="location"
@@ -339,7 +339,7 @@ export default function AddTourModal() {
               )}
             />
 
-            {/* Start & End Date */}
+            {/* Start  Date */}
             <div className="flex gap-4">
               <FormField
                 control={form.control}
@@ -371,7 +371,7 @@ export default function AddTourModal() {
                           mode="single"
                           selected={field.value}
                           onSelect={field.onChange}
-                          disabled={(date) => date < new Date()}
+                          //disabled={(date) => date < new Date()}
                         />
                       </PopoverContent>
                     </Popover>
@@ -379,6 +379,8 @@ export default function AddTourModal() {
                   </FormItem>
                 )}
               />
+
+              {/* End Date */}
               <FormField
                 control={form.control}
                 name="endDate"
@@ -409,7 +411,7 @@ export default function AddTourModal() {
                           mode="single"
                           selected={field.value}
                           onSelect={field.onChange}
-                          disabled={(date) => date < new Date()}
+                          // disabled={(date) => date < new Date()}
                         />
                       </PopoverContent>
                     </Popover>
@@ -419,7 +421,6 @@ export default function AddTourModal() {
               />
             </div>
 
-            {/* Pricing & Guests */}
             {/* Cost From */}
             <FormField
               name="costFrom"
@@ -477,7 +478,7 @@ export default function AddTourModal() {
               )}
             />
 
-            {/* Details */}
+          
             {/* Included */}
             <div>
               <div className="flex justify-between mt-4">
