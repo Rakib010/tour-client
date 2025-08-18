@@ -1,8 +1,16 @@
 import { useGetTourQuery } from "@/redux/features/tour/tour.api";
 import TourBanner from "./TourBanner";
 import { FaMapMarkerAlt, FaArrowRight } from "react-icons/fa";
-import { Link } from "react-router";
-
+import { Link } from "react-router-dom";
+import {
+  Pagination,
+  PaginationContent,
+  PaginationItem,
+  PaginationLink,
+  PaginationNext,
+  PaginationPrevious,
+} from "@/components/ui/pagination";
+import { useState } from "react";
 type TourType = {
   _id: string;
   title: string;
@@ -13,7 +21,11 @@ type TourType = {
 };
 
 export default function Tour() {
-  const { data: tourData } = useGetTourQuery(undefined);
+  const [currentPage, setCurrentPage] = useState(1);
+  const [limit, setLimit] = useState(9);
+  const { data: tourData } = useGetTourQuery({ page: currentPage, limit });
+
+  const totalPage = tourData?.data?.meta?.totalPage || 1;
 
   return (
     <div className="bg-gray-50">
@@ -80,6 +92,43 @@ export default function Tour() {
           ))}
         </div>
       </section>
+
+      {/* pagination */}
+      <div className="my-12">
+        <Pagination>
+          <PaginationContent>
+            <PaginationItem>
+              <PaginationPrevious
+                onClick={() => setCurrentPage((prev) => prev - 1)}
+                className={
+                  currentPage === 1
+                    ? "pointer-events-none opacity-50"
+                    : "cursor-pointer"
+                }
+              />
+            </PaginationItem>
+            {Array.from({ length: totalPage }, (_, index) => index + 1).map(
+              (page) => (
+                <PaginationItem key={page} onClick={() => setCurrentPage(page)}>
+                  <PaginationLink isActive={currentPage === page}>
+                    {page}
+                  </PaginationLink>
+                </PaginationItem>
+              )
+            )}
+            <PaginationItem>
+              <PaginationNext
+                onClick={() => setCurrentPage((prev) => prev + 1)}
+                className={
+                  currentPage === totalPage
+                    ? "pointer-events-none opacity-50"
+                    : "cursor-pointer"
+                }
+              />
+            </PaginationItem>
+          </PaginationContent>
+        </Pagination>
+      </div>
     </div>
   );
 }

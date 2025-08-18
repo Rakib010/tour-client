@@ -5,7 +5,7 @@ import type { ISidebarItem } from "@/types";
 
 export const userSidebarItems: ISidebarItem[] = [
     {
-        title: "History",
+        title: "User",
         items: [
             {
                 title: "Bookings",

@@ -1,6 +1,4 @@
-import { useEffect, useState } from "react";
-import { useLocation, useNavigate } from "react-router";
-import z from "zod";
+import { Button } from "@/components/ui/button";
 import {
   Card,
   CardContent,
@@ -23,15 +21,18 @@ import {
   InputOTPGroup,
   InputOTPSlot,
 } from "@/components/ui/input-otp";
-import { useForm } from "react-hook-form";
-import { zodResolver } from "@hookform/resolvers/zod";
-import { Button } from "@/components/ui/button";
+import { cn } from "@/lib/utils";
 import {
   useSendOtpMutation,
   useVerifyOtpMutation,
 } from "@/redux/features/auth/auth.api";
+import { zodResolver } from "@hookform/resolvers/zod";
+import { Dot } from "lucide-react";
+import { useEffect, useState } from "react";
+import { useForm } from "react-hook-form";
+import { useLocation, useNavigate } from "react-router";
 import { toast } from "sonner";
-import { cn } from "@/lib/utils";
+import z from "zod";
 
 const FormSchema = z.object({
   pin: z.string().min(6, {
@@ -55,56 +56,61 @@ export default function Verify() {
     },
   });
 
-  /* send otp handle */
+  // send otp
   const handleSendOtp = async () => {
     const toastId = toast.loading("Sending OTP");
+    console.log("email", email);
     try {
-      const res = await sendOtp({ email: email });
-      if (res.data?.success) {
+      const res = await sendOtp({ email: email }).unwrap();
+      console.log(res, "result ");
+
+      if (res.success) {
         toast.success("OTP Sent", { id: toastId });
         setConfirmed(true);
         setTimer(5);
       }
-    } catch (error) {
-      console.error(error);
+    } catch (err) {
+      console.log(err);
     }
   };
 
   // verify otp
   const onSubmit = async (data: z.infer<typeof FormSchema>) => {
-    console.log(data);
+    const toastId = toast.loading("Verifying OTP");
     const userInfo = {
       email,
       otp: data.pin,
     };
+    console.log("userInfo", userInfo);
+
     try {
-      const toastId = toast.loading("verify OTP");
       const res = await verifyOtp(userInfo).unwrap();
       if (res.success) {
         toast.success("OTP Verified", { id: toastId });
-        setConfirmed(true);
         navigate("/login");
+        setConfirmed(true);
       }
-    } catch (error) {
-      console.log(error);
+    } catch (err) {
+      console.log(err);
     }
   };
 
-  /*  useEffect(() => {
-    if (!email) {
-      navigate("/");
-    }
-  }, [email]); */
+  //! Needed - Turned off for development
+  //   useEffect(() => {
+  //     if (!email) {
+  //       navigate("/");
+  //     }
+  //   }, [email]);
 
   useEffect(() => {
     if (!email || !confirmed) {
       return;
     }
+
     const timerId = setInterval(() => {
-      if (email && confirmed) {
-        setTimer((prev) => (prev > 0 ? prev - 1 : 0));
-      }
+      setTimer((prev) => (prev > 0 ? prev - 1 : 0));
     }, 1000);
+
     return () => clearInterval(timerId);
   }, [email, confirmed]);
 
@@ -142,6 +148,7 @@ export default function Verify() {
                           <InputOTPGroup>
                             <InputOTPSlot index={2} />
                           </InputOTPGroup>
+                          <Dot />
                           <InputOTPGroup>
                             <InputOTPSlot index={3} />
                           </InputOTPGroup>
@@ -164,8 +171,8 @@ export default function Verify() {
                             "text-gray-500": timer !== 0,
                           })}
                         >
-                          Resent OTP:
-                        </Button>
+                          Resent OPT:{" "}
+                        </Button>{" "}
                         {timer}
                       </FormDescription>
                       <FormMessage />

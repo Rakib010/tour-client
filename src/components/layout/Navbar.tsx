@@ -21,12 +21,14 @@ import {
 import { useAppDispatch } from "@/redux/hook";
 import { role } from "@/constants/role";
 
+import logo from "../../assets/images/logo.png";
+
 // Navigation links array
 const navigationLinks = [
   { href: "/", label: "Home", role: "PUBLIC" },
-  { href: "/about", label: "About", role: "PUBLIC" },
   { href: "/division", label: "Division", role: "PUBLIC" },
   { href: "/tour", label: "Tours", role: "PUBLIC" },
+  { href: "/about", label: "About", role: "PUBLIC" },
   { href: "/admin", label: "Dashboard", role: role.admin },
   { href: "/admin", label: "Dashboard", role: role.superAdmin },
   { href: "/user", label: "Dashboard", role: role.user },
@@ -46,9 +48,13 @@ export default function Navbar() {
   return (
     <div className="container mx-auto px-4 flex h-16 items-center justify-between">
       {/* Left: Logo */}
-      <div className="flex items-center gap-2 font-mono">
-        <Link to="/" className="text-2xl font-bold">
-          chipTour
+      <div className="flex items-center gap-2">
+        <Link to="/">
+          <img
+            className="w-20 h-20 md:w-36 md:h-36 object-contain"
+            src={logo}
+            alt="Wanderlust Tours Logo"
+          />
         </Link>
       </div>
 

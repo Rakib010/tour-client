@@ -77,14 +77,6 @@ const TourCategories = () => {
           </div>
         ))}
       </div>
-
-      {/* View all button */}
-      <div className="text-center mt-12">
-        <button className="bg-white text-emerald-600 hover:bg-emerald-600 hover:text-white border-2 border-emerald-500 px-8 py-3 rounded-full font-semibold shadow-md transition-all duration-300 flex items-center mx-auto">
-          View All Categories
-          <HiArrowRight className="h-4 w-4 ml-2" />
-        </button>
-      </div>
     </section>
   );
 };

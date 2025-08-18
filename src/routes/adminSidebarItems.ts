@@ -1,3 +1,4 @@
+import Booking from "@/pages/Admin/booking";
 import Division from "@/pages/Admin/Division";
 import Tour from "@/pages/Admin/Tour";
 import TourType from "@/pages/Admin/TourType";
@@ -38,6 +39,11 @@ export const adminSidebarItems: ISidebarItem[] = [
                 title: "Tour",
                 url: "/admin/add-tour",
                 component: Tour
+            },
+            {
+                title: "Booking All User",
+                url: "/admin/booking",
+                component: Booking
             },
         ],
     },
