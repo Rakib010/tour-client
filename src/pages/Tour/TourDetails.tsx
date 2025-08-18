@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/no-explicit-any */
 import { useParams } from "react-router-dom";
 import { useGetTourQuery } from "@/redux/features/tour/tour.api";
 import {
@@ -14,17 +15,26 @@ import { GiPathDistance } from "react-icons/gi";
 import { MdOutlineBeachAccess, MdOutlineDepartureBoard } from "react-icons/md";
 import { Link } from "react-router-dom";
 import { format } from "date-fns";
+import { Loader2 } from "lucide-react";
 
 const TourDetails = () => {
   const { id } = useParams();
   const { data: tourData, isLoading } = useGetTourQuery(undefined);
+
   //  const { data: tourData} = useGetTourQuery({_id:id});
+  /*const { data: divisionData } = useGetDivisionsQuery(
+    {
+      _id: data?.[0]?.division,
+      fields: "name",
+    },
+    { skip: !data }
+  ); */
 
   if (isLoading)
     return (
       <div className="min-h-screen flex items-center justify-center">
         <div className="animate-pulse text-2xl text-emerald-600">
-          Loading tour details...
+          <Loader2 />
         </div>
       </div>
     );
