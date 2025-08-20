@@ -19,7 +19,7 @@ import { Loader2 } from "lucide-react";
 
 const TourDetails = () => {
   const { id } = useParams();
-  const { data: tourData, isLoading } = useGetTourQuery(undefined);
+  const { data: tourData, isLoading } = useGetTourQuery({ _id: id });
 
   //  const { data: tourData} = useGetTourQuery({_id:id});
   /*const { data: divisionData } = useGetDivisionsQuery(
@@ -39,8 +39,8 @@ const TourDetails = () => {
       </div>
     );
 
-  const tours = tourData?.data?.data || [];
-  const tour = tours.find((t: any) => t._id === id);
+  const tour = tourData?.data?.data[0] || [];
+  /* const tour = tours.find((t: any) => t._id === id); */
 
   if (!tour)
     return (
@@ -181,7 +181,7 @@ const TourDetails = () => {
               <div className="flex items-center justify-between mb-6 pb-6 border-b border-gray-100">
                 <span className="text-gray-600 font-medium">Price:</span>
                 <span className="text-2xl font-bold text-emerald-600">
-                  ৳{tour.costFrom.toLocaleString()}
+                  ৳{tour.costFrom}
                 </span>
               </div>
 
@@ -192,7 +192,7 @@ const TourDetails = () => {
                   <div>
                     <p className="text-gray-500 text-sm">Dates</p>
                     <p className="font-medium">
-                      {formatDate(tour.startDate)} - {formatDate(tour.endDate)}
+                      {formatDate(tour.createdAt)} - {formatDate(tour.endDate)}
                     </p>
                   </div>
                 </div>
@@ -264,13 +264,13 @@ const TourDetails = () => {
               )}
 
               {/* Excluded */}
-              {tour.excluded?.length > 0 && (
+              {tour.exclude?.length > 0 && (
                 <div className="mb-8">
                   <h3 className="font-bold text-gray-800 mb-3">
                     What's Excluded
                   </h3>
                   <ul className="space-y-3">
-                    {tour.excluded.map((item: string, index: number) => (
+                    {tour.exclude.map((item: string, index: number) => (
                       <li key={index} className="flex items-start">
                         <FaTimes className="text-red-500 mt-1 mr-2 flex-shrink-0" />
                         <span className="text-gray-600">{item}</span>

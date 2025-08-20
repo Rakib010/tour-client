@@ -56,7 +56,7 @@ const formSchema = z.object({
   departureLocation: z.string().min(1, "Departure location is required"),
   arrivalLocation: z.string().min(1, "Arrival location is required"),
   included: z.array(z.object({ value: z.string() })),
-  excluded: z.array(z.object({ value: z.string() })),
+  exclude: z.array(z.object({ value: z.string() })),
   amenities: z.array(z.object({ value: z.string() })),
   tourPlan: z.array(z.object({ value: z.string() })),
   maxGuest: z.string().min(1, "Max guest is required"),
@@ -99,7 +99,7 @@ export default function AddTourModal() {
       departureLocation: "",
       arrivalLocation: "",
       included: [{ value: "" }],
-      excluded: [{ value: "" }],
+      exclude: [{ value: "" }],
       amenities: [{ value: "" }],
       tourPlan: [{ value: "" }],
       maxGuest: "",
@@ -124,7 +124,7 @@ export default function AddTourModal() {
     remove: removeExcluded,
   } = useFieldArray({
     control: form.control,
-    name: "excluded",
+    name: "exclude",
   });
 
   const {
@@ -157,10 +157,10 @@ export default function AddTourModal() {
         data.included[0].value === ""
           ? []
           : data.included.map((item: { value: string }) => item.value),
-      excluded:
-        data.included[0].value === ""
+      exclude:
+        data.exclude[0].value === ""
           ? []
-          : data.excluded.map((item: { value: string }) => item.value),
+          : data.exclude.map((item: { value: string }) => item.value),
       amenities:
         data.amenities[0].value === ""
           ? []
@@ -478,7 +478,6 @@ export default function AddTourModal() {
               )}
             />
 
-          
             {/* Included */}
             <div>
               <div className="flex justify-between mt-4">
@@ -537,7 +536,7 @@ export default function AddTourModal() {
                   <div className="flex gap-2" key={item.id}>
                     <FormField
                       control={form.control}
-                      name={`excluded.${index}.value`}
+                      name={`exclude.${index}.value`}
                       render={({ field }) => (
                         <FormItem className="flex-1">
                           <FormControl>

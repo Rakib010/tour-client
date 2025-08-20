@@ -33,11 +33,11 @@ const TourCategories = () => {
     <section className="py-16 px-6 bg-gradient-to-b from-emerald-50 to-white">
       {/* Heading with decorative elements */}
       <div className="text-center max-w-3xl mx-auto">
-        <p className="text-emerald-500 font-medium tracking-wider mb-2 flex items-center justify-center">
-          <HiLightningBolt className="h-5 w-5 mr-2" />
-          EXPLORE OUR COLLECTIONS
+        <p className="inline-flex items-center bg-emerald-100 text-emerald-800 px-4 py-2 rounded-full text-sm font-medium mb-4">
+          <HiLightningBolt className="mr-2" />
+          Explore our collections
         </p>
-        <h2 className="text-3xl md:text-4xl font-bold text-gray-800 mb-6">
+        <h2 className="text-2xl md:text-3xl font-bold text-gray-800 mb-6">
           Discover <span className="text-emerald-600">Tour Categories</span>
         </h2>
         <div className="w-20 h-1 bg-emerald-400 mx-auto mb-10 rounded-full"></div>

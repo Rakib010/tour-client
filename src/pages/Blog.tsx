@@ -5,93 +5,111 @@ import {
   FaRegUserCircle,
   FaRegHeart,
   FaRegComment,
+  FaArrowRight,
 } from "react-icons/fa";
+
+import b1 from "../assets/images/blog1.avif";
+import b2 from "../assets/images/blog2.avif";
+import b3 from "../assets/images/blog3.avif";
 
 export default function BlogSection() {
   const data = [
     {
       id: 1,
-      title: "Exploring the Sundarbans: A Magical Experience",
+      title: "Top 7 Budget-Friendly Travel Tips in Bangladesh",
       excerpt:
-        "My incredible journey through the world's largest mangrove forest and its amazing wildlife...",
-      author: "Sarah Johnson",
+        "Discover how to travel across Bangladesh without breaking the bank. From cheap accommodations to affordable street food, here’s a complete budget guide...",
+      author: "Siam khan",
       date: "2023-05-15",
-      likes: 42,
-      comments: 8,
-      image:
-        "https://images.unsplash.com/photo-1584697964358-3e16ca2e7459?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1740&q=80",
+      likes: 58,
+      comments: 14,
+      image: b1,
     },
     {
       id: 2,
-      title: "Cox's Bazar: The Longest Beach I've Ever Seen",
+      title: "Traveler’s Guide to Exploring Cox’s Bazar",
       excerpt:
-        "Spent a week enjoying the breathtaking views and local seafood cuisine at this amazing beach...",
-      author: "Michael Chen",
+        "From the world’s longest sandy beach to local seafood delicacies, here’s everything you need to know before planning your trip to Cox’s Bazar...",
+      author: "Rocky Ali",
       date: "2023-04-22",
-      likes: 28,
-      comments: 5,
-      image:
-        "https://images.unsplash.com/photo-1566438480900-0609be27a4be?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1738&q=80",
+      likes: 42,
+      comments: 9,
+      image: b2,
     },
     {
       id: 3,
-      title: "Cultural Treasures of Old Dhaka",
+      title: "Dhaka City Guide: History, Culture & Food",
       excerpt:
-        "Exploring the rich history and vibrant street food scene in Bangladesh's capital city...",
-      author: "Amina Rahman",
+        "Old Dhaka is a treasure chest of culture, history, and mouth-watering street food. Here’s a complete guide to experiencing the city like a local...",
+      author: "Sagor Haque",
       date: "2023-03-10",
-      likes: 35,
+      likes: 39,
       comments: 12,
-      image:
-        "https://images.unsplash.com/photo-1563986768609-322da13575f3?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1740&q=80",
+      image: b3,
     },
   ];
 
   return (
-    <div className="py-12 px-4 max-w-7xl mx-auto">
-      <div>
-        <h1> blog nie title </h1>
-        <h1> short text</h1>
+    <div className="py-16 px-6 max-w-7xl mx-auto">
+      {/* Blog Header */}
+      <div className="text-center mb-16">
+        <div className="inline-flex items-center bg-emerald-100 text-emerald-800 px-4 py-2 rounded-full text-sm font-medium mb-4">
+          <FaPenAlt className="mr-2" />
+          Traveler's Stories
+        </div>
+        <h2 className="text-2xl md:text-3xl font-bold text-gray-800 mb-6">
+          Discover{" "}
+          <span className="text-emerald-600">Traveler's Experiences</span>
+        </h2>
       </div>
+
       {/* Blog Posts Grid */}
-      <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+      <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8 mb-16">
         {data.map((blog) => (
           <div
             key={blog.id}
-            className="bg-white rounded-xl shadow-md overflow-hidden hover:shadow-lg transition-shadow"
+            className="bg-white rounded-2xl shadow-lg overflow-hidden hover:shadow-xl transition-all duration-300 group"
           >
-            <div className="relative h-48 overflow-hidden">
+            <div className="relative h-56 overflow-hidden">
               <img
                 src={blog.image}
                 alt={blog.title}
-                className="w-full h-full object-cover"
+                className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500"
               />
+              <div className="absolute inset-0 bg-gradient-to-t from-black/40 to-transparent" />
             </div>
             <div className="p-6">
-              <div className="flex items-center text-gray-500 text-sm mb-2">
-                <FaRegUserCircle className="mr-1" />
-                <span className="mr-4">{blog.author}</span>
-                <FaRegCalendarAlt className="mr-1" />
+              <div className="flex items-center text-gray-500 text-sm mb-3">
+                <FaRegUserCircle className="mr-2 text-emerald-500" />
+                <span className="mr-4 font-medium">{blog.author}</span>
+                <FaRegCalendarAlt className="mr-2 text-emerald-500" />
                 <span>{blog.date}</span>
               </div>
-              <h3 className="text-xl font-bold text-gray-800 mb-2">
+              <h3 className="text-xl font-bold text-gray-800 mb-3 group-hover:text-emerald-600 transition-colors">
+                <Link to={`/blog/${blog.id}`}>{blog.title}</Link>
+              </h3>
+              <p className="text-gray-600 mb-4 leading-relaxed">
+                {blog.excerpt}
+              </p>
+
+              <div className="flex items-center justify-between">
+                <div className="flex items-center text-gray-500 text-sm">
+                  <div className="flex items-center mr-4">
+                    <FaRegHeart className="mr-1 text-red-400" />
+                    <span>{blog.likes}</span>
+                  </div>
+                  <div className="flex items-center">
+                    <FaRegComment className="mr-1 text-blue-400" />
+                    <span>{blog.comments}</span>
+                  </div>
+                </div>
                 <Link
                   to={`/blog/${blog.id}`}
-                  className="hover:text-emerald-600"
+                  className="text-emerald-600 hover:text-emerald-700 font-medium flex items-center text-sm"
                 >
-                  {blog.title}
+                  Read More
+                  <FaArrowRight className="ml-1 text-xs" />
                 </Link>
-              </h3>
-              <p className="text-gray-600 mb-4">{blog.excerpt}</p>
-              <div className="flex items-center text-gray-500 text-sm">
-                <div className="flex items-center mr-4">
-                  <FaRegHeart className="mr-1" />
-                  <span>{blog.likes}</span>
-                </div>
-                <div className="flex items-center">
-                  <FaRegComment className="mr-1" />
-                  <span>{blog.comments}</span>
-                </div>
               </div>
             </div>
           </div>
@@ -110,10 +128,6 @@ export default function BlogSection() {
           <p className="text-gray-600 mb-4">
             Be the first to share your travel experience!
           </p>
-          <button className="bg-emerald-600 hover:bg-emerald-700 text-white px-6 py-3 rounded-lg flex items-center mx-auto">
-            <FaPenAlt className="mr-2" />
-            Write Your First Post
-          </button>
         </div>
       )}
     </div>

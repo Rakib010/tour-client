@@ -24,6 +24,8 @@ export default function Booking() {
 
   const hasBookings = bookingData?.data?.length > 0;
 
+
+
   return (
     <div className="w-full max-w-7xl mx-auto px-5">
       {/* Header */}
@@ -49,7 +51,7 @@ export default function Booking() {
                   Tour Name
                 </TableHead>
                 <TableHead className="w-1/6 text-left font-semibold text-gray-700">
-                  Cost
+                  per person Cost
                 </TableHead>
                 <TableHead className="w-1/6 text-left font-semibold text-gray-700">
                   Guests
