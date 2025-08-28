@@ -20,27 +20,23 @@ export function LoginForm({
   ...props
 }: React.HTMLAttributes<HTMLDivElement>) {
   const navigate = useNavigate();
-  // React Hook Form instance for handling form state & validation
   const form = useForm();
 
-  // RTK Query mutation hook for login
   const [login] = useLoginMutation();
 
-  // Handles form submission
-  // eslint-disable-next-line @typescript-eslint/no-explicit-any
   const onSubmit = async (data: any) => {
     try {
       // Send login request to backend
       const res = await login(data).unwrap();
+      console.log(res);
       if (res.success) {
         toast.success("Logged in successfully");
-        navigate("/"); 
+        navigate("/");
       }
     } catch (err) {
       console.error(err);
-       
-      // this is not recommended 
-      // Show relevant error messages based on backend response
+
+      // this is not recommended
       if (err.data.message === "password does not match") {
         toast.error("Invalid credentials");
       }

@@ -4,7 +4,7 @@ import { useForm, useFieldArray } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
 import z from "zod";
 import { format, formatISO } from "date-fns";
-import { CalendarIcon, Plus, Trash2 } from "lucide-react";
+import { CalendarIcon, Pencil, Plus, Trash2 } from "lucide-react";
 
 import MultipleImageUploads from "@/components/MultipleImageUploads";
 import { Button } from "@/components/ui/button";
@@ -42,8 +42,8 @@ import {
 import { Textarea } from "@/components/ui/textarea";
 import { cn } from "@/lib/utils";
 import { useGetDivisionsQuery } from "@/redux/features/division/division.api";
-import { useAddTourMutation } from "@/redux/features/tour/tour.api";
 import { useGetTourTypesQuery } from "@/redux/features/tourType/tourType.api";
+import { useUpdateTourMutation } from "@/redux/features/tour/tour.api";
 import { toast } from "sonner";
 
 const formSchema = z.object({
@@ -65,27 +65,17 @@ const formSchema = z.object({
   tourType: z.string().min(1, "Tour type is required"),
 });
 
-export default function AddTourModal() {
-  const [images, setImages] = useState<File[]>([]);
+interface UpdateTourProps {
+  tourId: string;
+}
+
+export default function UpdateTour({ tourId }: UpdateTourProps) {
   const { data: tourTypeData, isLoading: tourTypeLoading } =
     useGetTourTypesQuery(undefined);
   const { data: divisionData, isLoading: divisionLoading } =
     useGetDivisionsQuery(undefined);
-  const [addTour] = useAddTourMutation();
-
-  const tourTypeOptions = tourTypeData?.data?.map(
-    (tourType: { _id: string; name: string }) => ({
-      value: tourType._id,
-      label: tourType.name,
-    })
-  );
-
-  const divisionOptions = divisionData?.data?.map(
-    (item: { _id: string; name: string }) => ({
-      value: item._id,
-      label: item.name,
-    })
-  );
+  const [updateTour] = useUpdateTourMutation();
+  const [images, setImages] = useState<File[]>([]);
 
   const form = useForm<z.infer<typeof formSchema>>({
     resolver: zodResolver(formSchema),
@@ -109,44 +99,42 @@ export default function AddTourModal() {
     },
   });
 
+  // dynamic fields
   const {
     fields: includedFields,
     append: appendIncluded,
     remove: removeIncluded,
-  } = useFieldArray({
-    control: form.control,
-    name: "included",
-  });
-
+  } = useFieldArray({ control: form.control, name: "included" });
   const {
     fields: excludedFields,
     append: appendExcluded,
     remove: removeExcluded,
-  } = useFieldArray({
-    control: form.control,
-    name: "exclude",
-  });
-
+  } = useFieldArray({ control: form.control, name: "exclude" });
   const {
     fields: amenitiesFields,
-    append: appendAmenities,
-    remove: removeAmenities,
-  } = useFieldArray({
-    control: form.control,
-    name: "amenities",
-  });
-
+    append: appendAmenity,
+    remove: removeAmenity,
+  } = useFieldArray({ control: form.control, name: "amenities" });
   const {
     fields: tourPlanFields,
     append: appendTourPlan,
     remove: removeTourPlan,
-  } = useFieldArray({
-    control: form.control,
-    name: "tourPlan",
-  });
+  } = useFieldArray({ control: form.control, name: "tourPlan" });
 
+  // map options
+  const tourTypeOptions = tourTypeData?.data?.map((t: any) => ({
+    label: t.name,
+    value: t._id,
+  }));
+  const divisionOptions = divisionData?.data?.map((d: any) => ({
+    label: d.name,
+    value: d._id,
+  }));
+
+  // submit
   const onSubmit = async (data: any) => {
-    const tourData = {
+    // Prepare payload
+    const payload: any = {
       ...data,
       costFrom: Number(data.costFrom),
       minAge: Number(data.minAge),
@@ -154,37 +142,50 @@ export default function AddTourModal() {
       startDate: formatISO(data.startDate),
       endDate: formatISO(data.endDate),
       included:
-        data.included[0].value === ""
+        data.included[0]?.value === ""
           ? []
-          : data.included.map((item: { value: string }) => item.value),
+          : data.included.map((i: any) => i.value),
       exclude:
-        data.exclude[0].value === ""
+        data.exclude[0]?.value === ""
           ? []
-          : data.exclude.map((item: { value: string }) => item.value),
+          : data.exclude.map((i: any) => i.value),
       amenities:
-        data.amenities[0].value === ""
+        data.amenities[0]?.value === ""
           ? []
-          : data.amenities.map((item: { value: string }) => item.value),
+          : data.amenities.map((i: any) => i.value),
       tourPlan:
-        data.tourPlan[0].value === ""
+        data.tourPlan[0]?.value === ""
           ? []
-          : data.tourPlan.map((item: { value: string }) => item.value),
+          : data.tourPlan.map((i: any) => i.value),
     };
 
-    // console.log(tourData);
+    if (!tourId) return toast.error("Tour ID is missing");
 
+    // Create FormData
     const formData = new FormData();
-    formData.append("data", JSON.stringify(tourData));
+
+    // Append each field separately
+    Object.entries(payload).forEach(([key, value]) => {
+      if (Array.isArray(value)) {
+        value.forEach((v) => formData.append(key, v)); // multiple values for array fields
+      } else {
+        formData.append(key, value as string | Blob);
+      }
+    });
+
+    // Append images
     images.forEach((image) => formData.append("files", image));
 
     try {
-      const res = await addTour(formData).unwrap();
+      const res = await updateTour({ id: tourId, data: formData }).unwrap();
 
       if (res.success) {
-        toast.success("Tour created");
+        toast.success("Tour updated successfully");
         form.reset();
       }
+      console.log("Response:", res);
     } catch (error) {
+      console.error(error);
       toast.error("Something went wrong");
     }
   };
@@ -192,16 +193,19 @@ export default function AddTourModal() {
   return (
     <Dialog>
       <DialogTrigger asChild>
-        <Button>Add Tour</Button>
+        <Button size="sm" variant="outline">
+          <Pencil size={16} />
+        </Button>
       </DialogTrigger>
-      <DialogContent className="sm:max-w-[600px] max-h-[90vh] overflow-y-auto">
+
+      <DialogContent className="sm:max-w-[700px] max-h-[90vh] overflow-y-auto">
         <DialogHeader>
-          <DialogTitle>Add New Tour</DialogTitle>
+          <DialogTitle>Update Tour</DialogTitle>
         </DialogHeader>
 
         <Form {...form}>
           <form
-            id="add-tour-form"
+            id="update-tour-form"
             onSubmit={form.handleSubmit(onSubmit)}
             className="space-y-4"
           >
@@ -230,6 +234,7 @@ export default function AddTourModal() {
                   <FormControl>
                     <Textarea {...field} className="min-h-[100px]" />
                   </FormControl>
+                  <FormMessage />
                 </FormItem>
               )}
             />
@@ -243,7 +248,7 @@ export default function AddTourModal() {
                   <FormLabel>Tour Type</FormLabel>
                   <Select
                     onValueChange={field.onChange}
-                    defaultValue={field.value}
+                    value={field.value}
                     disabled={tourTypeLoading}
                   >
                     <FormControl>
@@ -273,7 +278,7 @@ export default function AddTourModal() {
                   <FormLabel>Division</FormLabel>
                   <Select
                     onValueChange={field.onChange}
-                    defaultValue={field.value}
+                    value={field.value}
                     disabled={divisionLoading}
                   >
                     <FormControl>
@@ -294,7 +299,6 @@ export default function AddTourModal() {
               )}
             />
 
-            {/* Location */}
             <FormField
               name="location"
               control={form.control}
@@ -309,7 +313,6 @@ export default function AddTourModal() {
               )}
             />
 
-            {/* Departure Location */}
             <FormField
               name="departureLocation"
               control={form.control}
@@ -324,7 +327,6 @@ export default function AddTourModal() {
               )}
             />
 
-            {/* Arrival Location */}
             <FormField
               name="arrivalLocation"
               control={form.control}
@@ -339,8 +341,8 @@ export default function AddTourModal() {
               )}
             />
 
-            {/* Start  Date */}
             <div className="flex gap-4">
+              {/* Start Date */}
               <FormField
                 control={form.control}
                 name="startDate"
@@ -357,11 +359,9 @@ export default function AddTourModal() {
                               !field.value && "text-muted-foreground"
                             )}
                           >
-                            {field.value ? (
-                              format(field.value, "PPP")
-                            ) : (
-                              <span>Pick a date</span>
-                            )}
+                            {field.value
+                              ? format(field.value, "PPP")
+                              : "Pick a date"}
                             <CalendarIcon className="ml-auto h-4 w-4 opacity-50" />
                           </Button>
                         </FormControl>
@@ -371,7 +371,6 @@ export default function AddTourModal() {
                           mode="single"
                           selected={field.value}
                           onSelect={field.onChange}
-                          //disabled={(date) => date < new Date()}
                         />
                       </PopoverContent>
                     </Popover>
@@ -397,11 +396,9 @@ export default function AddTourModal() {
                               !field.value && "text-muted-foreground"
                             )}
                           >
-                            {field.value ? (
-                              format(field.value, "PPP")
-                            ) : (
-                              <span>Pick a date</span>
-                            )}
+                            {field.value
+                              ? format(field.value, "PPP")
+                              : "Pick a date"}
                             <CalendarIcon className="ml-auto h-4 w-4 opacity-50" />
                           </Button>
                         </FormControl>
@@ -411,7 +408,6 @@ export default function AddTourModal() {
                           mode="single"
                           selected={field.value}
                           onSelect={field.onChange}
-                          // disabled={(date) => date < new Date()}
                         />
                       </PopoverContent>
                     </Popover>
@@ -421,7 +417,7 @@ export default function AddTourModal() {
               />
             </div>
 
-            {/* Cost From */}
+            {/* Cost, Guests, Min Age */}
             <FormField
               name="costFrom"
               control={form.control}
@@ -440,7 +436,6 @@ export default function AddTourModal() {
               )}
             />
 
-            {/* Max Guest */}
             <FormField
               name="maxGuest"
               control={form.control}
@@ -459,7 +454,6 @@ export default function AddTourModal() {
               )}
             />
 
-            {/* Min Age */}
             <FormField
               name="minAge"
               control={form.control}
@@ -566,7 +560,7 @@ export default function AddTourModal() {
                   type="button"
                   variant="outline"
                   size="icon"
-                  onClick={() => appendAmenities({ value: "" })}
+                  onClick={() => appendAmenity({ value: "" })}
                 >
                   <Plus />
                 </Button>
@@ -589,7 +583,7 @@ export default function AddTourModal() {
                       type="button"
                       variant="destructive"
                       size="icon"
-                      onClick={() => removeAmenities(index)}
+                      onClick={() => removeAmenity(index)}
                     >
                       <Trash2 />
                     </Button>
@@ -620,7 +614,10 @@ export default function AddTourModal() {
                       render={({ field }) => (
                         <FormItem className="flex-1">
                           <FormControl>
-                            <Input {...field} placeholder="Day-wise plan" />
+                            <Input
+                              {...field}
+                              placeholder="Add tour plan item"
+                            />
                           </FormControl>
                         </FormItem>
                       )}
@@ -638,16 +635,16 @@ export default function AddTourModal() {
               </div>
             </div>
 
-            {/* Media */}
+            {/* Images */}
             <MultipleImageUploads onChange={setImages} />
           </form>
         </Form>
 
-        <DialogFooter className="sticky bottom-0 bg-white pt-4">
+        <DialogFooter className="flex justify-end gap-2">
           <DialogClose asChild>
             <Button variant="outline">Cancel</Button>
           </DialogClose>
-          <Button type="submit" form="add-tour-form">
+          <Button type="submit" form="update-tour-form">
             Save
           </Button>
         </DialogFooter>

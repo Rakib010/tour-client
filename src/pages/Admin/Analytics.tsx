@@ -29,29 +29,33 @@ export default function Analytics() {
       sub: `Active: ${userStats?.data?.totalActiveUsers || 0} | Inactive: ${
         userStats?.data?.totalInActiveUsers || 0
       }`,
-      icon: <Users className="h-6 w-6 text-blue-600" />,
-      color: "bg-blue-100",
+      icon: <Users className="h-6 w-6 text-blue-200" />,
+      bg: "bg-blue-600",
+      text: "text-white",
     },
     {
       title: "Total Tours",
       value: tourStats?.data?.totalTour || 0,
       sub: `Tour Types: ${tourStats?.data?.totalTourByTourType?.length || 0}`,
-      icon: <Map className="h-6 w-6 text-green-600" />,
-      color: "bg-green-100",
+      icon: <Map className="h-6 w-6 text-green-200" />,
+      bg: "bg-green-600",
+      text: "text-white",
     },
     {
       title: "Total Bookings",
       value: bookingStats?.data?.totalBooking || 0,
       sub: `Last 30 days: ${bookingStats?.data?.bookingsLast30Days || 0}`,
-      icon: <Calendar className="h-6 w-6 text-yellow-600" />,
-      color: "bg-yellow-100",
+      icon: <Calendar className="h-6 w-6 text-yellow-200" />,
+      bg: "bg-yellow-500",
+      text: "text-gray-900",
     },
     {
       title: "Total Revenue",
       value: `$${paymentStats?.data?.totalRevenue?.[0]?.total || 0}`,
       sub: `Payments: ${paymentStats?.data?.totalPayment || 0}`,
-      icon: <CreditCard className="h-6 w-6 text-purple-600" />,
-      color: "bg-purple-100",
+      icon: <CreditCard className="h-6 w-6 text-purple-200" />,
+      bg: "bg-purple-600",
+      text: "text-white",
     },
   ];
 
@@ -70,19 +74,17 @@ export default function Analytics() {
           {statsCards.map((stat, index) => (
             <Card
               key={index}
-              className="shadow-sm border border-gray-200 hover:shadow-md transition"
+              className={`${stat.bg} ${stat.text} shadow-md hover:shadow-xl transition rounded-xl`}
             >
               <CardHeader className="flex flex-row items-center justify-between pb-2">
-                <CardTitle className="text-sm font-medium text-gray-500">
+                <CardTitle className="text-sm font-medium">
                   {stat.title}
                 </CardTitle>
-                <div className={`p-2 rounded-full ${stat.color}`}>
-                  {stat.icon}
-                </div>
+                <div className="p-2 rounded-full bg-white/20">{stat.icon}</div>
               </CardHeader>
               <CardContent>
-                <p className="text-2xl font-bold text-gray-900">{stat.value}</p>
-                <p className="text-xs text-gray-500">{stat.sub}</p>
+                <p className="text-2xl font-bold">{stat.value}</p>
+                <p className="text-xs opacity-80">{stat.sub}</p>
               </CardContent>
             </Card>
           ))}

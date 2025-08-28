@@ -46,14 +46,14 @@ export default function Division() {
       <div className="border border-gray-200 rounded-lg shadow-sm overflow-hidden">
         <Table className="table-fixed w-full">
           <TableHeader>
-            <TableRow className="bg-gray-50">
-              <TableHead className="w-1/3 text-left font-semibold text-gray-700">
+            <TableRow className="bg-gray-700">
+              <TableHead className="w-1/3 text-left font-semibold text-gray-50">
                 Name
               </TableHead>
-              <TableHead className="w-1/3 text-left font-semibold text-gray-700">
+              <TableHead className="w-1/3 text-left font-semibold text-gray-50">
                 Slug
               </TableHead>
-              <TableHead className="w-1/3 text-right font-semibold text-gray-700">
+              <TableHead className="w-1/3 text-right font-semibold text-gray-50">
                 Action
               </TableHead>
             </TableRow>
@@ -86,9 +86,6 @@ export default function Division() {
                   </TableCell>
                   <TableCell className="w-1/3 text-right">
                     <div className="flex justify-end gap-2">
-                      <Button size="sm" variant="outline">
-                        <Pencil size={16} />
-                      </Button>
                       <DeleteConfirmation
                         onConfirm={() => handleRemoveDivision(item._id)}
                       >

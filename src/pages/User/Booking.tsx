@@ -24,8 +24,6 @@ export default function Booking() {
 
   const hasBookings = bookingData?.data?.length > 0;
 
-
-
   return (
     <div className="w-full max-w-7xl mx-auto px-5">
       {/* Header */}
@@ -43,26 +41,26 @@ export default function Booking() {
           </Link>
         </div>
       ) : (
-        <div className="border border-gray-200 rounded-lg shadow-sm overflow-hidden">
+        <div className="border  rounded-lg shadow-sm overflow-hidden">
           <Table className="table-fixed w-full">
             <TableHeader>
-              <TableRow className="bg-gray-50">
-                <TableHead className="w-1/4 text-left font-semibold text-gray-700">
+              <TableRow className="bg-gray-700 ">
+                <TableHead className="w-1/4 text-left font-semibold text-gray-50">
                   Tour Name
                 </TableHead>
-                <TableHead className="w-1/6 text-left font-semibold text-gray-700">
+                <TableHead className="w-1/6 text-left font-semibold text-gray-50 ">
                   per person Cost
                 </TableHead>
-                <TableHead className="w-1/6 text-left font-semibold text-gray-700">
+                <TableHead className="w-1/6 text-left font-semibold text-gray-50">
                   Guests
                 </TableHead>
-                <TableHead className="w-1/6 text-left font-semibold text-gray-700">
+                <TableHead className="w-1/6 text-left font-semibold text-gray-50">
                   Status
                 </TableHead>
-                <TableHead className="w-1/6 text-left font-semibold text-gray-700">
+                <TableHead className="w-1/6 text-left font-semibold text-gray-50">
                   Booked Date
                 </TableHead>
-                <TableHead className="w-1/6 text-right font-semibold text-gray-700">
+                <TableHead className="w-1/6 text-right font-semibold text-gray-50">
                   Invoice
                 </TableHead>
               </TableRow>
@@ -102,7 +100,7 @@ export default function Booking() {
                         target="_blank"
                         rel="noopener noreferrer"
                       >
-                        <Button size="sm" variant="outline">
+                        <Button size="sm" variant="default">
                           View Invoice
                         </Button>
                       </Link>

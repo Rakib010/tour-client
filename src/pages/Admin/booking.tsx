@@ -39,25 +39,25 @@ export default function Booking() {
 
       {/* Table */}
       <div className="border border-gray-200 rounded-lg shadow-sm overflow-hidden">
-        <Table className="table-fixed w-full">
+        <Table className="w-full">
           <TableHeader>
-            <TableRow className="bg-gray-50">
-              <TableHead className="w-1/4 text-left font-semibold text-gray-700">
+            <TableRow className="bg-gray-700 text-gray-50">
+              <TableHead className="w-1/4 text-left font-semibold text-gray-50">
                 Tour Name
               </TableHead>
-              <TableHead className="w-1/4 text-left font-semibold text-gray-700">
+              <TableHead className="w-1/4 text-left font-semibold text-gray-50">
                 Transaction_Id
               </TableHead>
-              <TableHead className="w-1/6 text-left font-semibold text-gray-700">
+              <TableHead className="w-1/6 text-left font-semibold text-gray-50">
                 Guests
               </TableHead>
-              <TableHead className="w-1/6 text-left font-semibold text-gray-700">
+              <TableHead className="w-1/6 text-left font-semibold text-gray-50">
                 Payment Status
               </TableHead>
-              <TableHead className="w-1/6 text-left font-semibold text-gray-700">
+              <TableHead className="w-1/6 text-left font-semibold text-gray-50">
                 Booking Status
               </TableHead>
-              <TableHead className="w-1/6 text-left font-semibold text-gray-700">
+              <TableHead className="w-1/6 text-left font-semibold text-gray-50">
                 Booked Date
               </TableHead>
             </TableRow>

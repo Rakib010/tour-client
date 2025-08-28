@@ -1,6 +1,7 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
 import { DeleteConfirmation } from "@/components/DeleteConfirmation";
 import AddTourModal from "@/components/modules/Tour/AddTourModal";
+import UpdateTour from "@/components/modules/Tour/UpdateTour";
 import { Button } from "@/components/ui/button";
 import {
   Table,
@@ -14,8 +15,10 @@ import {
   useDeleteTourMutation,
   useGetTourQuery,
 } from "@/redux/features/tour/tour.api";
-import { Trash2, Pencil } from "lucide-react";
+import { Trash2 } from "lucide-react";
 import { toast } from "sonner";
+
+
 
 export default function TourPackageTable() {
   const { data: tourData = [], isLoading } = useGetTourQuery(undefined);
@@ -46,20 +49,20 @@ export default function TourPackageTable() {
       <div className="border border-gray-200 rounded-lg shadow-sm overflow-hidden">
         <Table>
           <TableHeader>
-            <TableRow className="bg-gray-50">
-              <TableHead className="w-1/5 text-left font-semibold text-gray-700 pl-6">
+            <TableRow className="bg-gray-700">
+              <TableHead className="w-1/5 text-left font-semibold text-gray-50 pl-6">
                 Title
               </TableHead>
-              <TableHead className="w-1/5 text-left font-semibold text-gray-700">
+              <TableHead className="w-1/5 text-left font-semibold text-gray-50">
                 Start Date
               </TableHead>
-              <TableHead className="w-1/5 text-left font-semibold text-gray-700">
+              <TableHead className="w-1/5 text-left font-semibold text-gray-50">
                 End Date
               </TableHead>
-              <TableHead className="w-1/5 text-left font-semibold text-gray-700">
+              <TableHead className="w-1/5 text-left font-semibold text-gray-50">
                 Cost From
               </TableHead>
-              <TableHead className="text-right font-semibold text-gray-700 pr-6 ">
+              <TableHead className="text-right font-semibold text-gray-50 pr-6 ">
                 Action
               </TableHead>
             </TableRow>
@@ -99,9 +102,9 @@ export default function TourPackageTable() {
                   </TableCell>
                   <TableCell className="text-right">
                     <div className="flex justify-end gap-2">
-                      <Button size="sm" variant="outline">
-                        <Pencil size={16} />
-                      </Button>
+                      {/* update tour */}
+                      <UpdateTour tourId={item._id} />
+
                       <DeleteConfirmation
                         onConfirm={() => handleRemoveTour(item._id)}
                       >

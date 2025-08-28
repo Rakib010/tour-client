@@ -95,13 +95,27 @@ export default function Navbar() {
             </Button>
 
             {dropdownOpen && (
-              <div className="absolute right-0 mt-2 w-48 bg-white border rounded-lg shadow-lg z-50">
+              <div className="absolute right-0 mt-2 w-64 bg-white border rounded-lg shadow-lg z-50">
+                {/* User Info */}
+                <div className="px-4 py-3 border-b">
+                  <p className="text-sm font-semibold text-gray-900">
+                    {data.data.name}
+                  </p>
+                  <p className="text-xs text-gray-600">{data.data.email}</p>
+                  <p className="text-xs text-gray-600">
+                    {data.data.phone}
+                  </p>
+                  <p className="text-xs text-gray-600">{data.data.address}</p>
+                </div>
+
+                {/* Links */}
                 <Link
                   to={`/${data.data.role.toLowerCase()}`}
                   className="block px-4 py-2 text-gray-700 hover:bg-gray-100"
                 >
                   Dashboard
                 </Link>
+
                 <button
                   onClick={handleLogout}
                   className="w-full text-left px-4 py-2 text-gray-700 hover:bg-gray-100"

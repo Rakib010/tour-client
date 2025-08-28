@@ -69,14 +69,14 @@ export default function TourType() {
       <div className="border border-gray-200 rounded-lg shadow-sm overflow-hidden">
         <Table>
           <TableHeader>
-            <TableRow className="bg-gray-50">
-              <TableHead className="text-left font-semibold text-gray-700 w-1/3">
+            <TableRow className="bg-gray-700">
+              <TableHead className="text-left font-semibold text-gray-50 w-1/3">
                 Tour Types Name
               </TableHead>
-              <TableHead className="text-center font-semibold text-gray-700 w-1/3">
+              <TableHead className="text-center font-semibold text-gray-50 w-1/3">
                 Created At
               </TableHead>
-              <TableHead className="text-right font-semibold text-gray-700 w-1/3 ">
+              <TableHead className="text-right font-semibold text-gray-50 w-1/3 ">
                 Action
               </TableHead>
             </TableRow>
