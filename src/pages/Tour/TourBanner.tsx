@@ -1,4 +1,4 @@
-import { FaHome, FaSearch, FaChevronDown } from "react-icons/fa";
+import { FaHome, FaChevronDown } from "react-icons/fa";
 import tour from "../../assets/images/Tours.jpg";
 
 export default function TourBanner() {
@@ -34,15 +34,12 @@ export default function TourBanner() {
         </p>
 
         {/* Search-inspired decorative element */}
-        <div className="mt-8 relative max-w-md mx-auto">
+        <div className="mt-8 relative max-w-md mx-auto ">
           <div className="absolute inset-0 bg-white/10 backdrop-blur-sm rounded-full"></div>
-          <div className="relative flex items-center justify-between p-2 pl-6 pr-2">
-            <span className="text-gray-200 text-sm md:text-base">
+          <div className="relative flex items-center  justify-between p-2 pl-6 pr-2">
+            <span className="text-gray-200 text-sm md:text-base ">
               Where would you like to go?
             </span>
-            <button className="bg-emerald-500 hover:bg-emerald-600 text-white p-2 rounded-full transition-all duration-300 shadow-lg">
-              <FaSearch className="h-5 w-5" />
-            </button>
           </div>
         </div>
       </div>

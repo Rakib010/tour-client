@@ -20,8 +20,10 @@ import {
 } from "@/redux/features/auth/auth.api";
 import { useAppDispatch } from "@/redux/hook";
 import { role } from "@/constants/role";
-
 import logo from "../../assets/images/logo.png";
+import UpdateUser from "../modules/Authentication/UpdateUser";
+
+
 
 // Navigation links array
 const navigationLinks = [
@@ -82,46 +84,57 @@ export default function Navbar() {
 
       {/* Right: Mode Toggle + Login/Logout */}
       <div className="flex items-center gap-4">
+        {/* Theme Toggle */}
         <ModeToggle />
 
         {data?.data?.email ? (
           <div className="relative">
+            {/* Profile Button */}
             <Button
               variant="outline"
-              className="flex items-center gap-2"
+              className="flex items-center gap-2 rounded-full px-4 py-2"
               onClick={() => setDropdownOpen(!dropdownOpen)}
             >
-              {data.data.name} ▾
+              <div className="h-8 w-8 rounded-full bg-purple-500 text-white flex items-center justify-center font-semibold">
+                {data.data.name?.charAt(0).toUpperCase()}
+              </div>
+              <span>{data.data.name}</span>
+              <span className="text-xs">▾</span>
             </Button>
 
+            {/* Dropdown Menu */}
             {dropdownOpen && (
-              <div className="absolute right-0 mt-2 w-64 bg-white border rounded-lg shadow-lg z-50">
-                {/* User Info */}
-                <div className="px-4 py-3 border-b">
+              <div className="absolute right-0 mt-2 w-72 bg-white border rounded-xl shadow-lg overflow-hidden z-50">
+                {/* User Info Section */}
+                <div className="px-4 py-3 border-b bg-gray-50">
                   <p className="text-sm font-semibold text-gray-900">
                     {data.data.name}
                   </p>
-                  <p className="text-xs text-gray-600">{data.data.email}</p>
-                  <p className="text-xs text-gray-600">
-                    {data.data.phone}
-                  </p>
-                  <p className="text-xs text-gray-600">{data.data.address}</p>
+                  <p className="text-sm text-gray-600">{data.data.email}</p>
+                  <p className="text-sm text-gray-600">{data.data.phone}</p>
+                  <p className="text-sm text-gray-600">{data.data.address}</p>
+
+                  {/* Update User Button */}
+                  <div className="mt-3">
+                    <UpdateUser userId={data.data._id} />
+                  </div>
                 </div>
 
                 {/* Links */}
-                <Link
-                  to={`/${data.data.role.toLowerCase()}`}
-                  className="block px-4 py-2 text-gray-700 hover:bg-gray-100"
-                >
-                  Dashboard
-                </Link>
-
-                <button
-                  onClick={handleLogout}
-                  className="w-full text-left px-4 py-2 text-gray-700 hover:bg-gray-100"
-                >
-                  Logout
-                </button>
+                <div className="flex flex-col">
+                  <Link
+                    to={`/${data.data.role.toLowerCase()}`}
+                    className="px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 transition"
+                  >
+                    Dashboard
+                  </Link>
+                  <button
+                    onClick={handleLogout}
+                    className="w-full text-left px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 transition"
+                  >
+                    Logout
+                  </button>
+                </div>
               </div>
             )}
           </div>
@@ -151,7 +164,7 @@ export default function Navbar() {
               </svg>
             </Button>
           </PopoverTrigger>
-          <PopoverContent align="start" className="w-40 p-2 md:hidden">
+          <PopoverContent align="start" className="w-48 p-2 md:hidden">
             <NavigationMenu>
               <NavigationMenuList className="flex flex-col gap-1">
                 {navigationLinks.map((link, index) => {
@@ -169,16 +182,14 @@ export default function Navbar() {
                   }
                 })}
                 {data?.data?.email && (
-                  <>
-                    <NavigationMenuItem>
-                      <button
-                        onClick={handleLogout}
-                        className="w-full text-left py-1 text-gray-700 hover:bg-gray-100"
-                      >
-                        Logout
-                      </button>
-                    </NavigationMenuItem>
-                  </>
+                  <NavigationMenuItem>
+                    <button
+                      onClick={handleLogout}
+                      className="w-full text-left py-1 text-gray-700 hover:bg-gray-100"
+                    >
+                      Logout
+                    </button>
+                  </NavigationMenuItem>
                 )}
               </NavigationMenuList>
             </NavigationMenu>

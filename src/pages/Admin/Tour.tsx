@@ -18,8 +18,6 @@ import {
 import { Trash2 } from "lucide-react";
 import { toast } from "sonner";
 
-
-
 export default function TourPackageTable() {
   const { data: tourData = [], isLoading } = useGetTourQuery(undefined);
   const [DeleteTour] = useDeleteTourMutation();
@@ -88,8 +86,8 @@ export default function TourPackageTable() {
                     {item.title}
                   </TableCell>
                   <TableCell className="text-gray-600">
-                    {item.startDate
-                      ? new Date(item.startDate).toLocaleDateString()
+                    {item.createdAt
+                      ? new Date(item.createdAt).toLocaleDateString()
                       : "—"}
                   </TableCell>
                   <TableCell className="text-gray-600">

@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/no-explicit-any */
 import { Button } from "@/components/ui/button";
 import {
   Form,
@@ -26,7 +27,6 @@ export function LoginForm({
 
   const onSubmit = async (data: any) => {
     try {
-      // Send login request to backend
       const res = await login(data).unwrap();
       console.log(res);
       if (res.success) {

@@ -1,9 +1,9 @@
 import App from "@/App";
 import DashboardLayout from "@/components/layout/DashboardLayout";
 import About from "@/pages/About";
-import Login from "@/pages/Login";
-import Register from "@/pages/Register";
-import Verify from "@/pages/Verify";
+import Login from "@/components/modules/Authentication/Login";
+import Register from "@/components/modules/Authentication/Register";
+import Verify from "@/components/modules/Authentication/Verify";
 import { generateRoutes } from "@/utils/generateRoutes";
 import { createBrowserRouter, Navigate } from "react-router";
 import { adminSidebarItems } from "./adminSidebarItems";

@@ -1,8 +1,6 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
 import { useState } from "react";
 import { useForm, useFieldArray } from "react-hook-form";
-import { zodResolver } from "@hookform/resolvers/zod";
-import z from "zod";
 import { format, formatISO } from "date-fns";
 import { CalendarIcon, Pencil, Plus, Trash2 } from "lucide-react";
 
@@ -46,25 +44,6 @@ import { useGetTourTypesQuery } from "@/redux/features/tourType/tourType.api";
 import { useUpdateTourMutation } from "@/redux/features/tour/tour.api";
 import { toast } from "sonner";
 
-const formSchema = z.object({
-  title: z.string().min(1, "Title is required"),
-  description: z.string().min(1, "Description is required"),
-  location: z.string().min(1, "Location is required"),
-  costFrom: z.string().min(1, "Cost is required"),
-  startDate: z.date({ message: "Start date is required" }),
-  endDate: z.date({ message: "End date is required" }),
-  departureLocation: z.string().min(1, "Departure location is required"),
-  arrivalLocation: z.string().min(1, "Arrival location is required"),
-  included: z.array(z.object({ value: z.string() })),
-  exclude: z.array(z.object({ value: z.string() })),
-  amenities: z.array(z.object({ value: z.string() })),
-  tourPlan: z.array(z.object({ value: z.string() })),
-  maxGuest: z.string().min(1, "Max guest is required"),
-  minAge: z.string().min(1, "Minimum age is required"),
-  division: z.string().min(1, "Division is required"),
-  tourType: z.string().min(1, "Tour type is required"),
-});
-
 interface UpdateTourProps {
   tourId: string;
 }
@@ -77,8 +56,7 @@ export default function UpdateTour({ tourId }: UpdateTourProps) {
   const [updateTour] = useUpdateTourMutation();
   const [images, setImages] = useState<File[]>([]);
 
-  const form = useForm<z.infer<typeof formSchema>>({
-    resolver: zodResolver(formSchema),
+  const form = useForm({
     defaultValues: {
       title: "",
       description: "",
@@ -133,7 +111,6 @@ export default function UpdateTour({ tourId }: UpdateTourProps) {
 
   // submit
   const onSubmit = async (data: any) => {
-    // Prepare payload
     const payload: any = {
       ...data,
       costFrom: Number(data.costFrom),
@@ -159,11 +136,7 @@ export default function UpdateTour({ tourId }: UpdateTourProps) {
           : data.tourPlan.map((i: any) => i.value),
     };
 
-    if (!tourId) return toast.error("Tour ID is missing");
-
-    // Create FormData
     const formData = new FormData();
-
     // Append each field separately
     Object.entries(payload).forEach(([key, value]) => {
       if (Array.isArray(value)) {
