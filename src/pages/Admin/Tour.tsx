@@ -15,7 +15,7 @@ import {
   useDeleteTourMutation,
   useGetTourQuery,
 } from "@/redux/features/tour/tour.api";
-import { Trash2 } from "lucide-react";
+import { Trash2, MapPin, Loader2 } from "lucide-react";
 import { toast } from "sonner";
 
 export default function TourPackageTable() {
@@ -23,91 +23,68 @@ export default function TourPackageTable() {
   const [DeleteTour] = useDeleteTourMutation();
 
   const handleRemoveTour = async (id: string) => {
-    console.log(id);
     try {
       const res = await DeleteTour(id);
-      console.log(res);
-      if (res.success) {
-        toast.success("Tour Type Deleted Successfully");
+      if (res.data?.success) {
+        toast.success("Tour Deleted Successfully");
       }
     } catch {
-      //console.log(error)
       toast.error("An error occurred while deleting");
     }
   };
 
+  const tours = tourData?.data?.data || [];
+
   return (
-    <div className="w-full max-w-7xl mx-auto px-5">
-      {/* Header */}
-      <div className="flex justify-between items-center my-8">
-        <h1 className="text-2xl font-bold text-gray-800">Tour Packages</h1>
+    <div className="w-full max-w-[1280px] mx-auto">
+      <div className="flex justify-between items-center mb-8">
+        <div>
+          <h1 className="text-2xl font-bold text-foreground flex items-center gap-2">
+            <MapPin className="h-7 w-7 text-primary" />
+            Tour Packages
+          </h1>
+          <p className="text-muted-foreground text-sm mt-1">
+            Manage your tour offerings
+          </p>
+        </div>
         <AddTourModal />
       </div>
-      {/* Table */}
-      <div className="border border-gray-200 rounded-lg shadow-sm overflow-hidden">
+
+      <div className="rounded-xl border border-border bg-card overflow-hidden">
         <Table>
           <TableHeader>
-            <TableRow className="bg-gray-700">
-              <TableHead className="w-1/5 text-left font-semibold text-gray-50 pl-6">
-                Title
-              </TableHead>
-              <TableHead className="w-1/5 text-left font-semibold text-gray-50">
-                Start Date
-              </TableHead>
-              <TableHead className="w-1/5 text-left font-semibold text-gray-50">
-                End Date
-              </TableHead>
-              <TableHead className="w-1/5 text-left font-semibold text-gray-50">
-                Cost From
-              </TableHead>
-              <TableHead className="text-right font-semibold text-gray-50 pr-6 ">
-                Action
-              </TableHead>
+            <TableRow className="bg-muted/50 hover:bg-muted/50 border-b">
+              <TableHead className="font-semibold text-foreground py-4 px-4">Title</TableHead>
+              <TableHead className="font-semibold text-foreground py-4 px-4">Start Date</TableHead>
+              <TableHead className="font-semibold text-foreground py-4 px-4">End Date</TableHead>
+              <TableHead className="font-semibold text-foreground py-4 px-4">Cost From</TableHead>
+              <TableHead className="font-semibold text-foreground py-4 px-4 text-right">Action</TableHead>
             </TableRow>
           </TableHeader>
-
           <TableBody>
             {isLoading ? (
               <TableRow>
-                <TableCell
-                  colSpan={6}
-                  className="text-center py-6 text-gray-500"
-                >
-                  Loading tours...
+                <TableCell colSpan={5} className="text-center py-12">
+                  <Loader2 className="w-6 h-6 animate-spin text-primary mx-auto" />
                 </TableCell>
               </TableRow>
-            ) : tourData?.data?.data?.length ? (
-              tourData.data.data.map((item: any) => (
-                <TableRow
-                  key={item._id}
-                  className="hover:bg-gray-50 transition-colors"
-                >
-                  <TableCell className="font-medium text-gray-800">
-                    {item.title}
+            ) : tours.length ? (
+              tours.map((item: any) => (
+                <TableRow key={item._id} className="hover:bg-muted/30 transition-colors">
+                  <TableCell className="font-medium py-4 px-4">{item.title}</TableCell>
+                  <TableCell className="text-muted-foreground py-4 px-4">
+                    {item.createdAt ? new Date(item.createdAt).toLocaleDateString() : "—"}
                   </TableCell>
-                  <TableCell className="text-gray-600">
-                    {item.createdAt
-                      ? new Date(item.createdAt).toLocaleDateString()
-                      : "—"}
+                  <TableCell className="text-muted-foreground py-4 px-4">
+                    {item.endDate ? new Date(item.endDate).toLocaleDateString() : "—"}
                   </TableCell>
-                  <TableCell className="text-gray-600">
-                    {item.endDate
-                      ? new Date(item.endDate).toLocaleDateString()
-                      : "—"}
-                  </TableCell>
-                  <TableCell className="text-gray-600">
-                    {item.costFrom ?? "—"}
-                  </TableCell>
-                  <TableCell className="text-right">
+                  <TableCell className="py-4 px-4 font-medium">৳{item.costFrom ?? "—"}</TableCell>
+                  <TableCell className="py-4 px-4 text-right">
                     <div className="flex justify-end gap-2">
-                      {/* update tour */}
                       <UpdateTour tourId={item._id} />
-
-                      <DeleteConfirmation
-                        onConfirm={() => handleRemoveTour(item._id)}
-                      >
-                        <Button size="sm">
-                          <Trash2 />
+                      <DeleteConfirmation onConfirm={() => handleRemoveTour(item._id)}>
+                        <Button size="sm" variant="destructive">
+                          <Trash2 className="h-4 w-4" />
                         </Button>
                       </DeleteConfirmation>
                     </div>
@@ -116,11 +93,8 @@ export default function TourPackageTable() {
               ))
             ) : (
               <TableRow>
-                <TableCell
-                  colSpan={6}
-                  className="text-center py-6 text-gray-500"
-                >
-                  No tours found.
+                <TableCell colSpan={5} className="text-center py-12 text-muted-foreground">
+                  No tours found. Add your first tour to get started.
                 </TableCell>
               </TableRow>
             )}

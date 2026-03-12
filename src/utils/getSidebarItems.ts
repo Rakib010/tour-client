@@ -1,7 +1,7 @@
-import { role } from "@/constants/role";
-import { adminSidebarItems } from "@/routes/adminSidebarItems";
-import { userSidebarItems } from "@/routes/userSidebarItems";
-import type { TRole } from "@/types";
+import { role } from "@/constants/auth/role";
+import { adminSidebarItems } from "@/constants/sidebar/adminSidebarItems";
+import { userSidebarItems } from "@/constants/sidebar/userSidebarItems";
+import type { TRole } from "@/interfaces";
 
 
 export const getSidebarItems = (userRole: TRole) => {

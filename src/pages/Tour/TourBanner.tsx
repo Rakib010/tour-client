@@ -1,53 +1,164 @@
-import { FaHome, FaChevronDown } from "react-icons/fa";
 import tour from "../../assets/images/Tours.jpg";
+import { Input } from "@/components/ui/input";
+import { Button } from "@/components/ui/button";
+import {
+  Select,
+  SelectContent,
+  SelectGroup,
+  SelectItem,
+  SelectTrigger,
+  SelectValue,
+} from "@/components/ui/select";
+import { Search, X } from "lucide-react";
+import { Controller, useForm } from "react-hook-form";
+import { useGetDivisionsQuery } from "@/redux/features/division/division.api";
+import { useGetTourTypesQuery } from "@/redux/features/tourType/tourType.api";
+import { useSearchParams } from "react-router";
+
+type SearchForm = { tourSearch: string };
 
 export default function TourBanner() {
+  const form = useForm<SearchForm>();
+  const [searchParams, setSearchParams] = useSearchParams();
+
+  const selectedDivision = searchParams.get("division") || undefined;
+  const selectedTourType = searchParams.get("tourType") || undefined;
+  const searchTerm = searchParams.get("searchTerm") || "";
+
+  const { data: divisionData } = useGetDivisionsQuery(undefined);
+  const { data: tourTypeData } = useGetTourTypesQuery({
+    limit: 1000,
+    fields: "_id,name",
+  });
+
+  const divisionOptions = divisionData?.data?.map(
+    (item: { _id: string; name: string }) => ({ label: item.name, value: item._id })
+  );
+  const tourTypeOptions = tourTypeData?.data?.map(
+    (item: { _id: string; name: string }) => ({ label: item.name, value: item._id })
+  );
+
+  const handleSearch = (data: { tourSearch: string }) => {
+    const params = new URLSearchParams(searchParams);
+    if (data.tourSearch) params.set("searchTerm", data.tourSearch);
+    else params.delete("searchTerm");
+    setSearchParams(params);
+  };
+
+  const handleDivisionChange = (value: string) => {
+    const params = new URLSearchParams(searchParams);
+    params.set("division", value);
+    setSearchParams(params);
+  };
+
+  const handleTourTypeChange = (value: string) => {
+    const params = new URLSearchParams(searchParams);
+    params.set("tourType", value);
+    setSearchParams(params);
+  };
+
+  const handleClearFilter = () => {
+    setSearchParams({});
+    form.setValue("tourSearch", "");
+  };
+
+  const hasFilters =
+    selectedDivision || selectedTourType || searchTerm;
+
   return (
     <section
-      className="relative h-[335px] md:h-[490px] flex items-center justify-center bg-cover bg-center"
-      style={{
-        backgroundImage: `url(${tour})`,
-      }}
+      className="relative min-h-[420px] md:min-h-[480px] flex flex-col items-center justify-center bg-cover bg-center"
+      style={{ backgroundImage: `url(${tour})` }}
     >
-      {/* Enhanced gradient overlay */}
-      <div className="absolute inset-0 bg-gradient-to-b from-black/30 via-black/20 to-black/40"></div>
+      {/* Overlay */}
+      <div className="absolute inset-0 bg-gradient-to-b from-black/50 via-black/35 to-black/55" />
 
-      {/* Content with travel-inspired design */}
-      <div className="relative z-10 text-center text-white px-4 max-w-4xl mx-auto">
-        {/* Breadcrumb with travel icon */}
-        <div className="flex items-center justify-center text-sm md:text-base text-gray-100 mb-4 tracking-wider">
-          <FaHome className="h-4 w-4 mr-2 text-emerald-300" />
-          <span className="opacity-90">Home</span>
-          <span className="mx-2 opacity-70">/</span>
-          <span className="text-emerald-300 font-medium">Destinations</span>
-        </div>
-
-        {/* Main heading with travel theme */}
-        <h1 className="text-3xl md:text-5xl font-bold mb-4 drop-shadow-lg">
-          Discover Your{" "}
-          <span className="text-emerald-300">Perfect Getaway</span>
+      <div className="relative z-10 w-full max-w-4xl mx-auto px-4 text-center">
+        {/* Heading */}
+        <h1 className="text-3xl md:text-5xl font-bold text-white mb-2 drop-shadow-lg">
+          Where would you like to go?
         </h1>
-
-        {/* Subheading with subtle animation */}
-        <p className="text-lg md:text-xl font-light max-w-2xl mx-auto opacity-90 animate-fade-in">
-          Explore breathtaking destinations tailored to your travel dreams
+        <p className="text-lg text-white/90 mb-8">
+          Search destinations, filter by division or tour type
         </p>
 
-        {/* Search-inspired decorative element */}
-        <div className="mt-8 relative max-w-md mx-auto ">
-          <div className="absolute inset-0 bg-white/10 backdrop-blur-sm rounded-full"></div>
-          <div className="relative flex items-center  justify-between p-2 pl-6 pr-2">
-            <span className="text-gray-200 text-sm md:text-base ">
-              Where would you like to go?
-            </span>
-          </div>
-        </div>
-      </div>
-
-      {/* Scrolling indicator for larger screens */}
-      <div className="absolute bottom-8 left-1/2 transform -translate-x-1/2 hidden md:block">
-        <div className="animate-bounce">
-          <FaChevronDown className="h-6 w-6 text-emerald-300" />
+        {/* Search + Filter Bar */}
+        <div className="bg-white/95 backdrop-blur-sm rounded-2xl p-4 md:p-5 shadow-xl border border-white/20">
+          <form
+            onSubmit={form.handleSubmit(handleSearch)}
+            className="flex flex-col md:flex-row gap-3 md:gap-4 md:items-end"
+          >
+            <div className="flex-1 relative">
+              <Search className="absolute left-4 top-1/2 -translate-y-1/2 h-5 w-5 text-gray-400" />
+              <Controller
+                name="tourSearch"
+                control={form.control}
+                defaultValue={searchTerm}
+                render={({ field }) => (
+                  <Input
+                    placeholder="Search destination..."
+                    className="pl-12 py-3 h-12 rounded-xl border-gray-200 focus-visible:ring-emerald-500"
+                    {...field}
+                  />
+                )}
+              />
+            </div>
+            <Select
+              onValueChange={handleDivisionChange}
+              value={selectedDivision || ""}
+              disabled={!divisionOptions?.length}
+            >
+              <SelectTrigger className="w-full md:w-[180px] h-12 rounded-xl">
+                <SelectValue placeholder="Division" />
+              </SelectTrigger>
+              <SelectContent>
+                <SelectGroup>
+                  {divisionOptions?.map((item: { label: string; value: string }) => (
+                    <SelectItem key={item.value} value={item.value}>
+                      {item.label}
+                    </SelectItem>
+                  ))}
+                </SelectGroup>
+              </SelectContent>
+            </Select>
+            <Select
+              onValueChange={handleTourTypeChange}
+              value={selectedTourType || ""}
+              disabled={!tourTypeOptions?.length}
+            >
+              <SelectTrigger className="w-full md:w-[180px] h-12 rounded-xl">
+                <SelectValue placeholder="Tour type" />
+              </SelectTrigger>
+              <SelectContent>
+                <SelectGroup>
+                  {tourTypeOptions?.map((item: { label: string; value: string }) => (
+                    <SelectItem key={item.value} value={item.value}>
+                      {item.label}
+                    </SelectItem>
+                  ))}
+                </SelectGroup>
+              </SelectContent>
+            </Select>
+            <div className="flex gap-2">
+              <Button
+                type="submit"
+                className="h-12 px-6 rounded-xl bg-emerald-600 hover:bg-emerald-700"
+              >
+                Search
+              </Button>
+              {hasFilters && (
+                <Button
+                  type="button"
+                  variant="outline"
+                  size="icon"
+                  className="h-12 w-12 rounded-xl"
+                  onClick={handleClearFilter}
+                >
+                  <X className="h-5 w-5" />
+                </Button>
+              )}
+            </div>
+          </form>
         </div>
       </div>
     </section>

@@ -6,13 +6,13 @@ import Register from "@/components/modules/Authentication/Register";
 import Verify from "@/components/modules/Authentication/Verify";
 import { generateRoutes } from "@/utils/generateRoutes";
 import { createBrowserRouter, Navigate } from "react-router";
-import { adminSidebarItems } from "./adminSidebarItems";
-import { userSidebarItems } from "./userSidebarItems";
+import { adminSidebarItems } from "@/constants/sidebar/adminSidebarItems";
+import { userSidebarItems } from "@/constants/sidebar/userSidebarItems";
 import Unauthorized from "@/pages/unauthorized";
 import { withAuth } from "@/utils/withAuth";
-import { role } from "@/constants/role";
-import type { TRole } from "@/types";
-import Division from "@/pages/Division";
+import { role } from "@/constants/auth/role";
+import type { TRole } from "@/interfaces";
+import Categories from "@/pages/Categories";
 import Tour from "@/pages/Tour/Tour";
 import Home from "@/pages/Home";
 import TourDetails from "@/pages/Tour/TourDetails";
@@ -36,8 +36,8 @@ export const router = createBrowserRouter([
         Component: About,
       },
       {
-        path: "division",
-        Component: Division,
+        path: "categories",
+        Component: Categories,
       },
       {
         path: "tour",
@@ -69,7 +69,7 @@ export const router = createBrowserRouter([
     Component: withAuth(DashboardLayout, role.user as TRole),
     path: "/user",
     children: [
-      { index: true, element: <Navigate to="/user/bookings" /> },
+      { index: true, element: <Navigate to="/user/overview" replace /> },
       ...generateRoutes(userSidebarItems),
     ],
   },

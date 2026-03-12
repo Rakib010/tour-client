@@ -14,7 +14,7 @@ import { Link, useNavigate } from "react-router";
 import {  z } from "zod";
 import { zodResolver } from "@hookform/resolvers/zod";
 import Password from "@/components/ui/Password";
-import { useRegisterMutation } from "@/redux/features/auth/auth.api";
+import { useRegisterMutation, useLoginMutation } from "@/redux/features/auth/auth.api";
 import { toast } from "sonner";
 
 const registerSchema = z
@@ -39,6 +39,7 @@ export function RegisterForm({
   ...props
 }: React.HTMLAttributes<HTMLDivElement>) {
   const [register] = useRegisterMutation();
+  const [login] = useLoginMutation();
   const navigate = useNavigate();
 
   // Hook Form setup
@@ -67,8 +68,14 @@ export function RegisterForm({
     try {
       const res = await register(userInfo).unwrap();
       if (res.success) {
-        toast.success("User created successfully");
-        navigate("/verify", { state: data.email });
+        toast.success("Account created successfully");
+        // Auto-login after registration so user sees profile instead of Login button
+        try {
+          await login({ email: data.email, password: data.password }).unwrap();
+        } catch {
+          // Login failed - user can login manually
+        }
+        navigate("/");
       }
     } catch (error) {
       console.error(error);

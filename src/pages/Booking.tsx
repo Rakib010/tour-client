@@ -1,21 +1,26 @@
 import { Button } from "@/components/ui/button";
 import { useGetTourQuery } from "@/redux/features/tour/tour.api";
-import { Loader2 } from "lucide-react";
-import { useParams } from "react-router";
+import { Loader2, AlertCircle } from "lucide-react";
+import { toast } from "sonner";
+import { useParams, Link } from "react-router";
 import { FaMapMarkerAlt, FaUsers } from "react-icons/fa";
 import { useEffect, useState } from "react";
 import { useCreatingBookingMutation } from "@/redux/features/booking/booking.api";
+import { getErrorMessage } from "@/lib/utils";
+
+const MAX_GUESTS = 5;
 
 export default function Booking() {
   const [guestCount, setGuestCount] = useState(1);
   const [totalAmount, setTotalAmount] = useState(0);
 
   const { id } = useParams();
-  const { data, isLoading, isError } = useGetTourQuery({ _id: id });
-  const [createBooking] = useCreatingBookingMutation();
+  const { data, isLoading, isError } = useGetTourQuery({ _id: id }, { skip: !id });
+  const [createBooking, { isLoading: isBooking }] = useCreatingBookingMutation();
 
   const tourArray = data?.data?.data || [];
   const tourData = tourArray[0];
+  const hasReachedGuestLimit = guestCount >= MAX_GUESTS;
 
   useEffect(() => {
     if (!isLoading && !isError) {
@@ -24,6 +29,10 @@ export default function Booking() {
   }, [guestCount, totalAmount, isLoading, isError]);
 
   const incrementGuest = () => {
+    if (guestCount >= MAX_GUESTS) {
+      toast.error(`Maximum ${MAX_GUESTS} guests allowed per booking`);
+      return;
+    }
     setGuestCount((prv) => prv + 1);
   };
 
@@ -33,25 +42,28 @@ export default function Booking() {
 
   /*  Booking */
   const handleBooking = async () => {
-    let bookingData;
-    if (data) {
-      bookingData = {
-        tour: id,
-        guestCount: guestCount,
-      };
+    if (!id) return;
+    if (guestCount > MAX_GUESTS) {
+      toast.error(`Maximum ${MAX_GUESTS} guests allowed per booking`);
+      return;
     }
-    console.log(bookingData);
+    const bookingData = {
+      tour: id,
+      guestCount: guestCount,
+    };
     try {
       const res = await createBooking(bookingData).unwrap();
-      if (res.success) {
-        window.open(res.data.paymentUrl);
+      const paymentUrl = res?.data?.paymentUrl;
+      if (res.success && paymentUrl) {
+        window.location.href = paymentUrl;
+      } else if (!paymentUrl) {
+        toast.error("Payment gateway could not be loaded. Please try again.");
       }
     } catch (error) {
-      console.log(error);
+      toast.error(getErrorMessage(error, "Booking failed. Please try again."));
     }
   };
 
-  /* Error handling */
   if (isLoading) {
     return (
       <div className="flex justify-center items-center min-h-[60vh]">
@@ -59,19 +71,25 @@ export default function Booking() {
       </div>
     );
   }
-  <div className="flex flex-col md:flex-row gap-8 p-6 container mx-auto">
-    {!isLoading && isError && (
-      <div>
-        <p>Something Went Wrong!!</p>
-      </div>
-    )}
 
-    {!isLoading && data?.length === 0 && (
-      <div>
-        <p>No Data Found</p>
+  if (isError || !tourData) {
+    return (
+      <div className="min-h-[60vh] flex flex-col items-center justify-center gap-4 px-4">
+        <AlertCircle className="h-12 w-12 text-destructive" />
+        <h2 className="text-xl font-semibold text-foreground">
+          {isError ? "Failed to load tour" : "Tour not found"}
+        </h2>
+        <p className="text-muted-foreground text-center">
+          {isError
+            ? "Something went wrong while loading the tour. Please try again later."
+            : "The tour you are looking for does not exist or has been removed."}
+        </p>
+        <Button asChild>
+          <Link to="/tour">Browse Tours</Link>
+        </Button>
       </div>
-    )}
-  </div>;
+    );
+  }
 
   return (
     <div className="min-h-screen bg-gray-50 py-8">
@@ -91,17 +109,19 @@ export default function Booking() {
                 </div>
                 <div className="flex items-center text-gray-600">
                   <FaUsers className="mr-2 text-emerald-500" />
-                  <span>Max {tourData?.maxGuest} guests</span>
+                  <span>Max {MAX_GUESTS} guests per booking</span>
                 </div>
               </div>
 
-              <div className="mb-6">
-                <img
-                  src={tourData?.images[0]}
-                  alt={tourData?.title}
-                  className="w-full h-auto max-h-96 object-cover rounded-lg shadow-md"
-                />
-              </div>
+              {tourData?.images?.[0] && (
+                <div className="mb-6">
+                  <img
+                    src={tourData.images[0]}
+                    alt={tourData.title}
+                    className="w-full h-auto max-h-96 object-cover rounded-lg shadow-md"
+                  />
+                </div>
+              )}
 
               <p className="text-gray-600 mb-6 leading-relaxed">
                 {tourData?.description}
@@ -134,7 +154,7 @@ export default function Booking() {
                     </span>
                     <button
                       onClick={incrementGuest}
-                      disabled={guestCount >= tourData.maxGuest}
+                      disabled={hasReachedGuestLimit}
                       className="w-10 h-10 rounded-full border border-gray-300 flex items-center justify-center hover:bg-gray-50 transition-colors disabled:opacity-50"
                     >
                       +
@@ -159,11 +179,24 @@ export default function Booking() {
                   </div>
                 </div>
 
+                {hasReachedGuestLimit && (
+                  <p className="text-sm text-muted-foreground">
+                    Maximum {MAX_GUESTS} guests allowed per booking
+                  </p>
+                )}
                 <Button
                   onClick={() => handleBooking()}
                   className="w-full h-12 text-base font-semibold"
+                  disabled={isBooking}
                 >
-                  Book Now
+                  {isBooking ? (
+                    <>
+                      <Loader2 className="mr-2 h-4 w-4 animate-spin" />
+                      Processing...
+                    </>
+                  ) : (
+                    "Book Now"
+                  )}
                 </Button>
               </div>
             </div>

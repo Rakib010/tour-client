@@ -15,8 +15,12 @@ import { useGetDivisionsQuery } from "@/redux/features/division/division.api";
 import { useGetTourTypesQuery } from "@/redux/features/tourType/tourType.api";
 import { useSearchParams } from "react-router";
 
-export default function TourFilters() {
-  const form = useForm();
+type SearchForm = { tourSearch: string };
+
+type TourFiltersProps = { variant?: "sidebar" | "compact" };
+
+export default function TourFilters({ variant = "sidebar" }: TourFiltersProps) {
+  const form = useForm<SearchForm>();
   const [searchParams, setSearchParams] = useSearchParams();
 
   const selectedDivision = searchParams.get("division") || undefined;
@@ -73,90 +77,105 @@ export default function TourFilters() {
     setSearchParams(params);
   };
 
+  const searchInput = (
+    <form
+      onSubmit={form.handleSubmit(handleSearch)}
+      className={variant === "compact" ? "flex-1 min-w-0" : "w-full"}
+    >
+      <Controller
+        name="tourSearch"
+        control={form.control}
+        defaultValue={searchTerm}
+        render={({ field }) => (
+          <div className="relative">
+            <Input
+              placeholder="Search destination..."
+              className="w-full pl-10 pr-4 py-3 border-gray-300 dark:border-gray-600 rounded-lg focus-visible:ring-emerald-500"
+              {...field}
+            />
+            <Search
+              className="absolute left-3 top-1/2 -translate-y-1/2 text-gray-400"
+              size={18}
+            />
+          </div>
+        )}
+      />
+    </form>
+  );
+
+  const divisionSelect = (
+    <div className={variant === "compact" ? "flex-shrink-0" : ""}>
+      <Label className={variant === "compact" ? "sr-only" : "mb-2 block text-gray-700 dark:text-gray-300 font-medium"}>Division</Label>
+      <Select
+        onValueChange={handleDivisionChange}
+        value={selectedDivision ? selectedDivision : ""}
+        disabled={divisionIsLoading}
+      >
+        <SelectTrigger className={variant === "compact" ? "w-full sm:w-[160px]" : "w-full"}>
+          <SelectValue placeholder="Division" />
+        </SelectTrigger>
+        <SelectContent>
+          <SelectGroup>
+            {divisionOption?.map((item: { label: string; value: string }) => (
+              <SelectItem key={item.value} value={item.value}>
+                {item.label}
+              </SelectItem>
+            ))}
+          </SelectGroup>
+        </SelectContent>
+      </Select>
+    </div>
+  );
+
+  const tourTypeSelect = (
+    <div className={variant === "compact" ? "flex-shrink-0" : ""}>
+      <Label className={variant === "compact" ? "sr-only" : "mb-2 block text-gray-700 dark:text-gray-300 font-medium"}>Tour Type</Label>
+      <Select
+        onValueChange={handleTourTypeChange}
+        value={selectedTourType ? selectedTourType : ""}
+        disabled={tourTypeIsLoading}
+      >
+        <SelectTrigger className={variant === "compact" ? "w-full sm:w-[160px]" : "w-full"}>
+          <SelectValue placeholder="Tour type" />
+        </SelectTrigger>
+        <SelectContent>
+          <SelectGroup>
+            {tourTypeOptions?.map((item: { label: string; value: string }) => (
+              <SelectItem key={item.value} value={item.value}>
+                {item.label}
+              </SelectItem>
+            ))}
+          </SelectGroup>
+        </SelectContent>
+      </Select>
+    </div>
+  );
+
+  if (variant === "compact") {
+    return (
+      <div className="flex flex-col sm:flex-row gap-3 items-stretch sm:items-center">
+        {searchInput}
+        {divisionSelect}
+        {tourTypeSelect}
+        <Button size="sm" variant="outline" onClick={handleClearFilter} className="flex-shrink-0">
+          Clear
+        </Button>
+      </div>
+    );
+  }
+
   return (
-    <div className="w-full border border-gray-200 rounded-2xl p-6 space-y-6 bg-white shadow-md sticky top-24">
-      {/* Filters header */}
+    <div className="w-full border border-gray-200 dark:border-gray-700 rounded-2xl p-6 space-y-6 bg-white dark:bg-gray-900 shadow-md">
       <div className="flex justify-between items-center border-b pb-2">
-        <h2 className="font-semibold text-gray-800 text-lg">Filters</h2>
+        <h2 className="font-semibold text-gray-800 dark:text-gray-200 text-lg">Filters</h2>
         <Button size="sm" variant="outline" onClick={handleClearFilter}>
           Clear
         </Button>
       </div>
 
-      {/* 🔍 Search Box */}
-      <div className="max-w-full">
-        <form
-          onSubmit={form.handleSubmit(handleSearch)}
-          className="flex flex-col gap-4"
-        >
-          <Controller
-            name="tourSearch"
-            control={form.control}
-            defaultValue={searchTerm}
-            render={({ field }) => (
-              <div className="relative">
-                <Input
-                  placeholder="Search destination..."
-                  className="w-full pl-10 pr-4 py-3 border-gray-300 rounded-lg focus-visible:ring-emerald-500"
-                  {...field}
-                />
-                <Search
-                  className="absolute left-3 top-1/2 -translate-y-1/2 text-gray-400"
-                  size={18}
-                />
-              </div>
-            )}
-          />
-        </form>
-      </div>
-
-      {/* Division Filter */}
-      <div>
-        <Label className="mb-2 block text-gray-700 font-medium">Division</Label>
-        <Select
-          onValueChange={handleDivisionChange}
-          value={selectedDivision ? selectedDivision : ""}
-          disabled={divisionIsLoading}
-        >
-          <SelectTrigger className="w-full">
-            <SelectValue placeholder="Select division" />
-          </SelectTrigger>
-          <SelectContent>
-            <SelectGroup>
-              {divisionOption?.map((item) => (
-                <SelectItem key={item.value} value={item.value}>
-                  {item.label}
-                </SelectItem>
-              ))}
-            </SelectGroup>
-          </SelectContent>
-        </Select>
-      </div>
-
-      {/* Tour Type Filter */}
-      <div>
-        <Label className="mb-2 block text-gray-700 font-medium">
-          Tour Type
-        </Label>
-        <Select
-          onValueChange={handleTourTypeChange}
-          value={selectedTourType ? selectedTourType : ""}
-          disabled={tourTypeIsLoading}
-        >
-          <SelectTrigger className="w-full">
-            <SelectValue placeholder="Select tour type" />
-          </SelectTrigger>
-          <SelectContent>
-            <SelectGroup>
-              {tourTypeOptions?.map((item) => (
-                <SelectItem key={item.value} value={item.value}>
-                  {item.label}
-                </SelectItem>
-              ))}
-            </SelectGroup>
-          </SelectContent>
-        </Select>
-      </div>
+      <div>{searchInput}</div>
+      <div>{divisionSelect}</div>
+      <div>{tourTypeSelect}</div>
     </div>
   );
 }

@@ -8,7 +8,7 @@
 }
 
 .swiper-pagination-bullet-active {
-  background: #ff7b54; /* your brand color */
+  background: oklch(0.723 0.219 149.579); /* primary / emerald */
   transform: scale(1.3);
   opacity: 1;
 }

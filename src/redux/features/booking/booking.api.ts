@@ -12,15 +12,17 @@ export const BookingApi = baseApi.injectEndpoints({
         }),
         getUserBooking: builder.query({
             query: () => ({
-                url: "/booking/my-booking",
+                url: "/booking/my-bookings",
                 method: "GET",
             }),
+            providesTags: ["BOOKING"],
         }),
         getAllBooking: builder.query({
             query: () => ({
                 url: "/booking",
                 method: "GET",
             }),
+            providesTags: ["BOOKING"],
         }),
 
         /* payment */
@@ -29,6 +31,10 @@ export const BookingApi = baseApi.injectEndpoints({
                 url: `/payment/init-payment/${id}`,
                 method: "POST",
             }),
+            // After a successful payment the backend typically updates the booking/payment
+            // (e.g. sets `payment.status=PAID` and attaches `payment.invoiceUrl`).
+            // Invalidate booking queries so dashboards refetch and show the invoice.
+            invalidatesTags: ["BOOKING"],
         }),
     }),
 });

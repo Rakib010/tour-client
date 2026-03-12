@@ -36,14 +36,14 @@ export default function UpdateDivision({
   open,
   onOpenChange,
 }: UpdateDivisionProps) {
-  const form = useForm({
+  const form = useForm<{ name: string; description: string }>({
     defaultValues: {
       name: division.name,
       description: division.description,
     },
   });
 
-  const onSubmit = (data: any) => {
+  const onSubmit = (data: { name: string; description: string }) => {
     onUpdate(data);
   };
 
@@ -69,26 +69,6 @@ export default function UpdateDivision({
                   <FormLabel>Division Name</FormLabel>
                   <FormControl>
                     <Input {...field} />
-                  </FormControl>
-                  <FormMessage />
-                </FormItem>
-              )}
-            />
-
-            {/* Thumbnail File */}
-            <FormField
-              control={form.control}
-              name="thumbnail"
-              rules={{ required: "Thumbnail is required" }}
-              render={({ field }) => (
-                <FormItem>
-                  <FormLabel>Thumbnail Image</FormLabel>
-                  <FormControl>
-                    <Input
-                      type="file"
-                      accept="image/*"
-                      onChange={(e) => field.onChange(e.target.files)}
-                    />
                   </FormControl>
                   <FormMessage />
                 </FormItem>

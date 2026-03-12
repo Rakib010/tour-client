@@ -25,11 +25,11 @@ import {
 import { useForm } from "react-hook-form";
 import { toast } from "sonner";
 export default function AddTourTypeModal() {
-  const form = useForm();
+  const form = useForm<{ name: string }>();
   const [addTourType] = useAddTourTypeMutation();
   const { refetch } = useGetTourTypesQuery(undefined);
 
-  const onSubmit = async (data) => {
+  const onSubmit = async (data: { name: string }) => {
     const res = await addTourType({ name: data.name }).unwrap();
     if (res.success) {
       toast.success("Tour Type Added");

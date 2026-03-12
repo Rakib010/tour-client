@@ -31,6 +31,7 @@ export const tourApi = baseApi.injectEndpoints({
                 method: "PATCH",
                 data,
             }),
+            invalidatesTags: ["TOUR"],
         }),
     }),
 });

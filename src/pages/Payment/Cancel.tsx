@@ -20,10 +20,10 @@ export default function Cancel() {
             <Link to="/">Go Back Home</Link>
           </Button>
           <Link
-            to="/checkout"
+            to="/tour"
             className="w-full border border-gray-300 py-2 rounded-lg font-medium hover:bg-gray-100 transition"
           >
-            Retry Payment
+            Browse Tours
           </Link>
         </div>
       </div>

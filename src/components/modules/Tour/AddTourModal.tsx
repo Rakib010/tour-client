@@ -40,7 +40,7 @@ import {
   SelectValue,
 } from "@/components/ui/select";
 import { Textarea } from "@/components/ui/textarea";
-import { cn } from "@/lib/utils";
+import { cn, getErrorMessage } from "@/lib/utils";
 import { useGetDivisionsQuery } from "@/redux/features/division/division.api";
 import { useAddTourMutation } from "@/redux/features/tour/tour.api";
 import { useGetTourTypesQuery } from "@/redux/features/tourType/tourType.api";
@@ -185,7 +185,7 @@ export default function AddTourModal() {
         form.reset();
       }
     } catch (error) {
-      toast.error("Something went wrong");
+      toast.error(getErrorMessage(error, "Failed to create tour. Please try again."));
     }
   };
 
@@ -228,7 +228,11 @@ export default function AddTourModal() {
                 <FormItem>
                   <FormLabel>Description</FormLabel>
                   <FormControl>
-                    <Textarea {...field} className="min-h-[100px]" />
+                    <Textarea
+                      {...field}
+                      className="min-h-[200px] resize-y"
+                      placeholder="Write description... Press Enter for new line. Use double Enter for new paragraph."
+                    />
                   </FormControl>
                 </FormItem>
               )}

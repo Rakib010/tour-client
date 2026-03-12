@@ -1,8 +1,8 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { useForm, useFieldArray } from "react-hook-form";
 import { format, formatISO } from "date-fns";
-import { CalendarIcon, Pencil, Plus, Trash2 } from "lucide-react";
+import { CalendarIcon, Pencil, Plus, Trash2, Loader2 } from "lucide-react";
 
 import MultipleImageUploads from "@/components/MultipleImageUploads";
 import { Button } from "@/components/ui/button";
@@ -38,10 +38,10 @@ import {
   SelectValue,
 } from "@/components/ui/select";
 import { Textarea } from "@/components/ui/textarea";
-import { cn } from "@/lib/utils";
+import { cn, getErrorMessage } from "@/lib/utils";
 import { useGetDivisionsQuery } from "@/redux/features/division/division.api";
 import { useGetTourTypesQuery } from "@/redux/features/tourType/tourType.api";
-import { useUpdateTourMutation } from "@/redux/features/tour/tour.api";
+import { useGetTourQuery, useUpdateTourMutation } from "@/redux/features/tour/tour.api";
 import { toast } from "sonner";
 
 interface UpdateTourProps {
@@ -49,12 +49,19 @@ interface UpdateTourProps {
 }
 
 export default function UpdateTour({ tourId }: UpdateTourProps) {
+  const [open, setOpen] = useState(false);
   const { data: tourTypeData, isLoading: tourTypeLoading } =
     useGetTourTypesQuery(undefined);
   const { data: divisionData, isLoading: divisionLoading } =
     useGetDivisionsQuery(undefined);
+  const { data: tourResponse, isLoading: tourLoading } = useGetTourQuery(
+    { _id: tourId, limit: "1" },
+    { skip: !open }
+  );
   const [updateTour] = useUpdateTourMutation();
   const [images, setImages] = useState<File[]>([]);
+
+  const tour = tourResponse?.data?.data?.[0];
 
   const form = useForm({
     defaultValues: {
@@ -109,6 +116,31 @@ export default function UpdateTour({ tourId }: UpdateTourProps) {
     value: d._id,
   }));
 
+  // Populate form when tour data loads (dialog opened)
+  useEffect(() => {
+    if (!tour) return;
+    const startDate = tour.starDate ? new Date(tour.starDate) : new Date();
+    const endDate = tour.endDate ? new Date(tour.endDate) : new Date();
+    form.reset({
+      title: tour.title || "",
+      description: tour.description || "",
+      location: tour.location || "",
+      costFrom: tour.costFrom?.toString() || "",
+      startDate,
+      endDate,
+      departureLocation: tour.departureLocation || "",
+      arrivalLocation: tour.arrivalLocation || "",
+      included: (tour.included?.length ? tour.included : [""]).map((v: string) => ({ value: v })),
+      exclude: (tour.exclude?.length ? tour.exclude : [""]).map((v: string) => ({ value: v })),
+      amenities: (tour.amenities?.length ? tour.amenities : [""]).map((v: string) => ({ value: v })),
+      tourPlan: (tour.tourPlan?.length ? tour.tourPlan : [""]).map((v: string) => ({ value: v })),
+      maxGuest: tour.maxGuest?.toString() || "",
+      minAge: tour.minAge?.toString() || "",
+      division: tour.division?._id || tour.division || "",
+      tourType: tour.tourType?._id || tour.tourType || "",
+    });
+  }, [tour, form]);
+
   // submit
   const onSubmit = async (data: any) => {
     const payload: any = {
@@ -154,17 +186,18 @@ export default function UpdateTour({ tourId }: UpdateTourProps) {
 
       if (res.success) {
         toast.success("Tour updated successfully");
-        form.reset();
+        setOpen(false);
+        setImages([]);
       }
       console.log("Response:", res);
     } catch (error) {
       console.error(error);
-      toast.error("Something went wrong");
+      toast.error(getErrorMessage(error, "Failed to update tour. Please try again."));
     }
   };
 
   return (
-    <Dialog>
+    <Dialog open={open} onOpenChange={setOpen}>
       <DialogTrigger asChild>
         <Button size="sm" variant="outline">
           <Pencil size={16} />
@@ -176,6 +209,11 @@ export default function UpdateTour({ tourId }: UpdateTourProps) {
           <DialogTitle>Update Tour</DialogTitle>
         </DialogHeader>
 
+        {tourLoading ? (
+          <div className="flex items-center justify-center py-16">
+            <Loader2 className="h-10 w-10 animate-spin text-primary" />
+          </div>
+        ) : (
         <Form {...form}>
           <form
             id="update-tour-form"
@@ -205,7 +243,11 @@ export default function UpdateTour({ tourId }: UpdateTourProps) {
                 <FormItem>
                   <FormLabel>Description</FormLabel>
                   <FormControl>
-                    <Textarea {...field} className="min-h-[100px]" />
+                    <Textarea
+                    {...field}
+                    className="min-h-[200px] resize-y"
+                    placeholder="Write description... Press Enter for new line. Use double Enter for new paragraph."
+                  />
                   </FormControl>
                   <FormMessage />
                 </FormItem>
@@ -609,15 +651,28 @@ export default function UpdateTour({ tourId }: UpdateTourProps) {
             </div>
 
             {/* Images */}
-            <MultipleImageUploads onChange={setImages} />
+            <div>
+              {tour?.images?.length ? (
+                <div className="mb-3">
+                  <p className="text-sm font-medium mb-2">Current images</p>
+                  <div className="flex flex-wrap gap-2">
+                    {tour.images.map((url: string, i: number) => (
+                      <img key={i} src={url} alt="" className="h-16 w-16 object-cover rounded-md border" />
+                    ))}
+                  </div>
+                </div>
+              ) : null}
+              <MultipleImageUploads onChange={setImages} />
+            </div>
           </form>
         </Form>
+        )}
 
         <DialogFooter className="flex justify-end gap-2">
           <DialogClose asChild>
             <Button variant="outline">Cancel</Button>
           </DialogClose>
-          <Button type="submit" form="update-tour-form">
+          <Button type="submit" form="update-tour-form" disabled={tourLoading}>
             Save
           </Button>
         </DialogFooter>

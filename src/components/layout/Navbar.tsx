@@ -13,81 +13,62 @@ import {
 } from "@/components/ui/popover";
 import { ModeToggle } from "./ModeToggler";
 import { Link } from "react-router";
-import {
-  authApi,
-  useLogoutMutation,
-  useUserInfoQuery,
-} from "@/redux/features/auth/auth.api";
-import { useAppDispatch } from "@/redux/hook";
-import { role } from "@/constants/role";
+import { useAuth } from "@/hooks/useAuth";
+import { navbarLinks } from "@/constants/navigation/navbarLinks";
 import logo from "../../assets/images/logo.png";
 import UpdateUser from "../modules/Authentication/UpdateUser";
 
-
-
-// Navigation links array
-const navigationLinks = [
-  { href: "/", label: "Home", role: "PUBLIC" },
-  { href: "/division", label: "Division", role: "PUBLIC" },
-  { href: "/tour", label: "Tours", role: "PUBLIC" },
-  { href: "/about", label: "About", role: "PUBLIC" },
-  { href: "/admin", label: "Dashboard", role: role.admin },
-  { href: "/admin", label: "Dashboard", role: role.superAdmin },
-  { href: "/user", label: "Dashboard", role: role.user },
-];
-
 export default function Navbar() {
-  const { data } = useUserInfoQuery(undefined);
-  const [logout] = useLogoutMutation();
-  const dispatch = useAppDispatch();
+  // Consume authenticated user state from the global AuthContext.
+  // This will update automatically when:
+  // - login succeeds (AuthProvider updates user state), or
+  // - `/user/me` refetches based on auth cookies.
+  const { user, role: userRole, isAuthenticated, logout } = useAuth();
   const [dropdownOpen, setDropdownOpen] = useState(false);
 
-  const handleLogout = () => {
-    logout(undefined);
-    dispatch(authApi.util.resetApiState());
+  const handleLogout = async () => {
+    setDropdownOpen(false);
+    await logout();
   };
 
   return (
-    <div className="container mx-auto px-4 flex h-16 items-center justify-between">
-      {/* Left: Logo */}
-      <div className="flex items-center gap-2">
-        <Link to="/">
-          <img
-            className="w-20 h-20 md:w-36 md:h-36 object-contain"
-            src={logo}
-            alt="Wanderlust Tours Logo"
-          />
-        </Link>
-      </div>
+    <header className="sticky top-0 z-50 w-full border-b bg-background/95 backdrop-blur supports-[backdrop-filter]:bg-background/60">
+      <div className="px-4 sm:px-20 flex h-20 items-center justify-between">
+        {/* Left: Logo + Navigation Links */}
+        <div className="flex items-center gap-6 lg:gap-10">
+          <Link to="/">
+            <img
+              className="h-16 w-auto md:h-20 object-contain"
+              src={logo}
+              alt="Wanderlust Tours Logo"
+            />
+          </Link>
+          <nav className="hidden md:flex items-center ml-20">
+            <NavigationMenu>
+              <NavigationMenuList className="flex gap-8">
+                {navbarLinks.map((link, index) => {
+                  if (link.role === "PUBLIC" || link.role === userRole) {
+                    return (
+                      <NavigationMenuItem key={index}>
+                        <NavigationMenuLink
+                          asChild
+                          className="text-base text-muted-foreground hover:text-primary font-medium transition-colors"
+                        >
+                          <Link to={link.href}>{link.label}</Link>
+                        </NavigationMenuLink>
+                      </NavigationMenuItem>
+                    );
+                  }
+                })}
+              </NavigationMenuList>
+            </NavigationMenu>
+          </nav>
+        </div>
 
-      {/* Center: Navigation Links */}
-      <div className="hidden md:flex flex-1 justify-center">
-        <NavigationMenu>
-          <NavigationMenuList className="flex gap-6">
-            {navigationLinks.map((link, index) => {
-              if (link.role === "PUBLIC" || link.role === data?.data?.role) {
-                return (
-                  <NavigationMenuItem key={index}>
-                    <NavigationMenuLink
-                      asChild
-                      className="text-gray-700 hover:text-blue-600 font-medium"
-                    >
-                      <Link to={link.href}>{link.label}</Link>
-                    </NavigationMenuLink>
-                  </NavigationMenuItem>
-                );
-              }
-            })}
-          </NavigationMenuList>
-        </NavigationMenu>
-      </div>
-
-      {/* Right: Mode Toggle + Login/Logout */}
-      <div className="flex items-center gap-4">
-        {/* Theme Toggle */}
+        {/* Right: ModeToggle + Login */}
+        <div className="flex items-center gap-3">
         <ModeToggle />
-
-        {data?.data?.email ? (
+        {isAuthenticated ? (
           <div className="relative">
             {/* Profile Button */}
             <Button
@@ -95,42 +76,44 @@ export default function Navbar() {
               className="flex items-center gap-2 rounded-full px-4 py-2"
               onClick={() => setDropdownOpen(!dropdownOpen)}
             >
-              <div className="h-8 w-8 rounded-full bg-purple-500 text-white flex items-center justify-center font-semibold">
-                {data.data.name?.charAt(0).toUpperCase()}
+              <div className="h-8 w-8 rounded-full bg-primary text-primary-foreground flex items-center justify-center font-semibold">
+                {user?.name?.charAt(0).toUpperCase()}
               </div>
-              <span>{data.data.name}</span>
+              <span>{user?.name}</span>
               <span className="text-xs">▾</span>
             </Button>
 
             {/* Dropdown Menu */}
             {dropdownOpen && (
-              <div className="absolute right-0 mt-2 w-72 bg-white border rounded-xl shadow-lg overflow-hidden z-50">
+              <div className="absolute right-0 mt-2 w-72 bg-card border border-border rounded-xl shadow-lg overflow-hidden z-50">
                 {/* User Info Section */}
-                <div className="px-4 py-3 border-b bg-gray-50">
-                  <p className="text-sm font-semibold text-gray-900">
-                    {data.data.name}
+                <div className="px-4 py-3 border-b bg-muted/50">
+                  <p className="text-sm font-semibold text-foreground">
+                    {user?.name}
                   </p>
-                  <p className="text-sm text-gray-600">{data.data.email}</p>
-                  <p className="text-sm text-gray-600">{data.data.phone}</p>
-                  <p className="text-sm text-gray-600">{data.data.address}</p>
+                  <p className="text-sm text-muted-foreground">{user?.email}</p>
+                  <p className="text-sm text-muted-foreground">{user?.phone}</p>
+                  <p className="text-sm text-muted-foreground">{user?.address}</p>
 
                   {/* Update User Button */}
                   <div className="mt-3">
-                    <UpdateUser userId={data.data._id} />
+                    <UpdateUser userId={user?._id as string} />
                   </div>
                 </div>
 
                 {/* Links */}
                 <div className="flex flex-col">
-                  <Link
-                    to={`/${data.data.role.toLowerCase()}`}
-                    className="px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 transition"
-                  >
-                    Dashboard
-                  </Link>
+                  {user?.role && (
+                    <Link
+                      to={`/${String(user.role).toLowerCase()}`}
+                      className="px-4 py-2 text-sm text-foreground hover:bg-muted transition"
+                    >
+                      Dashboard
+                    </Link>
+                  )}
                   <button
                     onClick={handleLogout}
-                    className="w-full text-left px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 transition"
+                    className="w-full text-left px-4 py-2 text-sm text-foreground hover:bg-muted transition"
                   >
                     Logout
                   </button>
@@ -143,6 +126,8 @@ export default function Navbar() {
             <Link to="/login">Login</Link>
           </Button>
         )}
+
+     
 
         {/* Mobile Hamburger */}
         <Popover>
@@ -167,10 +152,10 @@ export default function Navbar() {
           <PopoverContent align="start" className="w-48 p-2 md:hidden">
             <NavigationMenu>
               <NavigationMenuList className="flex flex-col gap-1">
-                {navigationLinks.map((link, index) => {
+                {navbarLinks.map((link, index) => {
                   if (
                     link.role === "PUBLIC" ||
-                    link.role === data?.data?.role
+                    link.role === userRole
                   ) {
                     return (
                       <NavigationMenuItem key={index}>
@@ -181,11 +166,11 @@ export default function Navbar() {
                     );
                   }
                 })}
-                {data?.data?.email && (
+                {isAuthenticated && (
                   <NavigationMenuItem>
                     <button
                       onClick={handleLogout}
-                      className="w-full text-left py-1 text-gray-700 hover:bg-gray-100"
+                      className="w-full text-left py-1 text-foreground hover:bg-muted"
                     >
                       Logout
                     </button>
@@ -196,6 +181,7 @@ export default function Navbar() {
           </PopoverContent>
         </Popover>
       </div>
-    </div>
+      </div>
+    </header>
   );
 }

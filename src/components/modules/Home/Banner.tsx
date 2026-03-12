@@ -1,5 +1,7 @@
 import { Swiper, SwiperSlide } from "swiper/react";
+// @ts-expect-error - CSS modules from swiper
 import "swiper/css";
+// @ts-expect-error - CSS modules from swiper
 import "swiper/css/pagination";
 
 import "../../../style.css";
@@ -10,6 +12,7 @@ import b4 from "../../../assets/images/Tours.jpg";
 
 import { Pagination, Autoplay } from "swiper/modules";
 import { Button } from "@/components/ui/button";
+import { Link } from "react-router-dom";
 
 export default function Banner() {
   return (
@@ -28,7 +31,7 @@ export default function Banner() {
       >
         {[b2, b3, b4].map((img, i) => (
           <SwiperSlide key={i}>
-            <div className="relative w-full h-[550px] lg:h-[600px] rounded-2xl overflow-hidden shadow-lg">
+            <div className="relative w-full h-[550px] lg:h-[600px] overflow-hidden">
               {/* Background Image */}
               <img
                 src={img}
@@ -54,10 +57,12 @@ export default function Banner() {
                   packages.
                 </p>
                 <div className="flex gap-4 mt-4">
-                  <Button>Book Now</Button>
-                  <button className="px-2  border border-white rounded-md font-semibold hover:bg-white hover:text-black transition">
-                    Learn More
-                  </button>
+                  <Button asChild>
+                    <Link to="/tour">Book Now</Link>
+                  </Button>
+                  <Button  className="border-white text-white hover:bg-white hover:text-black" asChild>
+                    <Link to="/about">Learn More</Link>
+                  </Button>
                 </div>
               </div>
             </div>

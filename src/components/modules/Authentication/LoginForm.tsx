@@ -10,7 +10,7 @@ import {
 } from "@/components/ui/form";
 import { Input } from "@/components/ui/input";
 import { cn } from "@/lib/utils";
-import { useLoginMutation } from "@/redux/features/auth/auth.api";
+import { useAuth } from "@/hooks/useAuth";
 import { useForm } from "react-hook-form";
 import { Link, useNavigate } from "react-router";
 import { toast } from "sonner";
@@ -21,35 +21,29 @@ export function LoginForm({
   ...props
 }: React.HTMLAttributes<HTMLDivElement>) {
   const navigate = useNavigate();
+  const { login } = useAuth();
   const form = useForm();
-
-  const [login] = useLoginMutation();
 
   const onSubmit = async (data: any) => {
     try {
-      const res = await login(data).unwrap();
+      const res = await login(data);
       console.log(res);
       if (res.success) {
         toast.success("Logged in successfully");
         navigate("/");
       }
-    } catch (err) {
+    } catch (err: unknown) {
       console.error(err);
+      const e = err as { data?: { message?: string; err?: string } };
 
-      // this is not recommended
-      if (err.data.message === "password does not match") {
+      if (e?.data?.message === "password does not match") {
         toast.error("Invalid credentials");
       }
-      /*  if (err.status === 500) {
-        toast.error("Your account is not verified");
-        navigate("/verify", { state: data.email });
-      } */
-
-      // If account is not verified
-      if (err.data.err === "user is  not verified") {
-        toast.error("Your account is not verified");
-        navigate("/verify", { state: data.email });
-      }
+      // Verification off in organizer; keeping behavior consistent:
+      // if (e?.data?.err === "user is  not verified") {
+      //   toast.error("Your account is not verified");
+      //   navigate("/verify", { state: data.email });
+      // }
     }
   };
 

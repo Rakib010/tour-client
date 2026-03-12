@@ -4,7 +4,10 @@ import axios, { type AxiosRequestConfig } from 'axios';
 
 export const axiosInstance = axios.create({
     baseURL: config.baseUrl,
-    withCredentials: true
+    // `withCredentials: true` ensures that the browser automatically
+    // sends httpOnly cookies (accessToken, refreshToken) with every request.
+    // We do NOT manually attach tokens from JS in a cookie-only setup.
+    withCredentials: true,
 });
 
 
@@ -12,13 +15,17 @@ export const axiosInstance = axios.create({
 Before leaving (request) → Attach token, add headers, etc.
 Before entering (response) → Handle errors, transform data, log out if needed. */
 
-// Add a request interceptor
-axiosInstance.interceptors.request.use(function (config) {
-    //console.log("config", config)
-    return config;
-}, function (error) {
-    return Promise.reject(error);
-},
+// Request interceptor
+// ------------------------------------------------------------
+// In a cookie-only JWT flow:
+// - We rely on `withCredentials: true` so the browser sends cookies automatically.
+// - We DO NOT read tokens from localStorage nor set Authorization headers from JS.
+//   This keeps tokens out of JavaScript space and reduces XSS impact.
+axiosInstance.interceptors.request.use(
+    (config) => {
+        return config;
+    },
+    (error) => Promise.reject(error),
 );
 
 
@@ -73,8 +80,9 @@ axiosInstance.interceptors.response.use(
 
             isRefreshing = true;
             try {
-                const res = await axiosInstance.post("/auth/refresh-token");
-                console.log("New Token arrived", res);
+                await axiosInstance.post("/auth/refresh-token");
+                //const res = 
+               // console.log("New Token arrived", res);
 
                 processQueue(null);
 
