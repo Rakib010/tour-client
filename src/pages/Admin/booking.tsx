@@ -1,5 +1,6 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
 import { useGetAllBookingQuery } from "@/redux/features/booking/booking.api";
+import type { ElementType } from "react";
 import {
   Table,
   TableHeader,
@@ -9,6 +10,7 @@ import {
   TableCell,
 } from "@/components/ui/table";
 import { Loader2, CheckCircle, Clock } from "lucide-react";
+import { normalizeToArray } from "@/utils/normalizeList";
 
 const statusBadge = (text: string, isSuccess: boolean) => (
   <span
@@ -29,7 +31,7 @@ const BookingTable = ({
   bookings: any[];
   title: string;
   emptyMsg: string;
-  icon: React.ElementType;
+  icon: ElementType;
 }) => (
   <div className="space-y-4">
     <h2 className="text-lg font-semibold text-foreground flex items-center gap-2">
@@ -102,7 +104,7 @@ export default function Booking() {
       </div>
     );
 
-  const allBookings = bookingAllData?.data || [];
+  const allBookings = normalizeToArray<any>((bookingAllData as any)?.data);
   const paidBookings = allBookings.filter(
     (b: any) => b?.payment?.status === "PAID"
   );

@@ -11,10 +11,12 @@ import {
 import { Input } from "@/components/ui/input";
 import { cn } from "@/lib/utils";
 import { useAuth } from "@/hooks/useAuth";
+// import { useState } from "react";
 import { useForm } from "react-hook-form";
 import { Link, useNavigate } from "react-router";
 import { toast } from "sonner";
 import config from "@/config";
+import { getErrorMessage } from "@/utils/getErrorMessage";
 
 export function LoginForm({
   className,
@@ -23,26 +25,31 @@ export function LoginForm({
   const navigate = useNavigate();
   const { login } = useAuth();
   const form = useForm();
+  // const [verifyEmail, setVerifyEmail] = useState<string | null>(null);
 
   const onSubmit = async (data: any) => {
     try {
       const res = await login(data);
       console.log(res);
       if (res.success) {
+        // setVerifyEmail(null);
         toast.success("Logged in successfully");
         navigate("/");
       }
     } catch (err: unknown) {
       console.error(err);
-      const e = err as { data?: { message?: string; err?: string } };
+      const msg = getErrorMessage(err);
+      toast.error(msg);
 
-      if (e?.data?.message === "password does not match") {
-        toast.error("Invalid credentials");
-      }
-      // Verification off in organizer; keeping behavior consistent:
-      // if (e?.data?.err === "user is  not verified") {
-      //   toast.error("Your account is not verified");
+      // If the user is not verified, send them to the verify screen
+      // (disabled for now)
+      // if (msg.toLowerCase().includes("not verified")) {
       //   navigate("/verify", { state: data.email });
+      // }
+      // if (msg.toLowerCase().includes("not verified")) {
+      //   setVerifyEmail(data?.email || null);
+      // } else {
+      //   setVerifyEmail(null);
       // }
     }
   };
@@ -63,6 +70,21 @@ export function LoginForm({
       <div className="grid gap-6">
         <Form {...form}>
           <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-6">
+            {/* {verifyEmail ? (
+              <div className="rounded-lg border border-amber-200 bg-amber-50 px-4 py-3 text-sm text-amber-900">
+                <div className="flex items-center justify-between gap-3">
+                  <span>Your account is not verified. Please verify your email.</span>
+                  <Button
+                    type="button"
+                    variant="outline"
+                    size="sm"
+                    onClick={() => navigate("/verify", { state: verifyEmail })}
+                  >
+                    Verify now
+                  </Button>
+                </div>
+              </div>
+            ) : null} */}
             {/* Email Field */}
             <FormField
               control={form.control}

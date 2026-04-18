@@ -1,5 +1,6 @@
 import { useGetUserBookingQuery } from "@/redux/features/booking/booking.api";
 import { useUserInfoQuery } from "@/redux/features/auth/auth.api";
+import { normalizeToArray } from "@/utils/normalizeList";
 import { Link } from "react-router";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
@@ -9,7 +10,7 @@ export default function UserOverview() {
   const { data: userData } = useUserInfoQuery(undefined);
   const { data: bookingData, isLoading } = useGetUserBookingQuery(undefined);
 
-  const bookings = bookingData?.data || [];
+  const bookings = normalizeToArray(bookingData?.data);
   const totalBookings = bookings.length;
   const paidWithInvoice = bookings.filter(
     (b: { payment?: { invoiceUrl?: string } }) => b.payment?.invoiceUrl

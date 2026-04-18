@@ -16,6 +16,7 @@ import { zodResolver } from "@hookform/resolvers/zod";
 import Password from "@/components/ui/Password";
 import { useRegisterMutation, useLoginMutation } from "@/redux/features/auth/auth.api";
 import { toast } from "sonner";
+import { getErrorMessage } from "@/utils/getErrorMessage";
 
 const registerSchema = z
   .object({
@@ -79,7 +80,7 @@ export function RegisterForm({
       }
     } catch (error) {
       console.error(error);
-      toast.error("Something went wrong");
+      toast.error(getErrorMessage(error));
     }
   };
 

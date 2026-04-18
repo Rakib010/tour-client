@@ -21,6 +21,7 @@ import { Input } from "@/components/ui/input";
 import { useUpdateUserMutation } from "@/redux/features/auth/auth.api";
 import { useForm } from "react-hook-form";
 import { toast } from "sonner";
+import { getErrorMessage } from "@/utils/getErrorMessage";
 
 export default function UpdateUser({ userId }: any) {
   const form = useForm({
@@ -42,7 +43,7 @@ export default function UpdateUser({ userId }: any) {
       }
     } catch (error) {
       //console.error("Update failed:", error);
-      toast.error("Something wrong went");
+      toast.error(getErrorMessage(error));
     }
   };
 

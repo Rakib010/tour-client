@@ -53,11 +53,20 @@ export default function Booking() {
     };
     try {
       const res = await createBooking(bookingData).unwrap();
-      const paymentUrl = res?.data?.paymentUrl;
+      const payload = res?.data as
+        | { paymentUrl?: string; GatewayPageURL?: string }
+        | undefined;
+      const paymentUrl =
+        payload?.paymentUrl ||
+        payload?.GatewayPageURL ||
+        (res as { paymentUrl?: string })?.paymentUrl;
       if (res.success && paymentUrl) {
         window.location.href = paymentUrl;
       } else if (!paymentUrl) {
-        toast.error("Payment gateway could not be loaded. Please try again.");
+        toast.error(
+          res?.message ||
+            "No payment URL returned. Check SSLCommerz credentials (SSL_STORE_ID / SSL_STORE_PASS) on the server."
+        );
       }
     } catch (error) {
       toast.error(getErrorMessage(error, "Booking failed. Please try again."));
@@ -109,7 +118,9 @@ export default function Booking() {
                 </div>
                 <div className="flex items-center text-gray-600">
                   <FaUsers className="mr-2 text-emerald-500" />
-                  <span>Max {MAX_GUESTS} guests per booking</span>
+                  <span className="text-red-600 font-medium">
+                    Max {MAX_GUESTS} guests per booking
+                  </span>
                 </div>
               </div>
 
@@ -180,7 +191,7 @@ export default function Booking() {
                 </div>
 
                 {hasReachedGuestLimit && (
-                  <p className="text-sm text-muted-foreground">
+                  <p className="text-sm font-medium text-red-600">
                     Maximum {MAX_GUESTS} guests allowed per booking
                   </p>
                 )}

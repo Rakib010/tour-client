@@ -10,6 +10,7 @@ import {
 } from "@/components/ui/table";
 import { Loader2, Calendar, ExternalLink } from "lucide-react";
 import { Link } from "react-router";
+import { normalizeToArray } from "@/utils/normalizeList";
 
 export default function Booking() {
   const { data: bookingData, isLoading } = useGetUserBookingQuery(undefined);
@@ -22,8 +23,8 @@ export default function Booking() {
     );
   }
 
-  const hasBookings = bookingData?.data?.length > 0;
-  const bookings = bookingData?.data || [];
+  const bookings = normalizeToArray(bookingData?.data);
+  const hasBookings = bookings.length > 0;
 
   return (
     <div className="w-full max-w-[1280px] mx-auto">

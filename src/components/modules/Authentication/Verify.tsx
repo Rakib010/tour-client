@@ -33,6 +33,7 @@ import { useForm } from "react-hook-form";
 import { useLocation, useNavigate } from "react-router";
 import { toast } from "sonner";
 import z from "zod";
+import { getErrorMessage } from "@/utils/getErrorMessage";
 
 const FormSchema = z.object({
   pin: z.string().min(6, {
@@ -70,7 +71,7 @@ export default function Verify() {
         setTimer(5);
       }
     } catch (err) {
-      console.log(err);
+      toast.error(getErrorMessage(err), { id: toastId });
     }
   };
 
@@ -91,7 +92,7 @@ export default function Verify() {
         setConfirmed(true);
       }
     } catch (err) {
-      console.log(err);
+      toast.error(getErrorMessage(err), { id: toastId });
     }
   };
 

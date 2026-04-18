@@ -21,6 +21,7 @@ import { Textarea } from "@/components/ui/textarea";
 import { useAddDivisionMutation } from "@/redux/features/division/division.api";
 import { useForm } from "react-hook-form";
 import { toast } from "sonner";
+import { getErrorMessage } from "@/utils/getErrorMessage";
 
 type TDivisionFormData = {
   name: string;
@@ -59,7 +60,7 @@ export default function AddDivisionModal() {
         form.reset();
       }
     } catch (error) {
-      toast.error("Error creating division");
+      toast.error(getErrorMessage(error));
       console.error(error);
     }
   };
