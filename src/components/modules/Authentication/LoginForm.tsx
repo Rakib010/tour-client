@@ -17,6 +17,13 @@ import { Link, useNavigate } from "react-router";
 import { toast } from "sonner";
 import config from "@/config";
 import { getErrorMessage } from "@/utils/getErrorMessage";
+import { z } from "zod";
+import { zodResolver } from "@hookform/resolvers/zod";
+
+const loginSchema = z.object({
+  email: z.string().email({ message: "Invalid email" }),
+  password: z.string().min(1, { message: "Password is required" }),
+});
 
 export function LoginForm({
   className,
@@ -24,20 +31,21 @@ export function LoginForm({
 }: React.HTMLAttributes<HTMLDivElement>) {
   const navigate = useNavigate();
   const { login } = useAuth();
-  const form = useForm();
+  const form = useForm<z.infer<typeof loginSchema>>({
+    resolver: zodResolver(loginSchema),
+    defaultValues: { email: "", password: "" },
+  });
   // const [verifyEmail, setVerifyEmail] = useState<string | null>(null);
 
-  const onSubmit = async (data: any) => {
+  const onSubmit = async (data: z.infer<typeof loginSchema>) => {
     try {
       const res = await login(data);
-      console.log(res);
       if (res.success) {
         // setVerifyEmail(null);
         toast.success("Logged in successfully");
         navigate("/");
       }
     } catch (err: unknown) {
-      console.error(err);
       const msg = getErrorMessage(err);
       toast.error(msg);
 

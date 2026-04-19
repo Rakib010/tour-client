@@ -10,10 +10,10 @@ export default function UserOverview() {
   const { data: userData } = useUserInfoQuery(undefined);
   const { data: bookingData, isLoading } = useGetUserBookingQuery(undefined);
 
-  const bookings = normalizeToArray(bookingData?.data);
+  const bookings = normalizeToArray<any>(bookingData?.data);
   const totalBookings = bookings.length;
   const paidWithInvoice = bookings.filter(
-    (b: { payment?: { invoiceUrl?: string } }) => b.payment?.invoiceUrl
+    (b: any) => Boolean(b?.payment?.invoiceUrl)
   ).length;
 
   if (isLoading) {
