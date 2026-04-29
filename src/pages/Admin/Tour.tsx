@@ -81,8 +81,8 @@ export default function TourPackageTable() {
                   <TableCell className="py-4 px-4 font-medium">৳{item.costFrom ?? "—"}</TableCell>
                   <TableCell className="py-4 px-4 text-right">
                     <div className="flex justify-end gap-2">
-                      <UpdateTour tourId={item._id} />
-                      <DeleteConfirmation onConfirm={() => handleRemoveTour(item._id)}>
+                      <UpdateTour tourId={String(item._id || "")} />
+                      <DeleteConfirmation onConfirm={() => handleRemoveTour(String(item._id || ""))}>
                         <Button size="sm" variant="destructive">
                           <Trash2 className="h-4 w-4" />
                         </Button>

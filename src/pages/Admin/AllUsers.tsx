@@ -54,12 +54,11 @@ export default function AllUsers() {
               <TableHead className="font-semibold text-foreground py-4 px-4">Email</TableHead>
               <TableHead className="font-semibold text-foreground py-4 px-4">Phone</TableHead>
               <TableHead className="font-semibold text-foreground py-4 px-4">Role</TableHead>
-              <TableHead className="font-semibold text-foreground py-4 px-4">Status</TableHead>
             </TableRow>
           </TableHeader>
           <TableBody>
             {users.length ? (
-              users.map((user: { _id: string; name: string; email: string; phone?: string; role: string; isDeleted?: boolean }) => (
+              users.map((user: { _id: string; name: string; email: string; phone?: string; role: string }) => (
                 <TableRow key={user._id} className="hover:bg-muted/30 transition-colors">
                   <TableCell className="font-medium py-4 px-4">{user.name}</TableCell>
                   <TableCell className="text-muted-foreground py-4 px-4">{user.email}</TableCell>
@@ -69,22 +68,11 @@ export default function AllUsers() {
                       {user.role?.toLowerCase()}
                     </span>
                   </TableCell>
-                  <TableCell className="py-4 px-4">
-                    <span
-                      className={`inline-flex px-3 py-1 rounded-full text-xs font-medium ${
-                        user.isDeleted
-                          ? "bg-destructive/10 text-destructive"
-                          : "bg-emerald-100 text-emerald-700 dark:bg-emerald-900/30 dark:text-emerald-400"
-                      }`}
-                    >
-                      {user.isDeleted ? "Inactive" : "Active"}
-                    </span>
-                  </TableCell>
                 </TableRow>
               ))
             ) : (
               <TableRow>
-                <TableCell colSpan={5} className="text-center py-12 text-muted-foreground">
+                <TableCell colSpan={4} className="text-center py-12 text-muted-foreground">
                   No users found
                 </TableCell>
               </TableRow>

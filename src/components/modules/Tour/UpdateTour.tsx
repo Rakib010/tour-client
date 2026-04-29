@@ -48,6 +48,8 @@ interface UpdateTourProps {
   tourId: string;
 }
 
+const isValidMongoObjectId = (id: string) => /^[0-9a-fA-F]{24}$/.test(id);
+
 export default function UpdateTour({ tourId }: UpdateTourProps) {
   const [open, setOpen] = useState(false);
   const { data: tourTypeData, isLoading: tourTypeLoading } =
@@ -56,7 +58,7 @@ export default function UpdateTour({ tourId }: UpdateTourProps) {
     useGetDivisionsQuery(undefined);
   const { data: tourResponse, isLoading: tourLoading } = useGetTourQuery(
     { _id: tourId, limit: "1" },
-    { skip: !open }
+    { skip: !open || !isValidMongoObjectId(tourId) }
   );
   const [updateTour] = useUpdateTourMutation();
   const [images, setImages] = useState<File[]>([]);
@@ -143,6 +145,10 @@ export default function UpdateTour({ tourId }: UpdateTourProps) {
 
   // submit
   const onSubmit = async (data: any) => {
+    if (!isValidMongoObjectId(tourId)) {
+      toast.error("Invalid tour id. Please reload the page and try again.");
+      return;
+    }
     const payload: any = {
       ...data,
       costFrom: Number(data.costFrom),
