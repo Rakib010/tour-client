@@ -13,6 +13,7 @@ import { withAuth } from "@/utils/withAuth";
 import { role } from "@/constants/auth/role";
 import type { TRole } from "@/interfaces";
 import Categories from "@/pages/Categories";
+import Divisions from "@/pages/Divisions";
 import Tour from "@/pages/Tour/Tour";
 import Home from "@/pages/Home";
 import TourDetails from "@/pages/Tour/TourDetails";
@@ -20,6 +21,8 @@ import Booking from "@/pages/Booking";
 import Success from "@/pages/Payment/Success";
 import Fail from "@/pages/Payment/Fail";
 import Cancel from "@/pages/Payment/Cancel";
+import TourGuideList from "@/pages/TourGuide/TourGuideList";
+import TourGuideDetails from "@/pages/TourGuide/TourGuideDetails";
 
 
 export const router = createBrowserRouter([
@@ -38,6 +41,18 @@ export const router = createBrowserRouter([
       {
         path: "categories",
         Component: Categories,
+      },
+      {
+        path: "division",
+        Component: Divisions,
+      },
+      {
+        path: "tour-guide",
+        Component: TourGuideList,
+      },
+      {
+        path: "tour-guide/:slug",
+        Component: TourGuideDetails,
       },
       {
         path: "tour",

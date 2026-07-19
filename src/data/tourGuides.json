@@ -1,0 +1,1174 @@
+[
+  {
+    "id": "1",
+    "slug": "sundarbans",
+    "place": "Sundarbans",
+    "division": "Khulna",
+    "shortDescription": "World's largest mangrove forest — home of the Royal Bengal Tiger, creeks, and wild nature.",
+    "image": "https://images.unsplash.com/photo-1544551763-46a013bb70d5?w=1200&q=80",
+    "duration": "2–3 Days",
+    "bestTime": "November – February",
+    "budget": "৳10,000 – ৳20,000",
+    "difficulty": "Moderate",
+    "howToGo": [
+      "Go to Khulna or Mongla by bus/train from Dhaka (6–8 hours).",
+      "Join a licensed boat tour from Mongla or Khulna jetty.",
+      "Overnight launch packages from Dhaka are also available via tour operators."
+    ],
+    "whereToStay": [
+      "Overnight boat cabins (most common for tiger-trail tours)",
+      "Budget hotels in Khulna city before/after the cruise",
+      "Eco-cottages near Mongla (limited options)"
+    ],
+    "itinerary": [
+      {
+        "day": "Day 1",
+        "title": "Khulna / Mongla → Forest entry",
+        "activities": [
+          "Morning departure on boat",
+          "Pass through mangrove channels",
+          "Evening wildlife spotting from deck"
+        ]
+      },
+      {
+        "day": "Day 2",
+        "title": "Deep forest trails",
+        "activities": [
+          "Visit Kotka / Kochikhali watchtowers",
+          "Deer and bird watching",
+          "Guided jungle walk (where allowed)"
+        ]
+      },
+      {
+        "day": "Day 3",
+        "title": "Return journey",
+        "activities": [
+          "Sunrise on the river",
+          "Return to Mongla/Khulna",
+          "Travel back to Dhaka"
+        ]
+      }
+    ],
+    "attractions": [
+      "Royal Bengal Tiger habitat",
+      "Kotka Beach & watchtower",
+      "Hiron Point",
+      "Mangrove creeks & birdlife"
+    ],
+    "food": [
+      "Fresh river fish on boat",
+      "Simple Bengali meals (rice, dal, vegetable)",
+      "Carry dry snacks and water"
+    ],
+    "tips": [
+      "Book only authorized forest permits and guides",
+      "Do not litter; mangrove ecosystem is fragile",
+      "Mosquito repellent and light jackets are essential",
+      "Tiger sightings are rare — enjoy the journey"
+    ],
+    "transport": "Bus/train to Khulna + boat cruise",
+    "safety": "Follow forest guide instructions; stay on boat/paths; avoid night walks alone."
+  },
+  {
+    "id": "2",
+    "slug": "coxs-bazar",
+    "place": "Cox's Bazar",
+    "division": "Chittagong",
+    "shortDescription": "World's longest natural sea beach — sunsets, surfing vibes, and seafood heaven.",
+    "image": "https://images.unsplash.com/photo-1507525428034-b723cf961d3e?w=1200&q=80",
+    "duration": "2–4 Days",
+    "bestTime": "October – March",
+    "budget": "৳6,000 – ৳18,000",
+    "difficulty": "Easy",
+    "howToGo": [
+      "Direct bus from Dhaka (8–10 hours) to Cox's Bazar.",
+      "Fly Dhaka → Cox's Bazar (about 1 hour).",
+      "From Chittagong, take bus or local transport (4–5 hours)."
+    ],
+    "whereToStay": [
+      "Beachfront hotels on Marine Drive / Kolatoli",
+      "Budget guesthouses in Laboni & Sugandha",
+      "Resorts near Inani and Himchari for quieter stays"
+    ],
+    "itinerary": [
+      {
+        "day": "Day 1",
+        "title": "Beach & town",
+        "activities": [
+          "Check-in and Laboni Beach walk",
+          "Sunset at the main beach",
+          "Seafood dinner near the beach road"
+        ]
+      },
+      {
+        "day": "Day 2",
+        "title": "Himchari & Inani",
+        "activities": [
+          "Morning trip to Himchari waterfall & viewpoint",
+          "Inani Beach coral stones",
+          "Optional beach activities / surfing lessons"
+        ]
+      },
+      {
+        "day": "Day 3",
+        "title": "Optional extensions",
+        "activities": [
+          "Day trip toward Teknaf",
+          "Local market shopping",
+          "Return to Dhaka"
+        ]
+      }
+    ],
+    "attractions": [
+      "Laboni Beach",
+      "Himchari National Park",
+      "Inani Beach",
+      "Marine Drive sunset points"
+    ],
+    "food": [
+      "Shutki, grilled fish, lobster",
+      "Local street snacks near beach",
+      "Hotel buffet for family trips"
+    ],
+    "tips": [
+      "Book hotels early in peak season",
+      "Swim only in safer marked areas",
+      "Negotiate CNG/auto fares beforehand",
+      "Carry sunscreen and hat"
+    ],
+    "transport": "Bus, flight, or train+bus via Chittagong",
+    "safety": "Watch sea currents; keep valuables secure on crowded beaches."
+  },
+  {
+    "id": "3",
+    "slug": "sajek-valley",
+    "place": "Sajek Valley",
+    "division": "Chittagong (Rangamati)",
+    "shortDescription": "Cloud-kissed hills of the Chittagong Hill Tracts — sunrise above the mist.",
+    "image": "https://images.unsplash.com/photo-1464822759023-fed622ff2c3b?w=1200&q=80",
+    "duration": "2–3 Days",
+    "bestTime": "October – March",
+    "budget": "৳7,000 – ৳14,000",
+    "difficulty": "Moderate",
+    "howToGo": [
+      "Dhaka → Khagrachari by bus (overnight recommended).",
+      "From Khagrachari, book a reserved jeep/Chander Gari to Sajek (3–4 hours).",
+      "Roads are hilly — start early in the day."
+    ],
+    "whereToStay": [
+      "Hill cottages and bamboo resorts in Sajek",
+      "Homestays with local communities",
+      "Budget rooms near Helipad viewpoint area"
+    ],
+    "itinerary": [
+      {
+        "day": "Day 1",
+        "title": "Arrive in the clouds",
+        "activities": [
+          "Jeep ride through hill roads",
+          "Check-in at cottage",
+          "Sunset from Konglak / Helipad area"
+        ]
+      },
+      {
+        "day": "Day 2",
+        "title": "Valley exploration",
+        "activities": [
+          "Sunrise above the clouds",
+          "Visit tribal villages (with respect)",
+          "Photography around ridgelines"
+        ]
+      },
+      {
+        "day": "Day 3",
+        "title": "Return",
+        "activities": [
+          "Morning tea with mountain view",
+          "Descend to Khagrachari",
+          "Bus back to Dhaka"
+        ]
+      }
+    ],
+    "attractions": [
+      "Helipad viewpoint",
+      "Konglak Hill",
+      "Ruilui Para",
+      "Cloud & sunrise points"
+    ],
+    "food": [
+      "Bamboo chicken",
+      "Local hill-tract cuisine",
+      "Simple rice meals at cottages"
+    ],
+    "tips": [
+      "Carry warm clothes — nights are cold",
+      "Confirm jeep return timing",
+      "Respect indigenous culture and ask before photos",
+      "Mobile network can be weak"
+    ],
+    "transport": "Bus to Khagrachari + Chander Gari jeep",
+    "safety": "Travel in daylight on hill roads; follow local security guidance."
+  },
+  {
+    "id": "4",
+    "slug": "bandarban",
+    "place": "Bandarban",
+    "division": "Chittagong",
+    "shortDescription": "Hills, waterfalls, and tribal trails — Bangladesh's adventure capital.",
+    "image": "https://images.unsplash.com/photo-1501785888041-af3ef285b470?w=1200&q=80",
+    "duration": "3–4 Days",
+    "bestTime": "November – February",
+    "budget": "৳8,000 – ৳16,000",
+    "difficulty": "Moderate–Hard",
+    "howToGo": [
+      "Dhaka → Bandarban by direct bus (10–12 hours).",
+      "Or Dhaka → Chittagong, then local bus to Bandarban.",
+      "For Nilgiri / remote spots, hire jeep from Bandarban town."
+    ],
+    "whereToStay": [
+      "Hotels in Bandarban sadar",
+      "Resorts near Nilgiri & Chimbuk",
+      "Camping (organized groups only)"
+    ],
+    "itinerary": [
+      {
+        "day": "Day 1",
+        "title": "Town & nearby hills",
+        "activities": [
+          "Arrive and rest",
+          "Meghla / Nilachal viewpoint",
+          "Local market evening"
+        ]
+      },
+      {
+        "day": "Day 2",
+        "title": "Nilgiri & Chimbuk",
+        "activities": [
+          "Jeep to Nilgiri sunrise/sunset",
+          "Chimbuk hill stop",
+          "Optional Boga Lake prep"
+        ]
+      },
+      {
+        "day": "Day 3",
+        "title": "Waterfalls & trails",
+        "activities": [
+          "Nafakhum / Amiakhum (season & permit dependent)",
+          "Or Golden Temple & Sangu river",
+          "Return toward town"
+        ]
+      }
+    ],
+    "attractions": [
+      "Nilgiri",
+      "Chimbuk Hill",
+      "Boga Lake",
+      "Nafakhum Waterfall",
+      "Buddha Dhatu Jadi (Golden Temple)"
+    ],
+    "food": [
+      "Tribal bamboo dishes",
+      "Fresh river fish",
+      "Hotel Bengali thali"
+    ],
+    "tips": [
+      "Some areas need permits — check before travel",
+      "Hire local guides for remote treks",
+      "Pack trekking shoes and rain jacket",
+      "Avoid monsoon for waterfall treks if trails are risky"
+    ],
+    "transport": "Long-distance bus + local jeep",
+    "safety": "Trek only with guides in remote zones; check security updates."
+  },
+  {
+    "id": "5",
+    "slug": "srimangal",
+    "place": "Srimangal",
+    "division": "Sylhet",
+    "shortDescription": "Tea capital of Bangladesh — endless gardens, seven-layer tea, and quiet nature.",
+    "image": "https://images.unsplash.com/photo-1564890369471-c4ca785e8f2f?w=1200&q=80",
+    "duration": "2–3 Days",
+    "bestTime": "October – March",
+    "budget": "৳5,000 – ৳12,000",
+    "difficulty": "Easy",
+    "howToGo": [
+      "Train from Dhaka to Srimangal (scenic and popular).",
+      "Direct AC/non-AC buses from Dhaka (4–5 hours).",
+      "CNG or microbus for local sightseeing after arrival."
+    ],
+    "whereToStay": [
+      "Resorts inside/near tea estates",
+      "Budget hotels in Srimangal town",
+      "Nature lodges near Lawachara"
+    ],
+    "itinerary": [
+      {
+        "day": "Day 1",
+        "title": "Tea & town",
+        "activities": [
+          "Walk through tea gardens",
+          "Taste seven-layer tea",
+          "Evening at Nilkantha Tea Cabin area"
+        ]
+      },
+      {
+        "day": "Day 2",
+        "title": "Forest & lakes",
+        "activities": [
+          "Lawachara National Park trek",
+          "Madhabpur Lake",
+          "Optional pineapple orchards"
+        ]
+      },
+      {
+        "day": "Day 3",
+        "title": "Relaxed morning",
+        "activities": [
+          "Sunrise over tea hills",
+          "Local market",
+          "Return to Dhaka"
+        ]
+      }
+    ],
+    "attractions": [
+      "Tea estates",
+      "Lawachara National Park",
+      "Madhabpur Lake",
+      "Nilkantha Tea Cabin"
+    ],
+    "food": [
+      "Seven-layer tea",
+      "Local Sylheti meals",
+      "Fresh pineapples in season"
+    ],
+    "tips": [
+      "Morning light is best for tea-garden photos",
+      "Hire a guide inside Lawachara",
+      "Carry insect repellent",
+      "Weekdays are quieter than weekends"
+    ],
+    "transport": "Train or bus from Dhaka + CNG locally",
+    "safety": "Stay on marked trails in the forest; watch for wildlife."
+  },
+  {
+    "id": "6",
+    "slug": "saint-martin",
+    "place": "Saint Martin's Island",
+    "division": "Chittagong",
+    "shortDescription": "Bangladesh's only coral island — turquoise water, quiet nights, island calm.",
+    "image": "https://images.unsplash.com/photo-1559827260-dc66d52bef19?w=1200&q=80",
+    "duration": "2–3 Days",
+    "bestTime": "November – February",
+    "budget": "৳8,000 – ৳18,000",
+    "difficulty": "Easy–Moderate",
+    "howToGo": [
+      "Reach Teknaf from Dhaka/Cox's Bazar by bus.",
+      "Take ship/ferry from Teknaf to Saint Martin (morning departure).",
+      "Return ships usually leave next afternoon — plan overnight stay."
+    ],
+    "whereToStay": [
+      "Beach cottages and hotels near jetty area",
+      "Quieter stays toward Galachipa side",
+      "Camping packages (seasonal)"
+    ],
+    "itinerary": [
+      {
+        "day": "Day 1",
+        "title": "Island arrival",
+        "activities": [
+          "Morning ship from Teknaf",
+          "Beach walk & coral viewing (no collecting)",
+          "Sunset and seafood dinner"
+        ]
+      },
+      {
+        "day": "Day 2",
+        "title": "Explore the island",
+        "activities": [
+          "Cycle or walk around the island",
+          "Visit Chera Dwip (low tide)",
+          "Return ship to Teknaf"
+        ]
+      }
+    ],
+    "attractions": [
+      "Coral beaches",
+      "Chera Dwip",
+      "Sunrise/sunset points",
+      "Clear shallow lagoons"
+    ],
+    "food": [
+      "Fresh seafood thalis",
+      "Coconut & local snacks",
+      "Simple hotel meals"
+    ],
+    "tips": [
+      "Book ship tickets in advance in peak season",
+      "Do not take corals or harm marine life",
+      "Carry cash — ATMs are limited",
+      "Sea can be rough — check weather"
+    ],
+    "transport": "Bus to Teknaf + ship to island",
+    "safety": "Follow ship safety rules; swim carefully in rocky/coral zones."
+  },
+  {
+    "id": "7",
+    "slug": "jaflong",
+    "place": "Jaflong",
+    "division": "Sylhet",
+    "shortDescription": "Stone collection riverside by the Meghalaya hills — picnic classic of Sylhet.",
+    "image": "https://images.unsplash.com/photo-1439066615861-d1af74d74000?w=1200&q=80",
+    "duration": "1–2 Days",
+    "bestTime": "October – March",
+    "budget": "৳4,000 – ৳9,000",
+    "difficulty": "Easy",
+    "howToGo": [
+      "Dhaka → Sylhet by bus or flight.",
+      "From Sylhet, hire CNG/microbus to Jaflong (1.5–2 hours).",
+      "Often combined with Bisanakandi in one day trip."
+    ],
+    "whereToStay": [
+      "Day trip from Sylhet hotels (most common)",
+      "Resorts near Jaflong / Tamabil",
+      "Sylhet city hotels for multi-day plans"
+    ],
+    "itinerary": [
+      {
+        "day": "Day 1",
+        "title": "Jaflong & surroundings",
+        "activities": [
+          "Piyain River views",
+          "Hills of Meghalaya across the border landscape",
+          "Optional Bisanakandi in afternoon"
+        ]
+      }
+    ],
+    "attractions": [
+      "Piyain River",
+      "Stone collection sites (view only)",
+      "Tamabil Zero Point (nearby)",
+      "Garo hills backdrop"
+    ],
+    "food": [
+      "Picnic-style local restaurants",
+      "Sylheti dishes in town",
+      "Tea stalls on the way"
+    ],
+    "tips": [
+      "Start early to avoid crowds",
+      "Combine with Ratargul or Bisanakandi",
+      "Keep passport if going near border zones as advised",
+      "Avoid monsoon flood days"
+    ],
+    "transport": "Sylhet + private CNG/microbus",
+    "safety": "Stay away from deep river currents; follow local advice near border."
+  },
+  {
+    "id": "8",
+    "slug": "kuakata",
+    "place": "Kuakata",
+    "division": "Barisal",
+    "shortDescription": "Daughter of the sea — rare place to see both sunrise and sunset over the Bay.",
+    "image": "https://images.unsplash.com/photo-1505142468610-359e7d316be0?w=1200&q=80",
+    "duration": "2–3 Days",
+    "bestTime": "October – March",
+    "budget": "৳6,000 – ৳13,000",
+    "difficulty": "Easy",
+    "howToGo": [
+      "Dhaka → Barisal by launch (overnight romantic option) or bus.",
+      "From Barisal, bus to Kuakata (3–4 hours).",
+      "Some direct Dhaka–Kuakata bus services available."
+    ],
+    "whereToStay": [
+      "Beach hotels along the seafront",
+      "Budget lodges in Kuakata bazar",
+      "Resorts with sea-view balconies"
+    ],
+    "itinerary": [
+      {
+        "day": "Day 1",
+        "title": "Beach arrival",
+        "activities": [
+          "Check-in and beach walk",
+          "Sunset over the Bay of Bengal",
+          "Local seafood dinner"
+        ]
+      },
+      {
+        "day": "Day 2",
+        "title": "Sunrise & islands",
+        "activities": [
+          "Early sunrise on the beach",
+          "Fatray / Gangamati mangrove boat (seasonal)",
+          "Rakhine market visit"
+        ]
+      }
+    ],
+    "attractions": [
+      "Sunrise & sunset beach",
+      "Gangamati Reserved Forest",
+      "Lebur Char / nearby chars",
+      "Rakhine community culture"
+    ],
+    "food": [
+      "Shutki and sea fish",
+      "Local Rakhine snacks (where available)",
+      "Simple hotel meals"
+    ],
+    "tips": [
+      "Launch journey from Dhaka is part of the experience",
+      "Winter mornings are best for clear sunrise",
+      "Less crowded than Cox's Bazar",
+      "Confirm boat trips based on tide"
+    ],
+    "transport": "Launch/bus via Barisal",
+    "safety": "Swim carefully; beaches can have strong waves."
+  },
+  {
+    "id": "9",
+    "slug": "rangamati",
+    "place": "Rangamati",
+    "division": "Chittagong",
+    "shortDescription": "Lake district of Bangladesh — Kaptai waters, hanging bridge, and hill culture.",
+    "image": "https://images.unsplash.com/photo-1506905925346-21bda4d32df4?w=1200&q=80",
+    "duration": "2–3 Days",
+    "bestTime": "October – March",
+    "budget": "৳6,000 – ৳14,000",
+    "difficulty": "Easy–Moderate",
+    "howToGo": [
+      "Dhaka → Rangamati by direct bus.",
+      "Or via Chittagong, then local bus to Rangamati.",
+      "Boat rides on Kaptai Lake arranged locally."
+    ],
+    "whereToStay": [
+      "Hotels near Reserve Bazar",
+      "Lakeside resorts",
+      "Government rest houses (if available)"
+    ],
+    "itinerary": [
+      {
+        "day": "Day 1",
+        "title": "Town highlights",
+        "activities": [
+          "Hanging Bridge (Jhulonto Bridge)",
+          "Tribal Cultural Museum",
+          "Evening lakeside walk"
+        ]
+      },
+      {
+        "day": "Day 2",
+        "title": "Kaptai Lake day",
+        "activities": [
+          "Full-day boat on Kaptai Lake",
+          "Shuvolong waterfall stop (water level dependent)",
+          "Visit islands / tribal villages with guide"
+        ]
+      }
+    ],
+    "attractions": [
+      "Kaptai Lake",
+      "Hanging Bridge",
+      "Shuvolong Waterfall",
+      "Tribal Cultural Institute"
+    ],
+    "food": [
+      "Fresh lake fish",
+      "Hill-tract home-style meals",
+      "Town restaurants"
+    ],
+    "tips": [
+      "Negotiate boat packages clearly (hours & stops)",
+      "Carry motion comfort meds if needed for boat",
+      "Respect tribal customs",
+      "Weekends get busy at hanging bridge"
+    ],
+    "transport": "Bus from Dhaka/Chittagong + lake boat",
+    "safety": "Wear life jackets on boats; follow local navigation rules."
+  },
+  {
+    "id": "10",
+    "slug": "ratargul",
+    "place": "Ratargul Swamp Forest",
+    "division": "Sylhet",
+    "shortDescription": "Freshwater swamp forest — boat under a canopy of trees like a green labyrinth.",
+    "image": "https://images.unsplash.com/photo-1441974231531-c6227db76b6e?w=1200&q=80",
+    "duration": "1 Day (or weekend with Sylhet)",
+    "bestTime": "June – September (high water) / also visitable in winter",
+    "budget": "৳3,000 – ৳8,000",
+    "difficulty": "Easy",
+    "howToGo": [
+      "Reach Sylhet city first.",
+      "Hire CNG to Goainghat / Ratargul area (about 1 hour).",
+      "Take local boat into the swamp forest."
+    ],
+    "whereToStay": [
+      "Sylhet city hotels (recommended base)",
+      "Nearby resorts on Sylhet outskirts",
+      "Day trip without overnight also common"
+    ],
+    "itinerary": [
+      {
+        "day": "Day 1",
+        "title": "Swamp boat experience",
+        "activities": [
+          "Morning transfer from Sylhet",
+          "Boat ride through flooded forest",
+          "Photography & bird watching",
+          "Optional Jaflong same day if early start"
+        ]
+      }
+    ],
+    "attractions": [
+      "Boat trails under trees",
+      "Seasonal flooded forest scenery",
+      "Birdlife",
+      "Nearby Goainghat landscapes"
+    ],
+    "food": [
+      "Carry snacks",
+      "Local eateries near entry point",
+      "Proper meals back in Sylhet"
+    ],
+    "tips": [
+      "Water level changes experience a lot by season",
+      "Go early morning for fewer crowds",
+      "Agree boat fare before boarding",
+      "Protect camera from water splash"
+    ],
+    "transport": "Sylhet + CNG + wooden boat",
+    "safety": "Sit steadily in boats; life jackets when provided."
+  },
+  {
+    "id": "11",
+    "slug": "nilgiri",
+    "place": "Nilgiri",
+    "division": "Chittagong (Bandarban)",
+    "shortDescription": "Military-area hill resort above the clouds — one of Bangladesh's best viewpoints.",
+    "image": "https://images.unsplash.com/photo-1486870591958-9b9d0d1dda99?w=1200&q=80",
+    "duration": "1–2 Days",
+    "bestTime": "November – February",
+    "budget": "৳5,000 – ৳12,000",
+    "difficulty": "Easy–Moderate",
+    "howToGo": [
+      "First reach Bandarban town.",
+      "Hire jeep toward Nilgiri (about 1.5–2 hours).",
+      "Entry may require permission / ticket — confirm locally."
+    ],
+    "whereToStay": [
+      "Nilgiri resort cottages (book early)",
+      "Stay in Bandarban and do sunrise day trip",
+      "Nearby Chimbuk area lodges"
+    ],
+    "itinerary": [
+      {
+        "day": "Day 1",
+        "title": "Above the clouds",
+        "activities": [
+          "Afternoon arrival for sunset",
+          "Overnight at cottage if booked",
+          "Sunrise panorama next morning"
+        ]
+      }
+    ],
+    "attractions": [
+      "Cloud sea viewpoint",
+      "Sunrise & sunset decks",
+      "Surrounding green hills",
+      "Chimbuk on the way"
+    ],
+    "food": [
+      "Resort restaurant meals",
+      "Carry snacks for early sunrise",
+      "Bandarban town food before/after"
+    ],
+    "tips": [
+      "Fog can block views — winter mornings are clearer",
+      "Warm jacket mandatory at night",
+      "Photography rules may apply in restricted zones",
+      "Combine with Bandarban circuit"
+    ],
+    "transport": "Bandarban + reserved jeep",
+    "safety": "Follow army/resort area guidelines; no off-limit photography."
+  },
+  {
+    "id": "12",
+    "slug": "tanguar-haor",
+    "place": "Tanguar Haor",
+    "division": "Sylhet (Sunamganj)",
+    "shortDescription": "Vast wetland sea of freshwater — boat villages, migratory birds, endless horizon.",
+    "image": "https://images.unsplash.com/photo-1473496169904-658ba7c44d8a?w=1200&q=80",
+    "duration": "2–3 Days",
+    "bestTime": "June – September (monsoon boat season)",
+    "budget": "৳7,000 – ৳15,000",
+    "difficulty": "Moderate",
+    "howToGo": [
+      "Dhaka → Sunamganj by bus.",
+      "From Sunamganj, go to Tahirpur / boat ghat.",
+      "Hire engine boat for haor cruise and overnight stay on boat."
+    ],
+    "whereToStay": [
+      "Overnight on tourist boats (most atmospheric)",
+      "Basic lodges in Tahirpur / Sunamganj",
+      "Package tours with meals included"
+    ],
+    "itinerary": [
+      {
+        "day": "Day 1",
+        "title": "Enter the haor",
+        "activities": [
+          "Boat departure from ghat",
+          "Watch stilt-like landscapes and villages",
+          "Night under open sky on boat"
+        ]
+      },
+      {
+        "day": "Day 2",
+        "title": "Birds & silence",
+        "activities": [
+          "Sunrise on water",
+          "Bird watching",
+          "Return toward Sunamganj"
+        ]
+      }
+    ],
+    "attractions": [
+      "Open water horizon",
+      "Migratory birds (seasonal)",
+      "Haor villages",
+      "Monsoon landscapes"
+    ],
+    "food": [
+      "Fresh haor fish cooked on boat",
+      "Simple rice meals",
+      "Carry dry food backup"
+    ],
+    "tips": [
+      "Best experience is monsoon high water",
+      "Book reliable boat with life jackets",
+      "Network is weak — inform family beforehand",
+      "Bring waterproof bags"
+    ],
+    "transport": "Bus to Sunamganj + engine boat",
+    "safety": "Weather can change fast; avoid storms; use life jackets."
+  },
+  {
+    "id": "13",
+    "slug": "paharpur",
+    "place": "Paharpur (Somapura Mahavihara)",
+    "division": "Rajshahi",
+    "shortDescription": "UNESCO World Heritage Buddhist monastery ruins — ancient Bengal's grandeur.",
+    "image": "https://images.unsplash.com/photo-1587595431973-160d0d94add1?w=1200&q=80",
+    "duration": "1–2 Days",
+    "bestTime": "October – March",
+    "budget": "৳4,000 – ৳9,000",
+    "difficulty": "Easy",
+    "howToGo": [
+      "Dhaka → Jaipurhat / Naogaon by bus.",
+      "Local transport to Paharpur site.",
+      "Often combined with a Rajshahi heritage circuit."
+    ],
+    "whereToStay": [
+      "Hotels in Jaipurhat or Naogaon",
+      "Rajshahi city as a base for multi-site tour",
+      "Day trip if tightly scheduled"
+    ],
+    "itinerary": [
+      {
+        "day": "Day 1",
+        "title": "Heritage walk",
+        "activities": [
+          "Explore Somapura Mahavihara complex",
+          "Visit site museum",
+          "Photography of terracotta & architecture"
+        ]
+      }
+    ],
+    "attractions": [
+      "Somapura Mahavihara",
+      "Site museum",
+      "Surrounding rural landscapes",
+      "Nearby heritage stops on Rajshahi route"
+    ],
+    "food": [
+      "Local eateries near town",
+      "Rajshahi mangoes in season",
+      "Simple Bengali meals"
+    ],
+    "tips": [
+      "Hire a local guide for history context",
+      "Visit early to avoid heat",
+      "Wear comfortable walking shoes",
+      "Respect the archaeological site — no climbing restricted walls"
+    ],
+    "transport": "Bus + local CNG/auto",
+    "safety": "Standard travel safety; keep hydrated in heat."
+  },
+  {
+    "id": "14",
+    "slug": "mahasthangarh",
+    "place": "Mahasthangarh",
+    "division": "Rajshahi (Bogra)",
+    "shortDescription": "One of Bangladesh's oldest urban archaeological sites — citadel by the Karatoya.",
+    "image": "https://images.unsplash.com/photo-1548013146-72479768bada?w=1200&q=80",
+    "duration": "1 Day",
+    "bestTime": "October – March",
+    "budget": "৳3,500 – ৳8,000",
+    "difficulty": "Easy",
+    "howToGo": [
+      "Dhaka → Bogura (Bogra) by bus.",
+      "Local transport to Mahasthangarh (about 30–40 minutes).",
+      "Combine with Gokul Medh / nearby mounds."
+    ],
+    "whereToStay": [
+      "Hotels in Bogura town",
+      "Day trip from Dhaka (long but possible)",
+      "Rajshahi circuit hotels"
+    ],
+    "itinerary": [
+      {
+        "day": "Day 1",
+        "title": "Ancient city trail",
+        "activities": [
+          "Citadel walls & mound exploration",
+          "Mahasthangarh museum",
+          "Govinda Bhita temple ruins"
+        ]
+      }
+    ],
+    "attractions": [
+      "Mahasthangarh citadel",
+      "Museum artifacts",
+      "Govinda Bhita",
+      "Karatoya river surroundings"
+    ],
+    "food": [
+      "Bogura's famous doi (yogurt)",
+      "Local restaurants in town",
+      "Street snacks"
+    ],
+    "tips": [
+      "Morning light is great for photography",
+      "Read museum captions for timeline context",
+      "Carry water and sun protection",
+      "Pair with Paharpur for a heritage weekend"
+    ],
+    "transport": "Bus to Bogura + local ride",
+    "safety": "Watch your step on uneven ruins."
+  },
+  {
+    "id": "15",
+    "slug": "old-dhaka",
+    "place": "Old Dhaka",
+    "division": "Dhaka",
+    "shortDescription": "Mughal alleys, Ahsan Manzil, street food storms — history alive in narrow lanes.",
+    "image": "https://images.unsplash.com/photo-1587474260584-136574528ed5?w=1200&q=80",
+    "duration": "1 Day",
+    "bestTime": "November – February",
+    "budget": "৳1,500 – ৳4,000",
+    "difficulty": "Easy",
+    "howToGo": [
+      "From anywhere in Dhaka, take rickshaw/CNG/Uber to Sadarghat / Islampur area.",
+      "Best explored on foot with a local guide or map.",
+      "Avoid peak traffic hours for arrival."
+    ],
+    "whereToStay": [
+      "Hotels in Motijheel / Gulistan side",
+      "Stay in newer Dhaka and day-visit Old Dhaka",
+      "Boutique stays near downtown"
+    ],
+    "itinerary": [
+      {
+        "day": "Day 1",
+        "title": "Heritage food walk",
+        "activities": [
+          "Ahsan Manzil (Pink Palace)",
+          "Lalbagh Fort",
+          "Star Mosque / Chawk Bazar lanes",
+          "Street food: bakarkhani, kebab, biryani"
+        ]
+      }
+    ],
+    "attractions": [
+      "Ahsan Manzil",
+      "Lalbagh Fort",
+      "Sadarghat Riverfront",
+      "Chawk Bazar & traditional markets"
+    ],
+    "food": [
+      "Haji biryani",
+      "Nanna biryani / traditional kebabs",
+      "Bakarkhani, yogurt sweets, roadside fuchka"
+    ],
+    "tips": [
+      "Go with a buddy in crowded lanes",
+      "Keep phone and wallet secure",
+      "Fridays/holidays change opening hours for monuments",
+      "Try food from busy, popular stalls"
+    ],
+    "transport": "Rickshaw, CNG, ride-sharing + walking",
+    "safety": "Mind pickpockets in crowds; ask locals for safe walking routes."
+  },
+  {
+    "id": "16",
+    "slug": "bisanakandi",
+    "place": "Bisanakandi",
+    "division": "Sylhet",
+    "shortDescription": "Where stone rivers meet green hills — monsoon paradise near the Meghalaya border.",
+    "image": "https://images.unsplash.com/photo-1500534314209-a25ddb2bd429?w=1200&q=80",
+    "duration": "1 Day",
+    "bestTime": "June – September (lush monsoon) / also winter",
+    "budget": "৳3,500 – ৳8,000",
+    "difficulty": "Easy",
+    "howToGo": [
+      "Base in Sylhet city.",
+      "CNG/microbus toward Companyganj / Bisanakandi.",
+      "Often paired with Jaflong same day."
+    ],
+    "whereToStay": [
+      "Sylhet hotels as base",
+      "Local resorts near Companyganj",
+      "Day trip without overnight"
+    ],
+    "itinerary": [
+      {
+        "day": "Day 1",
+        "title": "River & hills",
+        "activities": [
+          "Boat on the stone river landscape",
+          "Photography of hills and water",
+          "Tea and local snacks"
+        ]
+      }
+    ],
+    "attractions": [
+      "Dholai River views",
+      "Border hillscape",
+      "Monsoon greenery",
+      "Boat photography spots"
+    ],
+    "food": [
+      "Local riverside stalls",
+      "Sylheti meals back in city",
+      "Fresh seasonal fruits"
+    ],
+    "tips": [
+      "Monsoon is dramatic but slippery",
+      "Confirm boat safety and life jackets",
+      "Start early with Jaflong combo plan",
+      "Keep extra clothes if you expect splash"
+    ],
+    "transport": "Sylhet + CNG + short boat",
+    "safety": "Currents rise in rain; follow boatman advice."
+  },
+  {
+    "id": "17",
+    "slug": "kaptai-lake",
+    "place": "Kaptai Lake",
+    "division": "Chittagong",
+    "shortDescription": "Man-made lake with island beauty — calm boat days in the Hill Tracts.",
+    "image": "https://images.unsplash.com/photo-1439066615861-d1af74d74000?w=1200&q=80",
+    "duration": "1–2 Days",
+    "bestTime": "October – March",
+    "budget": "৳5,000 – ৳11,000",
+    "difficulty": "Easy",
+    "howToGo": [
+      "Reach Rangamati or Kaptai area.",
+      "Hire a boat from local ghats for lake touring.",
+      "Kaptai town also reachable via Chittagong."
+    ],
+    "whereToStay": [
+      "Rangamati lakeside hotels",
+      "Rest houses near Kaptai (availability varies)",
+      "Chittagong overnight + day trip"
+    ],
+    "itinerary": [
+      {
+        "day": "Day 1",
+        "title": "Lake cruise",
+        "activities": [
+          "Morning boat hire",
+          "Island hopping / shoreline views",
+          "Quiet lunch on boat",
+          "Sunset return"
+        ]
+      }
+    ],
+    "attractions": [
+      "Open lake waters",
+      "Green hill shores",
+      "Island stops",
+      "Peaceful boat photography"
+    ],
+    "food": [
+      "Freshwater fish meals",
+      "Packed lunch on boat",
+      "Rangamati town restaurants"
+    ],
+    "tips": [
+      "Ask for fixed-hour boat packages",
+      "Carry sunscreen — water reflects strong light",
+      "Combine with Rangamati hanging bridge",
+      "Check fuel/time before going far"
+    ],
+    "transport": "Bus to Rangamati/Kaptai + boat",
+    "safety": "Life jackets on; avoid overloaded boats."
+  },
+  {
+    "id": "18",
+    "slug": "lawachara",
+    "place": "Lawachara National Park",
+    "division": "Sylhet",
+    "shortDescription": "Rainforest trails near Srimangal — gibbons, birds, and dense green shade.",
+    "image": "https://images.unsplash.com/photo-1448375240586-882707db888b?w=1200&q=80",
+    "duration": "1 Day",
+    "bestTime": "November – March",
+    "budget": "৳3,000 – ৳7,000",
+    "difficulty": "Easy–Moderate",
+    "howToGo": [
+      "Stay in Srimangal.",
+      "CNG to Lawachara gate (short ride).",
+      "Enter with ticket and preferably a nature guide."
+    ],
+    "whereToStay": [
+      "Srimangal resorts & hotels",
+      "Eco-lodges near the park",
+      "Combine with tea-garden stays"
+    ],
+    "itinerary": [
+      {
+        "day": "Day 1",
+        "title": "Forest morning",
+        "activities": [
+          "Early entry for wildlife chance",
+          "Guided trail walk",
+          "Bird watching",
+          "Tea garden afternoon nearby"
+        ]
+      }
+    ],
+    "attractions": [
+      "Evergreen forest trails",
+      "Hoolock gibbon habitat",
+      "Bird species diversity",
+      "Filming location vibes (famous cinema spots)"
+    ],
+    "food": [
+      "Breakfast in Srimangal",
+      "Carry water & light snacks",
+      "Return for proper lunch in town"
+    ],
+    "tips": [
+      "Silence improves wildlife sightings",
+      "Do not play loud music on trails",
+      "Leeches possible in wet season — prepare",
+      "Hire certified guides"
+    ],
+    "transport": "Srimangal base + CNG",
+    "safety": "Stay on trails; do not feed animals."
+  },
+  {
+    "id": "19",
+    "slug": "himchari",
+    "place": "Himchari",
+    "division": "Chittagong (Cox's Bazar)",
+    "shortDescription": "Waterfall meets sea cliffs near Cox's Bazar — short trip, big views.",
+    "image": "https://images.unsplash.com/photo-1432405972618-c60b0225b8f9?w=1200&q=80",
+    "duration": "Half Day – 1 Day",
+    "bestTime": "June – September for waterfall; winter for viewpoints",
+    "budget": "৳2,000 – ৳5,000 (as day trip)",
+    "difficulty": "Easy",
+    "howToGo": [
+      "Base yourself in Cox's Bazar.",
+      "CNG/auto or rented bike to Himchari (south of town).",
+      "Often combined with Inani Beach."
+    ],
+    "whereToStay": [
+      "Cox's Bazar hotels (best base)",
+      "Resorts nearer Marine Drive south",
+      "No need for separate Himchari hotel usually"
+    ],
+    "itinerary": [
+      {
+        "day": "Day 1",
+        "title": "Hills & waterfall",
+        "activities": [
+          "Viewpoint over the Bay",
+          "Himchari waterfall (seasonal flow)",
+          "Continue to Inani if time allows"
+        ]
+      }
+    ],
+    "attractions": [
+      "Himchari viewpoint",
+      "Seasonal waterfall",
+      "Marine Drive scenery",
+      "Nearby Inani Beach"
+    ],
+    "food": [
+      "Snacks on the way",
+      "Seafood back in Cox's Bazar",
+      "Carry water"
+    ],
+    "tips": [
+      "Waterfall is stronger after rains",
+      "Watch slippery rocks",
+      "Go morning to avoid heat/crowds",
+      "Great add-on to Cox's Bazar trip"
+    ],
+    "transport": "Local CNG/bike from Cox's Bazar",
+    "safety": "Careful near cliff edges and wet rocks."
+  },
+  {
+    "id": "20",
+    "slug": "sitakunda",
+    "place": "Sitakunda",
+    "division": "Chittagong",
+    "shortDescription": "Chandranath Hill pilgrimage & trails — sea of clouds above Chittagong.",
+    "image": "https://images.unsplash.com/photo-1469474968028-56623f02e42e?w=1200&q=80",
+    "duration": "1–2 Days",
+    "bestTime": "October – March",
+    "budget": "৳4,000 – ৳9,000",
+    "difficulty": "Moderate",
+    "howToGo": [
+      "Dhaka → Chittagong, then local bus/CNG to Sitakunda.",
+      "Direct buses also stop near Sitakunda from Dhaka route.",
+      "Trek/jeep options toward Chandranath depending on plan."
+    ],
+    "whereToStay": [
+      "Hotels in Sitakunda / nearby Chittagong",
+      "Day trip from Chittagong city",
+      "Simple lodges near trail bases"
+    ],
+    "itinerary": [
+      {
+        "day": "Day 1",
+        "title": "Chandranath trail",
+        "activities": [
+          "Morning start for hill climb",
+          "Temple visit at summit area",
+          "Cloud & Bay viewpoints",
+          "Optional eco-park stops"
+        ]
+      }
+    ],
+    "attractions": [
+      "Chandranath Temple & hill",
+      "Sea of clouds (seasonal mornings)",
+      "Sitakunda Eco Park",
+      "Guliyakhali Beach (nearby option)"
+    ],
+    "food": [
+      "Local stalls on trail route",
+      "Chittagong city meals",
+      "Carry energy snacks for hike"
+    ],
+    "tips": [
+      "Start very early for cloud views",
+      "Wear proper trekking shoes",
+      "Festival times are extremely crowded",
+      "Carry water — climb is continuous"
+    ],
+    "transport": "Bus to Sitakunda + trek/local transport",
+    "safety": "Pace yourself on steep sections; avoid after dark on trails."
+  }
+]

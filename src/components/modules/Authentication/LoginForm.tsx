@@ -15,7 +15,7 @@ import { useAuth } from "@/hooks/useAuth";
 import { useForm } from "react-hook-form";
 import { Link, useNavigate } from "react-router";
 import { toast } from "sonner";
-import config from "@/config";
+// import config from "@/config"; // used by Google login (commented out)
 import { getErrorMessage } from "@/utils/getErrorMessage";
 import { z } from "zod";
 import { zodResolver } from "@hookform/resolvers/zod";
@@ -139,14 +139,13 @@ export function LoginForm({
           </form>
         </Form>
 
-        {/* Divider */}
+        {/* Google OAuth login — commented out
         <div className="relative text-center text-sm after:absolute after:inset-0 after:top-1/2 after:z-0 after:flex after:items-center after:border-t after:border-border">
           <span className="relative z-10 bg-background px-2 text-muted-foreground">
             Or continue with
           </span>
         </div>
 
-        {/* Google OAuth Login */}
         <Button
           onClick={() => window.open(`${config.baseUrl}/auth/google`)}
           type="button"
@@ -155,6 +154,7 @@ export function LoginForm({
         >
           Login with Google
         </Button>
+        */}
       </div>
 
       {/* Footer Link */}

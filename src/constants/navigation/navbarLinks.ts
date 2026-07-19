@@ -7,6 +7,8 @@ import { role } from "@/constants/auth/role";
 export const navbarLinks = [
   { href: "/", label: "Home", role: "PUBLIC" as const },
   { href: "/categories", label: "Categories", role: "PUBLIC" as const },
+  { href: "/division", label: "Divisions", role: "PUBLIC" as const },
+  { href: "/tour-guide", label: "Tour Guide", role: "PUBLIC" as const },
   { href: "/tour", label: "Tours", role: "PUBLIC" as const },
   { href: "/about", label: "About", role: "PUBLIC" as const },
   { href: "/admin", label: "Dashboard", role: role.admin },

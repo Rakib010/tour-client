@@ -16,6 +16,7 @@ import { MdOutlineDepartureBoard, MdOutlineBeachAccess } from "react-icons/md";
 import { format } from "date-fns";
 import { Loader2, ChevronRight } from "lucide-react";
 import { Button } from "@/components/ui/button";
+import TourComments from "@/components/modules/Tour/TourComments";
 
 const TourDetails = () => {
   const { id } = useParams();
@@ -162,6 +163,8 @@ const TourDetails = () => {
                 </div>
               </section>
             )}
+
+            <TourComments tourId={tour._id} />
           </div>
 
           {/* Right - Booking sidebar */}

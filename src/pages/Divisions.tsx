@@ -1,4 +1,4 @@
-import { useGetTourTypesQuery } from "@/redux/features/tourType/tourType.api";
+import { useGetDivisionsQuery } from "@/redux/features/division/division.api";
 import { Link } from "react-router-dom";
 import { Loader2 } from "lucide-react";
 import { HiArrowRight } from "react-icons/hi";
@@ -13,21 +13,23 @@ const placeholderImages = [
   "https://images.unsplash.com/photo-1507525428034-b723cf961d3e?w=600&q=80",
 ];
 
-export default function Categories() {
-  const { data: tourTypesData, isLoading } = useGetTourTypesQuery({
-    limit: 100,
-  });
+export default function Divisions() {
+  const { data: divisionsData, isLoading } = useGetDivisionsQuery(undefined);
 
-  const tourTypes = tourTypesData?.data || [];
+  const divisions = divisionsData?.data || [];
 
-  const categories = tourTypes.map(
-    (t: { _id: string; name: string }, i: number) => ({
-      id: t._id,
-      title: t.name,
+  const divisionItems = divisions.map(
+    (
+      d: { _id: string; name: string; thumbnail?: string },
+      i: number
+    ) => ({
+      id: d._id,
+      title: d.name,
       image:
-        CATEGORY_IMAGE_MAP[t.name] ||
+        d.thumbnail ||
+        CATEGORY_IMAGE_MAP[d.name] ||
         placeholderImages[i % placeholderImages.length],
-      link: `/tour?tourType=${t._id}`,
+      link: `/tour?division=${d._id}`,
     })
   );
 
@@ -45,18 +47,18 @@ export default function Categories() {
         <SectionHeader
           title={
             <>
-              All <span className="text-primary">Categories</span>
+              All <span className="text-primary">Divisions</span>
             </>
           }
-          description="Explore tour types to find your next adventure"
+          description="Browse tours by division and discover destinations across Bangladesh"
         />
-        {categories.length === 0 ? (
+        {divisionItems.length === 0 ? (
           <p className="text-center text-muted-foreground py-12">
-            No categories found.
+            No divisions found.
           </p>
         ) : (
           <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4">
-            {categories.map((item) => (
+            {divisionItems.map((item) => (
               <Link
                 key={item.id}
                 to={item.link}
