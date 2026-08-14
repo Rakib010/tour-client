@@ -3,7 +3,7 @@ import { FaMapMarkerAlt, FaClock, FaWallet } from "react-icons/fa";
 import { HiArrowRight } from "react-icons/hi";
 import SectionHeader from "@/components/modules/Home/SectionHeader";
 import { Button } from "@/components/ui/button";
-import { tourGuides } from "@/data/tourGuides";
+import { formatGuideBudget, tourGuides } from "@/data/tourGuides";
 
 export default function TourGuideList() {
   return (
@@ -16,7 +16,7 @@ export default function TourGuideList() {
               Full <span className="text-primary">Tour Guides</span>
             </>
           }
-          description="Place-by-place plans — how to go, where to stay, itinerary, food, and tips"
+          description="Real place guides for Bangladesh — how to go step by step, where to stay, what to see, and realistic budgets"
         />
 
         <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
@@ -54,7 +54,7 @@ export default function TourGuideList() {
                     </span>
                     <span className="inline-flex items-center gap-1.5">
                       <FaWallet className="h-3 w-3 text-primary" />
-                      {guide.budget}
+                      {formatGuideBudget(guide)}
                     </span>
                   </div>
 

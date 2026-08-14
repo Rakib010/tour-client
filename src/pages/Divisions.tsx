@@ -18,7 +18,12 @@ export default function Divisions() {
 
   const divisions = divisionsData?.data || [];
 
-  const divisionItems = divisions.map(
+  const divisionItems: {
+    id: string;
+    title: string;
+    image: string;
+    link: string;
+  }[] = divisions.map(
     (
       d: { _id: string; name: string; thumbnail?: string },
       i: number

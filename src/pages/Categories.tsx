@@ -20,8 +20,12 @@ export default function Categories() {
 
   const tourTypes = tourTypesData?.data || [];
 
-  const categories = tourTypes.map(
-    (t: { _id: string; name: string }, i: number) => ({
+  const categories: {
+    id: string;
+    title: string;
+    image: string;
+    link: string;
+  }[] = tourTypes.map((t: { _id: string; name: string }, i: number) => ({
       id: t._id,
       title: t.name,
       image:

@@ -1,7 +1,6 @@
-export type TourGuideItineraryDay = {
-  day: string;
+export type WhatToSeeItem = {
   title: string;
-  activities: string[];
+  description: string;
 };
 
 export type TourGuide = {
@@ -13,14 +12,18 @@ export type TourGuide = {
   image: string;
   duration: string;
   bestTime: string;
-  budget: string;
+  /** Realistic DIY budget per person in BDT */
+  budgetFrom: number;
+  budgetTo: number;
   difficulty: string;
+  /** Intro paragraphs shown under the title */
+  overview: string[];
+  whatToSee: WhatToSeeItem[];
+  /** Ordered travel steps — render as Step 1, Step 2, ... */
   howToGo: string[];
-  whereToStay: string[];
-  itinerary: TourGuideItineraryDay[];
-  attractions: string[];
-  food: string[];
+  whereToStay: string;
+  whereToEat: string;
+  foodToCarry: string[];
   tips: string[];
-  transport: string;
   safety: string;
 };

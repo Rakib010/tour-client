@@ -17,9 +17,9 @@ import { toast } from "sonner";
 const quickLinks = [
   { href: "/", label: "Home" },
   { href: "/categories", label: "Categories" },
-  { href: "/tour", label: "Tours" },
-  { href: "/tour-guide", label: "Tour Guide" },
   { href: "/division", label: "Divisions" },
+  { href: "/tour-guide", label: "Tour Guide" },
+  { href: "/tour", label: "Tours" },
   { href: "/about", label: "About" },
 ];
 

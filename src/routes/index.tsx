@@ -35,7 +35,7 @@ export const router = createBrowserRouter([
         Component: Home,
       },
       {
-        path: "About",
+        path: "about",
         Component: About,
       },
       {

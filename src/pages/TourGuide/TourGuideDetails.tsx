@@ -1,22 +1,16 @@
 import { Link, useParams } from "react-router-dom";
-import {
-  FaMapMarkerAlt,
-  FaClock,
-  FaWallet,
-  FaCalendarAlt,
-  FaArrowLeft,
-  FaBus,
-  FaShieldAlt,
-  FaMountain,
-} from "react-icons/fa";
-import { MdOutlineHotel, MdOutlineRestaurant } from "react-icons/md";
-import { HiOutlineLightBulb } from "react-icons/hi";
+import { FaMapMarkerAlt, FaArrowLeft, FaWallet, FaClock } from "react-icons/fa";
 import { Button } from "@/components/ui/button";
-import { getTourGuideBySlug } from "@/data/tourGuides";
+import {
+  formatGuideBudget,
+  getRelatedTourGuides,
+  getTourGuideBySlug,
+} from "@/data/tourGuides";
 
 export default function TourGuideDetails() {
   const { slug } = useParams();
   const guide = slug ? getTourGuideBySlug(slug) : undefined;
+  const related = slug ? getRelatedTourGuides(slug, 5) : [];
 
   if (!guide) {
     return (
@@ -36,234 +30,206 @@ export default function TourGuideDetails() {
 
   return (
     <div className="min-h-screen bg-background">
-      {/* Hero */}
-      <div className="relative h-[45vh] min-h-[320px] overflow-hidden">
-        <img
-          src={guide.image}
-          alt={guide.place}
-          className="h-full w-full object-cover"
-        />
-        <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-black/35 to-transparent" />
-        <div className="absolute inset-0 flex flex-col justify-end p-6 md:p-10">
-          <div className="max-w-[1280px] mx-auto w-full">
-            <Link
-              to="/tour-guide"
-              className="inline-flex items-center text-white/90 hover:text-white mb-4 text-sm font-medium transition-colors"
-            >
-              <FaArrowLeft className="mr-2 h-4 w-4" />
-              All Tour Guides
-            </Link>
-            <h1 className="text-3xl md:text-4xl lg:text-5xl font-bold text-white mb-3 drop-shadow-lg">
+      <div className="max-w-[1100px] mx-auto px-4 sm:px-6 py-8 md:py-10">
+        <Link
+          to="/tour-guide"
+          className="inline-flex items-center text-sm text-muted-foreground hover:text-foreground mb-6 transition-colors"
+        >
+          <FaArrowLeft className="mr-2 h-3.5 w-3.5" />
+          All Tour Guides
+        </Link>
+
+        {/* Hero image — full content width like travel blog */}
+        <div className="relative overflow-hidden rounded-xl border border-border">
+          <img
+            src={guide.image}
+            alt={guide.place}
+            className="w-full aspect-[16/9] object-cover"
+          />
+        </div>
+
+        <div className="mt-6 grid lg:grid-cols-[1fr_280px] gap-10">
+          {/* Main article */}
+          <article className="min-w-0">
+            <span className="inline-flex items-center gap-1.5 rounded-md bg-muted px-3 py-1.5 text-sm text-foreground">
+              <FaMapMarkerAlt className="h-3.5 w-3.5 text-primary" />
+              {guide.division}
+            </span>
+
+            <h1 className="mt-4 text-3xl md:text-4xl font-bold text-foreground tracking-tight">
               {guide.place}
             </h1>
-            <p className="max-w-2xl text-white/90 text-sm md:text-base mb-4">
-              {guide.shortDescription}
-            </p>
-            <div className="flex flex-wrap items-center gap-4 text-white/90 text-sm">
-              <span className="inline-flex items-center gap-2">
-                <FaMapMarkerAlt className="h-4 w-4 text-emerald-300" />
-                {guide.division}
-              </span>
-              <span className="inline-flex items-center gap-2">
-                <FaClock className="h-4 w-4 text-emerald-300" />
+
+            <div className="mt-4 flex flex-wrap gap-4 text-sm text-muted-foreground">
+              <span className="inline-flex items-center gap-1.5">
+                <FaClock className="h-3.5 w-3.5 text-primary" />
                 {guide.duration}
               </span>
-              <span className="inline-flex items-center gap-2">
-                <FaMountain className="h-4 w-4 text-emerald-300" />
-                {guide.difficulty}
+              <span className="inline-flex items-center gap-1.5">
+                <FaWallet className="h-3.5 w-3.5 text-primary" />
+                {formatGuideBudget(guide)}{" "}
+                <span className="text-xs">(approx. per person)</span>
               </span>
             </div>
-          </div>
-        </div>
-      </div>
 
-      <div className="max-w-[1280px] mx-auto px-4 sm:px-6 py-8 md:py-12">
-        <div className="grid lg:grid-cols-3 gap-8">
-          <div className="lg:col-span-2 space-y-8">
-            {/* How to go */}
-            <section className="rounded-2xl border border-border bg-card p-6 md:p-8">
-              <h2 className="text-xl font-bold text-foreground mb-4 pb-3 border-b border-border flex items-center gap-2">
-                <FaBus className="h-5 w-5 text-primary" />
-                How to go
+            {/* Overview paragraphs */}
+            <div className="mt-8 space-y-4">
+              {guide.overview.map((para, i) => (
+                <p
+                  key={i}
+                  className="text-[15px] md:text-base leading-7 text-foreground/90"
+                >
+                  {para}
+                </p>
+              ))}
+            </div>
+
+            {/* What to see */}
+            <section className="mt-10">
+              <h2 className="text-2xl font-bold text-foreground mb-4">
+                What to see
               </h2>
-              <ul className="space-y-3">
-                {guide.howToGo.map((item, i) => (
-                  <li
-                    key={i}
-                    className="flex gap-3 text-muted-foreground leading-relaxed"
-                  >
-                    <span className="mt-0.5 flex h-6 w-6 shrink-0 items-center justify-center rounded-full bg-primary/10 text-xs font-semibold text-primary">
-                      {i + 1}
-                    </span>
-                    {item}
+              <ul className="space-y-3 list-disc pl-5">
+                {guide.whatToSee.map((item, i) => (
+                  <li key={i} className="text-[15px] leading-7 text-foreground/90">
+                    <span className="font-semibold text-foreground">
+                      {item.title}:
+                    </span>{" "}
+                    {item.description}
                   </li>
                 ))}
               </ul>
+            </section>
+
+            {/* How to go — dynamic steps */}
+            <section className="mt-10">
+              <h2 className="text-2xl font-bold text-foreground mb-4">
+                How to go
+              </h2>
+              <div className="space-y-5">
+                {guide.howToGo.map((step, i) => (
+                  <div key={i} className="flex gap-4">
+                    <div className="flex h-8 w-8 shrink-0 items-center justify-center rounded-full bg-primary text-primary-foreground text-sm font-semibold">
+                      {i + 1}
+                    </div>
+                    <p className="text-[15px] md:text-base leading-7 text-foreground/90 pt-0.5">
+                      <span className="font-semibold text-foreground">
+                        Step {i + 1}:{" "}
+                      </span>
+                      {step}
+                    </p>
+                  </div>
+                ))}
+              </div>
             </section>
 
             {/* Where to stay */}
-            <section className="rounded-2xl border border-border bg-card p-6 md:p-8">
-              <h2 className="text-xl font-bold text-foreground mb-4 pb-3 border-b border-border flex items-center gap-2">
-                <MdOutlineHotel className="h-5 w-5 text-primary" />
+            <section className="mt-10">
+              <h2 className="text-2xl font-bold text-foreground mb-4">
                 Where to stay
               </h2>
-              <ul className="space-y-2">
-                {guide.whereToStay.map((item, i) => (
-                  <li
-                    key={i}
-                    className="text-muted-foreground leading-relaxed before:content-['•'] before:mr-2 before:text-primary"
-                  >
-                    {item}
-                  </li>
-                ))}
-              </ul>
+              <p className="text-[15px] md:text-base leading-7 text-foreground/90">
+                {guide.whereToStay}
+              </p>
             </section>
 
-            {/* Itinerary */}
-            <section className="rounded-2xl border border-border bg-card p-6 md:p-8">
-              <h2 className="text-xl font-bold text-foreground mb-6 pb-3 border-b border-border">
-                Full tour plan
+            {/* Where to eat */}
+            <section className="mt-10">
+              <h2 className="text-2xl font-bold text-foreground mb-4">
+                Where to eat
               </h2>
-              <div className="space-y-6">
-                {guide.itinerary.map((day, index) => (
-                  <div key={index} className="flex gap-4">
-                    <div className="flex flex-col items-center shrink-0">
-                      <div className="w-10 h-10 rounded-full bg-primary text-primary-foreground flex items-center justify-center font-semibold text-xs text-center px-1">
-                        {index + 1}
-                      </div>
-                      {index < guide.itinerary.length - 1 && (
-                        <div className="w-0.5 flex-1 bg-border mt-2 min-h-[20px]" />
-                      )}
-                    </div>
-                    <div className="pb-2">
-                      <p className="text-xs font-medium text-primary mb-1">
-                        {day.day}
-                      </p>
-                      <h3 className="font-semibold text-foreground mb-2">
-                        {day.title}
-                      </h3>
-                      <ul className="space-y-1.5">
-                        {day.activities.map((activity, ai) => (
-                          <li
-                            key={ai}
-                            className="text-sm text-muted-foreground leading-relaxed"
-                          >
-                            • {activity}
-                          </li>
-                        ))}
-                      </ul>
-                    </div>
-                  </div>
-                ))}
-              </div>
+              <p className="text-[15px] md:text-base leading-7 text-foreground/90">
+                {guide.whereToEat}
+              </p>
+              {guide.foodToCarry.length > 0 && (
+                <div className="mt-4">
+                  <p className="font-semibold text-foreground mb-2">
+                    Carry with you:
+                  </p>
+                  <ul className="list-disc pl-5 space-y-1.5">
+                    {guide.foodToCarry.map((item, i) => (
+                      <li
+                        key={i}
+                        className="text-[15px] leading-7 text-foreground/90"
+                      >
+                        {item}
+                      </li>
+                    ))}
+                  </ul>
+                </div>
+              )}
             </section>
 
-            {/* Attractions */}
-            <section className="rounded-2xl border border-border bg-card p-6 md:p-8">
-              <h2 className="text-xl font-bold text-foreground mb-4 pb-3 border-b border-border">
-                Must-see attractions
-              </h2>
-              <div className="flex flex-wrap gap-2">
-                {guide.attractions.map((item, i) => (
-                  <span
-                    key={i}
-                    className="rounded-lg border border-border bg-muted/40 px-3 py-1.5 text-sm text-foreground"
-                  >
-                    {item}
-                  </span>
-                ))}
-              </div>
-            </section>
-
-            {/* Food */}
-            <section className="rounded-2xl border border-border bg-card p-6 md:p-8">
-              <h2 className="text-xl font-bold text-foreground mb-4 pb-3 border-b border-border flex items-center gap-2">
-                <MdOutlineRestaurant className="h-5 w-5 text-primary" />
-                What to eat
-              </h2>
-              <ul className="space-y-2">
-                {guide.food.map((item, i) => (
-                  <li key={i} className="text-muted-foreground leading-relaxed">
-                    • {item}
-                  </li>
-                ))}
-              </ul>
-            </section>
-
-            {/* Tips */}
-            <section className="rounded-2xl border border-border bg-card p-6 md:p-8">
-              <h2 className="text-xl font-bold text-foreground mb-4 pb-3 border-b border-border flex items-center gap-2">
-                <HiOutlineLightBulb className="h-5 w-5 text-primary" />
+            {/* Travel tips */}
+            <section className="mt-10">
+              <h2 className="text-2xl font-bold text-foreground mb-4">
                 Travel tips
               </h2>
-              <ul className="space-y-2">
-                {guide.tips.map((item, i) => (
-                  <li key={i} className="text-muted-foreground leading-relaxed">
-                    • {item}
+              <ul className="list-disc pl-5 space-y-2">
+                {guide.tips.map((tip, i) => (
+                  <li
+                    key={i}
+                    className="text-[15px] leading-7 text-foreground/90"
+                  >
+                    {tip}
                   </li>
                 ))}
               </ul>
+              <p className="mt-4 text-[15px] leading-7 text-foreground/90">
+                <span className="font-semibold">Safety note:</span>{" "}
+                {guide.safety}
+              </p>
+              <p className="mt-3 text-sm text-muted-foreground">
+                Best time to visit: {guide.bestTime}. Difficulty:{" "}
+                {guide.difficulty}.
+              </p>
             </section>
-          </div>
+          </article>
 
-          {/* Sidebar */}
-          <div className="lg:col-span-1">
-            <div className="rounded-2xl border border-border bg-card p-6 sticky top-24 space-y-5">
-              <h3 className="font-bold text-foreground text-lg">Quick info</h3>
-
-              <div className="space-y-4 text-sm">
-                <div className="flex items-start gap-3">
-                  <FaClock className="h-4 w-4 text-primary mt-0.5 shrink-0" />
-                  <div>
-                    <p className="text-xs text-muted-foreground">Duration</p>
-                    <p className="font-medium">{guide.duration}</p>
-                  </div>
-                </div>
-                <div className="flex items-start gap-3">
-                  <FaCalendarAlt className="h-4 w-4 text-primary mt-0.5 shrink-0" />
-                  <div>
-                    <p className="text-xs text-muted-foreground">Best time</p>
-                    <p className="font-medium">{guide.bestTime}</p>
-                  </div>
-                </div>
-                <div className="flex items-start gap-3">
-                  <FaWallet className="h-4 w-4 text-primary mt-0.5 shrink-0" />
-                  <div>
-                    <p className="text-xs text-muted-foreground">Budget</p>
-                    <p className="font-medium">{guide.budget}</p>
-                  </div>
-                </div>
-                <div className="flex items-start gap-3">
-                  <FaMountain className="h-4 w-4 text-primary mt-0.5 shrink-0" />
-                  <div>
-                    <p className="text-xs text-muted-foreground">Difficulty</p>
-                    <p className="font-medium">{guide.difficulty}</p>
-                  </div>
-                </div>
-                <div className="flex items-start gap-3">
-                  <FaBus className="h-4 w-4 text-primary mt-0.5 shrink-0" />
-                  <div>
-                    <p className="text-xs text-muted-foreground">Transport</p>
-                    <p className="font-medium">{guide.transport}</p>
-                  </div>
-                </div>
-                <div className="flex items-start gap-3">
-                  <FaShieldAlt className="h-4 w-4 text-primary mt-0.5 shrink-0" />
-                  <div>
-                    <p className="text-xs text-muted-foreground">Safety</p>
-                    <p className="font-medium leading-relaxed">{guide.safety}</p>
-                  </div>
-                </div>
+          {/* Sidebar — related guides */}
+          <aside className="lg:pt-2">
+            <div className="lg:sticky lg:top-24 space-y-4">
+              <div className="rounded-xl border border-border bg-card p-4">
+                <h3 className="font-bold text-foreground mb-1">Quick budget</h3>
+                <p className="text-lg font-semibold text-primary">
+                  {formatGuideBudget(guide)}
+                </p>
+                <p className="text-xs text-muted-foreground mt-1">
+                  Approximate DIY cost per person (transport + stay + local
+                  moves). Food and extras may add more.
+                </p>
               </div>
 
-              <Button asChild variant="outline" className="w-full gap-2">
-                <Link to="/tour-guide">
-                  <FaArrowLeft className="h-4 w-4" />
-                  More guides
-                </Link>
-              </Button>
+              <div>
+                <h3 className="font-bold text-foreground mb-3">
+                  More tour guides
+                </h3>
+                <div className="space-y-3">
+                  {related.map((item) => (
+                    <Link
+                      key={item.id}
+                      to={`/tour-guide/${item.slug}`}
+                      className="group flex gap-3 rounded-lg border border-border overflow-hidden hover:border-primary/40 transition-colors"
+                    >
+                      <img
+                        src={item.image}
+                        alt={item.place}
+                        className="h-16 w-20 object-cover shrink-0"
+                      />
+                      <div className="py-2 pr-2 min-w-0">
+                        <p className="text-sm font-medium text-foreground line-clamp-2 group-hover:text-primary transition-colors">
+                          {item.place}
+                        </p>
+                        <p className="text-xs text-muted-foreground mt-0.5">
+                          {item.division}
+                        </p>
+                      </div>
+                    </Link>
+                  ))}
+                </div>
+              </div>
             </div>
-          </div>
+          </aside>
         </div>
       </div>
     </div>
